@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const phrases = [
   "Predice tu destino… o pídetelo con papas 🍟 a cualquier hora.",
@@ -15,7 +15,7 @@ const HeroTextRotator = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % phrases.length);
-    }, 4000); // cambia cada 4 segundos
+    }, 4000);
 
     return () => clearInterval(timer);
   }, []);
@@ -38,6 +38,81 @@ const HeroTextRotator = () => {
   );
 };
 
+const BackgroundVideo = ({ src, fallbackImage }) => {
+  const videoRef = useRef(null);
+  const [videoOpacity, setVideoOpacity] = useState(1);
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleTimeUpdate = () => {
+      const currentTime = video.currentTime;
+      const fadeOutStart = 4; // Segundo 4
+      const videoDuration = 5; // 5 segundos total
+      
+      if (currentTime >= fadeOutStart) {
+        const fadeProgress = (currentTime - fadeOutStart) / (videoDuration - fadeOutStart);
+        const newOpacity = Math.max(0, 1 - fadeProgress);
+        setVideoOpacity(newOpacity);
+      } else {
+        setVideoOpacity(1);
+      }
+    };
+
+    const handleEnded = () => {
+      // Reiniciar suavemente
+      video.currentTime = 0;
+      setVideoOpacity(1);
+      video.play();
+    };
+
+    const handleCanPlay = () => {
+      setIsVideoLoaded(true);
+      video.play();
+    };
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+    video.addEventListener('ended', handleEnded);
+    video.addEventListener('canplay', handleCanPlay);
+
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+      video.removeEventListener('ended', handleEnded);
+      video.removeEventListener('canplay', handleCanPlay);
+    };
+  }, []);
+
+  return (
+    <>
+      {/* Imagen de respaldo (solo se muestra si el video no está cargado) */}
+      {!isVideoLoaded && (
+        <div 
+          className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat z-0"
+          style={{ backgroundImage: `url(${fallbackImage})` }}
+        />
+      )}
+
+      {/* Video de fondo */}
+      <motion.video
+        ref={videoRef}
+        className="absolute inset-0 w-full h-full object-cover z-10"
+        muted
+        playsInline
+        autoPlay
+        loop={false}
+        style={{ opacity: videoOpacity }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isVideoLoaded ? videoOpacity : 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <source src={src} type="video/mp4" />
+      </motion.video>
+    </>
+  );
+};
+
 const Hero = () => {
   const scrollToBrujas = () => {
     const brujasSection = document.getElementById('brujas-section');
@@ -50,13 +125,17 @@ const Hero = () => {
   };
 
   return (
-    <div
-      className="min-h-screen bg-cover bg-center bg-no-repeat relative"
-      style={{ backgroundImage: "url('/backgrounds/hero-bg.png')" }}
-    >
-      <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Video de fondo con fade out */}
+      <BackgroundVideo 
+        src="/hero-video.mp4"
+        fallbackImage="/backgrounds/hero-bg.png"
+      />
       
-      <div className="relative z-10 flex items-start md:items-center justify-end min-h-screen px-6 md:px-20 pt-40 md:pt-20">
+      {/* Overlay oscuro */}
+      <div className="absolute inset-0 bg-black/50 z-20"></div>
+      
+      <div className="relative z-30 flex items-start md:items-center justify-end min-h-screen px-6 md:px-20 pt-40 md:pt-20">
         <div className="text-right max-w-lg">
           <motion.h1
             initial={{ opacity: 0, scale: 0.8 }}
