@@ -12,18 +12,10 @@ export default {
         accent: '#FFB700',
         light: '#FFFFFF',
         dark: '#1A002D',
-        // Mantengo los colores místicos para compatibilidad transitoria
-        'mystic-dark': '#0D001D',
-        'mystic-purple': '#A259FF',
-        'mystic-light': '#FFFFFF',
-        'mystic-accent': '#FFB700',
       },
       fontFamily: {
         title: ['"Playfair Display"', 'serif'],
         body: ['"Inter"', 'sans-serif'],
-        // Mantengo nombres anteriores para compatibilidad
-        'playfair': ['"Playfair Display"', 'serif'],
-        'sans': ['"Inter"', 'sans-serif'],
       },
       animation: {
         'float': 'float 3s ease-in-out infinite',

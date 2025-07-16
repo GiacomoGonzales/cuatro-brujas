@@ -20,7 +20,7 @@ async function llamarOpenAI(messages) {
         model: "gpt-4",
         messages,
         temperature: 0.7,
-        max_tokens: 150
+        max_tokens: 250 // Aumentado para permitir aproximadamente 800 caracteres
       })
     });
 
@@ -46,7 +46,7 @@ export async function consultarBruja(promptBase, datosCliente) {
   // Construir el prompt
   const systemMessage = {
     role: "system",
-    content: "Eres una bruja mística experta en tu área. Mantén un tono místico pero accesible, y ofrece consejos prácticos y específicos. Tus respuestas deben ser concisas, no más de 500 caracteres."
+    content: "Eres una bruja mística experta en tu área. Mantén un tono místico pero accesible, y ofrece consejos prácticos y específicos. Tus respuestas deben ser concisas, no más de 800 caracteres."
   };
 
   const userMessage = {
@@ -60,7 +60,7 @@ ${Object.entries(datosCliente)
   .join('\n')}
 
 Por favor, responde a la consulta manteniendo tu personalidad y estilo definidos arriba.
-IMPORTANTE: Tu respuesta debe ser concisa y no exceder los 500 caracteres.`
+IMPORTANTE: Tu respuesta debe ser concisa y no exceder los 800 caracteres.`
   };
 
   // Llamar a la API
@@ -70,10 +70,10 @@ IMPORTANTE: Tu respuesta debe ser concisa y no exceder los 500 caracteres.`
     throw new Error(result.error);
   }
 
-  // Asegurar que la respuesta no exceda 500 caracteres
+  // Asegurar que la respuesta no exceda 800 caracteres
   let respuesta = result.data;
-  if (respuesta.length > 500) {
-    respuesta = respuesta.substring(0, 497) + "...";
+  if (respuesta.length > 800) {
+    respuesta = respuesta.substring(0, 797) + "...";
   }
 
   return respuesta;

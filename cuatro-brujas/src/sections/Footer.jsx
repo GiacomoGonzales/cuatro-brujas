@@ -105,15 +105,15 @@ const Footer = () => {
             <div className="space-y-3 text-light/70">
               <p>
                 <i className="ri-mail-line mr-2"></i>
-                consultas@cuatrobrujas.com
+                consultas@cuatrobrujas.app
               </p>
               <p>
                 <i className="ri-whatsapp-line mr-2"></i>
-                +51 999 888 777
+                +51 941 465 012
               </p>
               <p>
                 <i className="ri-time-line mr-2"></i>
-                Lun - Dom: 9am - 9pm
+                Horario 24/7
               </p>
             </div>
           </motion.div>

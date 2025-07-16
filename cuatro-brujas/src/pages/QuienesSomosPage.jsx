@@ -4,27 +4,27 @@ import { Link } from "react-router-dom";
 const QuienesSomosPage = () => {
   const teamMembers = [
     {
-      name: "Elvira",
+      name: "Calypso",
       role: "Maestra del Tarot",
-      description: "Con más de 20 años de experiencia en la lectura del tarot, Elvira combina la sabiduría ancestral con técnicas modernas de interpretación.",
+      description: "Experta en lectura de cartas del tarot, Calypso revela los misterios de tu destino mientras disfrutas de nuestras hamburguesas místicas.",
       image: "/avatares/elvira.png"
     },
     {
-      name: "Zodika",
-      role: "Intérprete de Estrellas",
-      description: "Especialista en astrología y cartas astrales, Zodika descifra los mensajes que los astros tienen reservados para ti.",
+      name: "Orula",
+      role: "Numerología y Destino",
+      description: "Especialista en numerología y destino, Orula descifra los patrones numéricos que influyen en tu vida y te guía hacia tu verdadero camino.",
       image: "/avatares/zodika.png"
     },
     {
-      name: "Numina",
-      role: "Guardiana de los Números",
-      description: "Experta en numerología y análisis numerológico, Numina revela los secretos ocultos en los números que rigen tu vida.",
+      name: "Aisha",
+      role: "Chakras y Energía",
+      description: "Maestra en armonización de chakras y energías, Aisha te ayuda a encontrar el equilibrio perfecto entre cuerpo, mente y espíritu.",
       image: "/avatares/numina.png"
     },
     {
-      name: "Lunara",
-      role: "Vidente Lunar",
-      description: "Conectada con los ciclos lunares y las energías celestiales, Lunara te guía a través de predicciones precisas y consejos místicos.",
+      name: "Sirona",
+      role: "Horóscopo y Carta Astral",
+      description: "Intérprete de los astros y cartas astrales, Sirona lee los mensajes celestiales para revelar tu verdadera esencia y destino.",
       image: "/avatares/lunara.png"
     }
   ];
@@ -42,12 +42,12 @@ const QuienesSomosPage = () => {
             className="text-center max-w-3xl mx-auto"
           >
             <h1 className="text-5xl md:text-6xl font-bold magical-text mb-6">
-              Nuestra Historia Mística
+              Magia y Sabor Unidos
             </h1>
             <p className="text-xl text-light/80 leading-relaxed">
-              Cuatro Brujas nació de la unión entre la magia ancestral y la innovación moderna. 
-              Somos un equipo de videntes y místicas expertas dedicadas a guiar tu camino espiritual 
-              a través de diferentes artes adivinatorias.
+              En Cuatro Brujas, fusionamos la magia ancestral con el arte culinario moderno. 
+              Nuestras smash burgers, preparadas con ingredientes seleccionados y un toque místico, 
+              te transportarán a una experiencia única mientras descubres lo que el destino tiene preparado para ti.
             </p>
           </motion.div>
         </div>
@@ -63,24 +63,24 @@ const QuienesSomosPage = () => {
             className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
           >
             <div className="magical-card text-center">
-              <div className="text-4xl mb-4">✨</div>
-              <h3 className="text-xl font-bold text-light mb-3">Sabiduría Ancestral</h3>
+              <div className="text-4xl mb-4">🍔</div>
+              <h3 className="text-xl font-bold text-light mb-3">Smash Burgers Místicas</h3>
               <p className="text-light/70">
-                Preservamos y transmitimos conocimientos místicos milenarios adaptados al mundo moderno.
-              </p>
-            </div>
-            <div className="magical-card text-center">
-              <div className="text-4xl mb-4">🌙</div>
-              <h3 className="text-xl font-bold text-light mb-3">Conexión Espiritual</h3>
-              <p className="text-light/70">
-                Facilitamos tu viaje de autodescubrimiento y crecimiento personal.
+                Hamburguesas smash preparadas con ritual y pasión, usando ingredientes premium y técnicas artesanales.
               </p>
             </div>
             <div className="magical-card text-center">
               <div className="text-4xl mb-4">🔮</div>
-              <h3 className="text-xl font-bold text-light mb-3">Innovación Mística</h3>
+              <h3 className="text-xl font-bold text-light mb-3">Consultas Místicas</h3>
               <p className="text-light/70">
-                Combinamos tradición con tecnología para una experiencia mágica única.
+                Servicios de lectura espiritual personalizados mientras disfrutas de tu comida.
+              </p>
+            </div>
+            <div className="magical-card text-center">
+              <div className="text-4xl mb-4">⚡</div>
+              <h3 className="text-xl font-bold text-light mb-3">Delivery 24/7</h3>
+              <p className="text-light/70">
+                Entrega a domicilio las 24 horas, porque la magia y el antojo no tienen horario.
               </p>
             </div>
           </motion.div>
@@ -96,7 +96,7 @@ const QuienesSomosPage = () => {
             transition={{ duration: 0.8 }}
             className="text-4xl font-bold magical-text text-center mb-12"
           >
-            Conoce a Nuestras Brujas
+            Nuestras Brujas Místicas
           </motion.h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {teamMembers.map((member, index) => (
@@ -133,14 +133,14 @@ const QuienesSomosPage = () => {
             className="magical-card text-center max-w-3xl mx-auto p-8"
           >
             <h2 className="text-3xl font-bold magical-text mb-6">
-              Comienza Tu Viaje Místico
+              ¡Pide tu Hamburguesa Mística!
             </h2>
             <p className="text-light/80 mb-8">
-              Descubre los secretos que el universo tiene preparados para ti. 
-              Nuestras brujas están listas para guiarte en tu camino espiritual.
+              Disfruta de nuestras deliciosas smash burgers mientras descubres los secretos que el universo 
+              tiene preparados para ti. Delivery 24/7 y consultas místicas en cada pedido.
             </p>
-            <Link to="/tarot" className="magical-btn inline-block">
-              🔮 Consulta Ahora
+            <Link to="/nuestra-carta" className="magical-btn inline-block">
+              🍔 Ver Carta Mágica
             </Link>
           </motion.div>
         </div>

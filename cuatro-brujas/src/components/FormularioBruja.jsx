@@ -316,19 +316,6 @@ const FormularioBruja = ({ idBruja }) => {
 
   return (
     <div className="max-w-2xl mx-auto p-6">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-8"
-      >
-        <h2 className="text-3xl font-bold text-light mb-2 font-title">
-          Consulta con {bruja.nombre}
-        </h2>
-        <p className="text-secondary text-xl mb-4">
-          {bruja.servicio}
-        </p>
-      </motion.div>
-
       <form onSubmit={handleSubmit} className="space-y-6">
         {renderCampos()}
 
