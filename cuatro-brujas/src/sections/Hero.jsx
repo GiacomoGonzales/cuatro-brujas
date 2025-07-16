@@ -49,8 +49,8 @@ const BackgroundVideo = ({ src, fallbackImage }) => {
 
     const handleTimeUpdate = () => {
       const currentTime = video.currentTime;
-      const fadeOutStart = 4; // Segundo 4
-      const videoDuration = 5; // 5 segundos total
+      const fadeOutStart = 4;
+      const videoDuration = 5;
       
       if (currentTime >= fadeOutStart) {
         const fadeProgress = (currentTime - fadeOutStart) / (videoDuration - fadeOutStart);
@@ -62,25 +62,43 @@ const BackgroundVideo = ({ src, fallbackImage }) => {
     };
 
     const handleEnded = () => {
-      // Reiniciar suavemente
       video.currentTime = 0;
       setVideoOpacity(1);
-      video.play();
+      video.play().catch(() => {
+        // Si falla el play automático, no hacemos nada
+        // El usuario tendrá que interactuar con la página
+      });
     };
 
     const handleCanPlay = () => {
       setIsVideoLoaded(true);
-      video.play();
+      video.play().catch(() => {
+        // Si falla el play automático, no hacemos nada
+        // El usuario tendrá que interactuar con la página
+      });
+    };
+
+    // Intentar reproducir cuando haya interacción con la página
+    const handleInteraction = () => {
+      if (video.paused) {
+        video.play().catch(() => {
+          // Si falla el play, no hacemos nada
+        });
+      }
     };
 
     video.addEventListener('timeupdate', handleTimeUpdate);
     video.addEventListener('ended', handleEnded);
     video.addEventListener('canplay', handleCanPlay);
+    document.addEventListener('touchstart', handleInteraction);
+    document.addEventListener('click', handleInteraction);
 
     return () => {
       video.removeEventListener('timeupdate', handleTimeUpdate);
       video.removeEventListener('ended', handleEnded);
       video.removeEventListener('canplay', handleCanPlay);
+      document.removeEventListener('touchstart', handleInteraction);
+      document.removeEventListener('click', handleInteraction);
     };
   }, []);
 
@@ -102,10 +120,18 @@ const BackgroundVideo = ({ src, fallbackImage }) => {
         playsInline
         autoPlay
         loop={false}
-        style={{ opacity: videoOpacity }}
+        style={{ 
+          opacity: videoOpacity,
+          '-webkit-media-controls-start-playback-button': 'none',
+          '-webkit-media-controls': 'none',
+          '-webkit-media-controls-overlay-play-button': 'none'
+        }}
         initial={{ opacity: 0 }}
         animate={{ opacity: isVideoLoaded ? videoOpacity : 0 }}
         transition={{ duration: 0.3 }}
+        playsinline="true"
+        webkit-playsinline="true"
+        preload="auto"
       >
         <source src={src} type="video/mp4" />
       </motion.video>

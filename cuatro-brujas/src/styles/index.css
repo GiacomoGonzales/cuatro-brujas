@@ -3,8 +3,26 @@
 @tailwind utilities;
 
 @layer base {
-  .bg-primary {
-    background-color: #0D001D;
+  /* Ocultar controles de video */
+  video::-webkit-media-controls {
+    display: none !important;
+  }
+  
+  video::-webkit-media-controls-panel {
+    display: none !important;
+  }
+  
+  video::-webkit-media-controls-play-button {
+    display: none !important;
+  }
+  
+  video::-webkit-media-controls-start-playback-button {
+    display: none !important;
+  }
+  
+  video {
+    -webkit-media-controls: none !important;
+    -webkit-media-controls-start-playback-button: none !important;
   }
 
   html, body {
