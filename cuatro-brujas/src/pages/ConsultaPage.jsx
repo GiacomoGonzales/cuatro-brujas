@@ -1,4 +1,5 @@
-import { useParams, useEffect } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import FormularioBruja from '../components/FormularioBruja';
 import BackgroundParticles from '../components/BackgroundParticles';
