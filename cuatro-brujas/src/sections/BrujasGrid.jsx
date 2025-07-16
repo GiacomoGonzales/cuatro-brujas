@@ -4,28 +4,28 @@ import WitchCard from "../components/WitchCard";
 const BrujasGrid = () => {
   const witches = [
     {
-      name: "Elvira",
+      name: "Calypso",
       role: "Tarot",
       description: "Maestra del tarot con 20 años de experiencia.",
       image: "/avatares/elvira.png",
       route: "/tarot",
     },
     {
-      name: "Zodika",
+      name: "Orula",
       role: "Carta Astral",
       description: "Interpreta los astros para descubrir tu esencia cósmica.",
       image: "/avatares/zodika.png",
       route: "/carta-astral",
     },
     {
-      name: "Numina",
+      name: "Aisha",
       role: "Numerología",
       description: "Los números revelan secretos ocultos sobre tu destino.",
       image: "/avatares/numina.png",
       route: "/numerologia",
     },
     {
-      name: "Lunara",
+      name: "Sirona",
       role: "Horóscopo",
       description: "Tus signos celestiales te guían a través del día.",
       image: "/avatares/lunara.png",

@@ -32,20 +32,16 @@ const WitchCard = ({ name, role, description, image, route }) => {
         scale: 1.02,
         transition: { duration: 0.3 }
       }}
-      className="relative group cursor-pointer"
+      className="relative group cursor-pointer flex flex-col items-center"
       onClick={handleConsult}
     >
-      {/* Main Image - Large and prominent */}
+      {/* Main Image - Without container */}
       <div className="relative mb-4">
-        <div className="w-64 h-64 mx-auto rounded-2xl overflow-hidden border-4 border-secondary/50 
-                        shadow-2xl shadow-secondary/30 group-hover:shadow-secondary/50 
-                        transition-all duration-500 group-hover:border-secondary/70">
-          <img 
-            src={image} 
-            alt={name}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-        </div>
+        <img 
+          src={image} 
+          alt={name}
+          className="w-64 h-64 object-contain group-hover:scale-105 transition-transform duration-500"
+        />
       </div>
 
       {/* Name below image */}
