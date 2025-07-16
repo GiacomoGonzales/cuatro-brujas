@@ -23,6 +23,7 @@ ${Object.entries(datosCliente)
   .join('\n')}
 
 Por favor, responde a la consulta manteniendo tu personalidad y estilo definidos arriba.
+IMPORTANTE: Tu respuesta debe ser concisa y no exceder los 500 caracteres.
 `;
 
     // Realizar la llamada a la API de OpenAI
@@ -30,7 +31,7 @@ Por favor, responde a la consulta manteniendo tu personalidad y estilo definidos
       messages: [
         {
           role: "system",
-          content: "Eres una bruja mística experta en tu área. Mantén un tono místico pero accesible, y ofrece consejos prácticos y específicos."
+          content: "Eres una bruja mística experta en tu área. Mantén un tono místico pero accesible, y ofrece consejos prácticos y específicos. Tus respuestas deben ser concisas, no más de 500 caracteres."
         },
         {
           role: "user",
@@ -39,11 +40,16 @@ Por favor, responde a la consulta manteniendo tu personalidad y estilo definidos
       ],
       model: "gpt-4",
       temperature: 0.7, // Balanceamos creatividad con consistencia
-      max_tokens: 1000, // Limitamos la longitud de la respuesta
+      max_tokens: 150, // Aproximadamente 500 caracteres
     });
 
-    // Retornar solo el contenido de la respuesta
-    return completion.choices[0].message.content;
+    // Obtener la respuesta y asegurarnos de que no exceda 500 caracteres
+    let respuesta = completion.choices[0].message.content;
+    if (respuesta.length > 500) {
+      respuesta = respuesta.substring(0, 497) + "...";
+    }
+
+    return respuesta;
   } catch (error) {
     console.error('Error al consultar a la bruja:', error);
     throw new Error('No se pudo realizar la consulta mística en este momento. Por favor, intenta más tarde.');

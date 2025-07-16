@@ -1,14 +1,14 @@
-import { Outlet } from 'react-router-dom';
-import BackgroundParticles from './BackgroundParticles';
-import Header from '../sections/Header';
-import Footer from '../sections/Footer';
+import { Outlet } from "react-router-dom";
+import Header from "../sections/Header";
+import Footer from "../sections/Footer";
+import ScrollToTop from "./ScrollToTop";
 
 const Layout = () => {
   return (
-    <div className="relative min-h-screen bg-primary text-light overflow-hidden">
-      <BackgroundParticles />
+    <div className="min-h-screen bg-primary">
+      <ScrollToTop />
       <Header />
-      <main className="relative z-10">
+      <main>
         <Outlet />
       </main>
       <Footer />
