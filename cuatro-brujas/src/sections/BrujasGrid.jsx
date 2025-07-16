@@ -50,7 +50,7 @@ const BrujasGrid = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 magical-text">
             Conoce a Nuestras Brujas
           </h2>
-          <p className="text-xl text-mystic-light/80 max-w-2xl mx-auto">
+          <p className="text-xl text-light/80 max-w-2xl mx-auto">
             Cada bruja tiene su especialidad mística. Elige tu camino hacia el conocimiento.
           </p>
         </motion.div>

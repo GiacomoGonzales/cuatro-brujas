@@ -7,14 +7,23 @@ export default {
   theme: {
     extend: {
       colors: {
-        'mystic-dark': '#140018',
-        'mystic-purple': '#a56aff',
-        'mystic-light': '#e8d5ff',
-        'mystic-accent': '#7c3aed',
+        primary: '#0D001D',
+        secondary: '#A259FF',
+        accent: '#FFB700',
+        light: '#FFFFFF',
+        dark: '#1A002D',
+        // Mantengo los colores místicos para compatibilidad transitoria
+        'mystic-dark': '#0D001D',
+        'mystic-purple': '#A259FF',
+        'mystic-light': '#FFFFFF',
+        'mystic-accent': '#FFB700',
       },
       fontFamily: {
-        'playfair': ['Playfair Display', 'serif'],
-        'sans': ['Inter', 'sans-serif'],
+        title: ['"Playfair Display"', 'serif'],
+        body: ['"Inter"', 'sans-serif'],
+        // Mantengo nombres anteriores para compatibilidad
+        'playfair': ['"Playfair Display"', 'serif'],
+        'sans': ['"Inter"', 'sans-serif'],
       },
       animation: {
         'float': 'float 3s ease-in-out infinite',
@@ -28,8 +37,8 @@ export default {
           '50%': { transform: 'translateY(-10px)' },
         },
         glow: {
-          '0%': { boxShadow: '0 0 5px #a56aff' },
-          '100%': { boxShadow: '0 0 20px #a56aff, 0 0 30px #a56aff' },
+          '0%': { boxShadow: '0 0 5px #A259FF' },
+          '100%': { boxShadow: '0 0 20px #A259FF, 0 0 30px #A259FF' },
         },
         fadeIn: {
           '0%': { opacity: '0' },

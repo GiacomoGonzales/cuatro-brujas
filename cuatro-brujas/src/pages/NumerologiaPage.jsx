@@ -5,14 +5,14 @@ const NumerologiaPage = () => {
   return (
     <div className="min-h-screen relative">
       
-      <header className="fixed top-0 left-0 right-0 z-50 bg-mystic-dark/80 backdrop-blur-md border-b border-mystic-purple/30">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-primary/80 backdrop-blur-md border-b border-secondary/30">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link to="/" className="text-2xl font-bold magical-text">
             ✨ Cuatro Brujas
           </Link>
           <Link 
             to="/" 
-            className="text-mystic-light hover:text-mystic-purple transition-colors duration-300"
+            className="text-light hover:text-secondary transition-colors duration-300"
           >
             ← Volver al Inicio
           </Link>
@@ -40,7 +40,7 @@ const NumerologiaPage = () => {
               Selene - Guardiana de los Números
             </h1>
             
-            <p className="text-xl text-mystic-light/80 max-w-2xl mx-auto mb-8">
+            <p className="text-xl text-light/80 max-w-2xl mx-auto mb-8">
               Los números guardan secretos ancestrales. Selene descifra el poder oculto 
               en tu fecha de nacimiento y nombre.
             </p>
@@ -53,11 +53,11 @@ const NumerologiaPage = () => {
             className="max-w-4xl mx-auto"
           >
             <div className="magical-card text-center p-8">
-              <h2 className="text-3xl font-bold mb-6 text-mystic-light">
+              <h2 className="text-3xl font-bold mb-6 text-light">
                 🚧 Próximamente Disponible 🚧
               </h2>
               
-              <div className="space-y-4 text-mystic-light/70">
+              <div className="space-y-4 text-light/70">
                 <p className="text-lg">
                   Selene está calculando las vibraciones numéricas del universo...
                 </p>
@@ -87,12 +87,9 @@ const NumerologiaPage = () => {
                 whileHover={{ scale: 1.05 }}
                 className="mt-8"
               >
-                <Link 
-                  to="/" 
-                  className="magical-btn inline-block"
-                >
-                  🏠 Explorar Otras Brujas
-                </Link>
+                <button className="magical-btn">
+                  🔢 Notificarme cuando esté listo
+                </button>
               </motion.div>
             </div>
           </motion.div>

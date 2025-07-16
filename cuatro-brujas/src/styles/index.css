@@ -4,38 +4,53 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
-    @apply bg-mystic-dark text-mystic-light font-playfair;
+    @apply bg-primary text-light font-title;
     margin: 0;
     padding: 0;
     min-height: 100vh;
     overflow-x: hidden;
   }
-  
-  html {
-    scroll-behavior: smooth;
-  }
 }
 
 @layer components {
   .magical-btn {
-    @apply bg-gradient-to-r from-mystic-purple to-mystic-accent text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-mystic-purple/50;
+    @apply bg-gradient-to-r from-secondary to-accent text-light px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-secondary/50;
   }
   
   .magical-card {
-    @apply bg-gradient-to-br from-mystic-dark/80 to-mystic-purple/20 backdrop-blur-md border border-mystic-purple/30 rounded-xl p-6 transition-all duration-300 hover:border-mystic-purple/60 hover:shadow-xl hover:shadow-mystic-purple/20;
+    @apply bg-gradient-to-br from-primary/80 to-secondary/20 backdrop-blur-md border border-secondary/30 rounded-xl p-6 transition-all duration-300 hover:border-secondary/60 hover:shadow-xl hover:shadow-secondary/20;
   }
   
   .magical-text {
-    @apply text-transparent bg-clip-text bg-gradient-to-r from-mystic-purple to-mystic-light;
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-secondary to-light;
   }
   
   .glow-effect {
-    @apply shadow-lg shadow-mystic-purple/30 animate-glow;
+    @apply shadow-lg shadow-secondary/30 animate-glow;
   }
   
   .particle-float {
     animation: particle-float ease-in-out infinite;
+  }
+}
+
+@layer utilities {
+  /* Utilidades adicionales para colores principales */
+  .bg-primary-darker {
+    background-color: #060012;
+  }
+  
+  .text-secondary-light {
+    color: #C088FF;
+  }
+  
+  .border-accent-soft {
+    border-color: #FFB70080;
   }
 }
 

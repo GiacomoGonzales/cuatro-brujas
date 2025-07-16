@@ -29,7 +29,7 @@ const HeroTextRotator = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.6 }}
-          className="absolute text-white"
+          className="absolute text-light"
         >
           {phrases[index]}
         </motion.div>
@@ -52,7 +52,7 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-5xl md:text-6xl font-bold text-white font-playfair mb-4"
+            className="text-5xl md:text-6xl font-bold text-light font-title mb-4"
           >
             Cuatro Brujas
           </motion.h1>
@@ -75,7 +75,7 @@ const Hero = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-purple-700 text-white px-6 py-3 rounded-full hover:bg-purple-800 transition font-sans"
+              className="bg-secondary text-light px-6 py-3 rounded-full hover:bg-secondary/80 transition font-body"
             >
               🧙‍♀️ Ver Carta Mágica
             </motion.button>
@@ -83,7 +83,7 @@ const Hero = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="border border-purple-400 text-white px-6 py-3 rounded-full hover:bg-purple-600 transition font-sans"
+              className="border border-secondary text-light px-6 py-3 rounded-full hover:bg-secondary/20 transition font-body"
             >
               ✨ Comenzar tu Viaje Místico
             </motion.button>

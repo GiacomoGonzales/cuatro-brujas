@@ -1,13 +1,17 @@
 import { Outlet } from 'react-router-dom';
 import BackgroundParticles from './BackgroundParticles';
+import Header from '../sections/Header';
+import Footer from '../sections/Footer';
 
 const Layout = () => {
   return (
-    <div className="relative min-h-screen bg-[#140018] text-white overflow-hidden">
+    <div className="relative min-h-screen bg-primary text-light overflow-hidden">
       <BackgroundParticles />
-      <div className="relative z-10">
+      <Header />
+      <main className="relative z-10">
         <Outlet />
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 };

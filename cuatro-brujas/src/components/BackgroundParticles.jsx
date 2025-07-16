@@ -9,7 +9,7 @@ const BackgroundParticles = () => {
     top: Math.random() * 100,
     duration: Math.random() * 20 + 10,
     delay: Math.random() * 5,
-    color: Math.random() > 0.5 ? '#ffffff' : '#a56aff',
+    color: Math.random() > 0.5 ? '#FFFFFF' : '#A259FF',
     opacity: Math.random() * 0.6 + 0.2,
   }));
 

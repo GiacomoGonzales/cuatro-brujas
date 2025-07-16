@@ -37,9 +37,9 @@ const WitchCard = ({ name, role, description, image, route }) => {
     >
       {/* Main Image - Large and prominent */}
       <div className="relative mb-4">
-        <div className="w-64 h-64 mx-auto rounded-2xl overflow-hidden border-4 border-purple-600/50 
-                        shadow-2xl shadow-purple-500/30 group-hover:shadow-purple-500/50 
-                        transition-all duration-500 group-hover:border-purple-400">
+        <div className="w-64 h-64 mx-auto rounded-2xl overflow-hidden border-4 border-secondary/50 
+                        shadow-2xl shadow-secondary/30 group-hover:shadow-secondary/50 
+                        transition-all duration-500 group-hover:border-secondary/70">
           <img 
             src={image} 
             alt={name}
@@ -50,14 +50,14 @@ const WitchCard = ({ name, role, description, image, route }) => {
 
       {/* Name below image */}
       <div className="text-center mb-2">
-        <h3 className="text-3xl font-bold text-white font-['Playfair_Display',serif]">
+        <h3 className="text-3xl font-bold text-light font-title">
           {name}
         </h3>
       </div>
 
       {/* Role text below name */}
       <div className="text-center mb-6">
-        <p className="text-purple-300 text-xl font-semibold">
+        <p className="text-secondary text-xl font-semibold">
           {role}
         </p>
       </div>
@@ -67,10 +67,10 @@ const WitchCard = ({ name, role, description, image, route }) => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 
-                     text-white font-semibold py-3 px-8 rounded-full shadow-lg shadow-purple-500/25 
-                     hover:shadow-purple-500/40 transition-all duration-300 font-sans
-                     border border-purple-500/30 hover:border-purple-400/50"
+          className="bg-gradient-to-r from-secondary to-accent hover:from-secondary/80 hover:to-accent/80 
+                     text-light font-semibold py-3 px-8 rounded-full shadow-lg shadow-secondary/25 
+                     hover:shadow-secondary/40 transition-all duration-300 font-body
+                     border border-secondary/30 hover:border-secondary/50"
         >
           {getButtonText()}
         </motion.button>
