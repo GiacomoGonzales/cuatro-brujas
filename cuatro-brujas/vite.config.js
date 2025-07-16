@@ -5,11 +5,17 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   define: {
-    'process.env': {},
+    // Requerido para OpenAI
+    global: 'globalThis',
+  },
+  resolve: {
+    alias: {
+      '@': '/src',
+    },
   },
   build: {
-    rollupOptions: {
-      external: ['openai'],
+    commonjsOptions: {
+      transformMixedEsModules: true,
     },
   },
 });

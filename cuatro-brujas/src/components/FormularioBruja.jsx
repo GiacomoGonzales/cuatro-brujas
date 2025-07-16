@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { brujas } from '../data/brujas';
-import { consultar } from '../services/openaiService';
+import { consultarBruja } from '../services/openaiService';
 
 // Mazo de cartas del tarot para Calypso
 const MAZO_TAROT = [
@@ -72,7 +72,7 @@ const FormularioBruja = ({ idBruja }) => {
     }
 
     try {
-      const respuestaIA = await consultar(bruja.prompt, datosCliente);
+      const respuestaIA = await consultarBruja(bruja.prompt, datosCliente);
       setRespuesta(respuestaIA);
     } catch (err) {
       setError(err.message || 'Error en la consulta mística');
