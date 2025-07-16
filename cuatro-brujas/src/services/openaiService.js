@@ -1,9 +1,21 @@
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY,
-  dangerouslyAllowBrowser: true
-});
+// Inicializar OpenAI solo si la API key está disponible
+const initializeOpenAI = () => {
+  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
+  
+  if (!apiKey) {
+    console.warn('OpenAI API key no encontrada. Asegúrate de configurar VITE_OPENAI_API_KEY en tu archivo .env');
+    return null;
+  }
+
+  return new OpenAI({
+    apiKey,
+    dangerouslyAllowBrowser: true
+  });
+};
+
+const openai = initializeOpenAI();
 
 /**
  * Combina el prompt base de la bruja con los datos del cliente y obtiene una respuesta de OpenAI
@@ -13,6 +25,10 @@ const openai = new OpenAI({
  */
 export async function consultarBruja(promptBase, datosCliente) {
   try {
+    if (!openai) {
+      throw new Error('OpenAI no está inicializado. Verifica tu configuración de API key.');
+    }
+
     // Construir el prompt final combinando el base con los datos del cliente
     const promptFinal = `
 ${promptBase}
@@ -39,8 +55,8 @@ IMPORTANTE: Tu respuesta debe ser concisa y no exceder los 500 caracteres.
         }
       ],
       model: "gpt-4",
-      temperature: 0.7, // Balanceamos creatividad con consistencia
-      max_tokens: 150, // Aproximadamente 500 caracteres
+      temperature: 0.7,
+      max_tokens: 150,
     });
 
     // Obtener la respuesta y asegurarnos de que no exceda 500 caracteres
@@ -56,15 +72,14 @@ IMPORTANTE: Tu respuesta debe ser concisa y no exceder los 500 caracteres.
   }
 }
 
-/**
- * Ejemplo de uso:
- * 
- * const respuesta = await consultarBruja(
- *   brujas.calypso.prompt,
- *   {
- *     nombre: "María",
- *     fechaNacimiento: "1990-05-15",
- *     pregunta: "¿Cómo será mi vida amorosa este año?"
- *   }
- * );
- */ 
+// Mock function para desarrollo sin API key
+export async function mockConsultarBruja(promptBase, datosCliente) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("✨ Esta es una respuesta de prueba. La funcionalidad completa requiere una API key válida de OpenAI.");
+    }, 1000);
+  });
+}
+
+// Exportar la función correcta según si tenemos API key o no
+export const consultar = openai ? consultarBruja : mockConsultarBruja; 
