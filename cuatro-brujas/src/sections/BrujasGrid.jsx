@@ -52,7 +52,7 @@ const BrujasGrid = () => {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 magical-text">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 magical-text font-title">
             Conoce a Nuestras Brujas
           </h2>
           <p className="text-xl text-light/80 max-w-2xl mx-auto">
