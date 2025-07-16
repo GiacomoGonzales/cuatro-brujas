@@ -6,28 +6,28 @@ const BrujasGrid = () => {
     {
       name: "Calypso",
       role: "Tarot",
-      description: "Maestra del tarot con 20 años de experiencia.",
+      description: "Descubre tu destino a través de las cartas místicas del tarot.",
       image: "/avatares/elvira.png",
       route: "/tarot",
     },
     {
       name: "Orula",
-      role: "Carta Astral",
-      description: "Interpreta los astros para descubrir tu esencia cósmica.",
+      role: "Numerología y Destino",
+      description: "Los números y el destino revelan el camino de tu vida.",
       image: "/avatares/zodika.png",
-      route: "/carta-astral",
-    },
-    {
-      name: "Aisha",
-      role: "Numerología",
-      description: "Los números revelan secretos ocultos sobre tu destino.",
-      image: "/avatares/numina.png",
       route: "/numerologia",
     },
     {
+      name: "Aisha",
+      role: "Chakras y Energía",
+      description: "Equilibra tus chakras y armoniza tu energía vital.",
+      image: "/avatares/numina.png",
+      route: "/chakras",
+    },
+    {
       name: "Sirona",
-      role: "Horóscopo",
-      description: "Tus signos celestiales te guían a través del día.",
+      role: "Horóscopo y Carta Astral",
+      description: "Los astros guían tu camino y revelan tu verdadera esencia.",
       image: "/avatares/lunara.png",
       route: "/horoscopo",
     }
@@ -35,6 +35,7 @@ const BrujasGrid = () => {
 
   return (
     <section 
+      id="brujas-section"
       className="relative bg-no-repeat bg-cover bg-center py-20 px-4 md:px-8"
       style={{ backgroundImage: "url('/backgrounds/constelaciones.jpg')" }}
     >

@@ -39,6 +39,16 @@ const HeroTextRotator = () => {
 };
 
 const Hero = () => {
+  const scrollToBrujas = () => {
+    const brujasSection = document.getElementById('brujas-section');
+    if (brujasSection) {
+      brujasSection.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  };
+
   return (
     <div
       className="min-h-screen bg-cover bg-center bg-no-repeat relative"
@@ -81,6 +91,7 @@ const Hero = () => {
             </motion.button>
             
             <motion.button
+              onClick={scrollToBrujas}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="border border-secondary text-light px-6 py-3 rounded-full hover:bg-secondary/20 transition font-body"
