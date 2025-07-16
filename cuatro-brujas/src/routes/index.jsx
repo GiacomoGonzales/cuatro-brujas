@@ -7,8 +7,7 @@ import HoroscopoPage from "../pages/HoroscopoPage";
 import QuienesSomosPage from "../pages/QuienesSomosPage";
 import NuestraCartaPage from "../pages/NuestraCartaPage";
 import ComoFuncionaPage from "../pages/ComoFuncionaPage";
-import ElviraPage from "../pages/ElviraPage";
-import TarotLecturaPage from "../pages/TarotLecturaPage";
+import ConsultaPage from "../pages/ConsultaPage";
 
 // Página 404
 const NotFoundPage = () => {
@@ -36,20 +35,8 @@ export const router = createBrowserRouter([
         element: <App />,
       },
       {
-        path: "tarot",
-        element: <TarotLecturaPage />,
-      },
-      {
-        path: "carta-astral",
-        element: <CartaAstralPage />,
-      },
-      {
-        path: "numerologia",
-        element: <NumerologiaPage />,
-      },
-      {
-        path: "horoscopo",
-        element: <HoroscopoPage />,
+        path: "consulta/:idBruja",
+        element: <ConsultaPage />,
       },
       {
         path: "quienes-somos",
@@ -62,10 +49,6 @@ export const router = createBrowserRouter([
       {
         path: "como-funciona",
         element: <ComoFuncionaPage />,
-      },
-      {
-        path: "brujas/elvira",
-        element: <ElviraPage />,
       },
       {
         path: "zona-reparto",

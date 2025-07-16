@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
-const WitchCard = ({ name, role, description, image, route }) => {
+const WitchCard = ({ name, role, description, image, route, idBruja }) => {
   const navigate = useNavigate();
 
   const handleConsult = () => {
-    navigate(route);
+    navigate(`/consulta/${idBruja}`);
   };
 
   const getButtonText = () => {

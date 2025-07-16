@@ -9,6 +9,7 @@ const BrujasGrid = () => {
       description: "Descubre tu destino a través de las cartas místicas del tarot.",
       image: "/avatares/elvira.png",
       route: "/tarot",
+      idBruja: "calypso"
     },
     {
       name: "Orula",
@@ -16,6 +17,7 @@ const BrujasGrid = () => {
       description: "Los números y el destino revelan el camino de tu vida.",
       image: "/avatares/zodika.png",
       route: "/numerologia",
+      idBruja: "orula"
     },
     {
       name: "Aisha",
@@ -23,6 +25,7 @@ const BrujasGrid = () => {
       description: "Equilibra tus chakras y armoniza tu energía vital.",
       image: "/avatares/numina.png",
       route: "/chakras",
+      idBruja: "aisha"
     },
     {
       name: "Sirona",
@@ -30,6 +33,7 @@ const BrujasGrid = () => {
       description: "Los astros guían tu camino y revelan tu verdadera esencia.",
       image: "/avatares/lunara.png",
       route: "/horoscopo",
+      idBruja: "sirona"
     }
   ];
 
@@ -75,6 +79,7 @@ const BrujasGrid = () => {
                 description={witch.description}
                 image={witch.image}
                 route={witch.route}
+                idBruja={witch.idBruja}
               />
             </motion.div>
           ))}
