@@ -40,12 +40,12 @@ const BrujasGrid = () => {
   return (
     <section 
       id="brujas-section"
-      className="relative bg-no-repeat bg-cover bg-center py-20 px-4 md:px-8"
+      className="relative bg-no-repeat bg-cover bg-center py-20 overflow-hidden"
       style={{ backgroundImage: "url('/backgrounds/constelaciones.jpg')" }}
     >
       <div className="absolute inset-0 bg-black/60 z-0"></div>
       
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-10 container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

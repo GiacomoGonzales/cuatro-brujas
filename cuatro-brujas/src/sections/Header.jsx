@@ -15,29 +15,34 @@ const Header = () => {
         className="fixed top-0 left-0 right-0 z-50 bg-primary/80 backdrop-blur-md border-b border-secondary/30"
       >
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" className="flex items-center">
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="text-2xl font-bold magical-text"
             >
-              ✨ Cuatro Brujas
+              <img 
+                src="/logo.png" 
+                alt="Cuatro Brujas" 
+                className="h-12 w-auto"
+              />
             </motion.div>
           </Link>
           
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-6">
+          <nav className="hidden md:flex items-center">
             <Link 
               to="/quienes-somos" 
               className="text-light hover:text-secondary transition-colors duration-300"
             >
               Quiénes somos
             </Link>
+            <div className="mx-4 text-accent/40 transform rotate-45">◆</div>
             <Link 
               to="/zona-reparto" 
               className="text-light hover:text-secondary transition-colors duration-300"
             >
               Zona de reparto
             </Link>
+            <div className="mx-4 text-accent/40 transform rotate-45">◆</div>
             <Link 
               to="/como-funciona" 
               className="text-light hover:text-secondary transition-colors duration-300"

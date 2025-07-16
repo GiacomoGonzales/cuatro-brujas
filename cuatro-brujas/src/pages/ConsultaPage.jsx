@@ -18,7 +18,7 @@ const ConsultaPage = () => {
   }
 
   return (
-    <div className="min-h-screen pt-20 relative">
+    <div className="min-h-screen pt-32 md:pt-40 relative">
       <BackgroundParticles />
       
       {/* Avatar de la bruja con efectos místicos */}

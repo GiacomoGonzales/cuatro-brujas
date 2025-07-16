@@ -5,10 +5,10 @@ import ScrollToTop from "./ScrollToTop";
 
 const Layout = () => {
   return (
-    <div className="min-h-screen bg-primary">
+    <div className="min-h-screen bg-primary relative overflow-hidden">
       <ScrollToTop />
       <Header />
-      <main>
+      <main className="relative overflow-x-hidden w-full">
         <Outlet />
       </main>
       <Footer />

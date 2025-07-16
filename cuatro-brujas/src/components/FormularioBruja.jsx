@@ -315,15 +315,15 @@ const FormularioBruja = ({ idBruja }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="max-w-2xl mx-auto p-6 overflow-hidden">
+      <form onSubmit={handleSubmit} className="space-y-6 w-full">
         {renderCampos()}
 
         {/* Mostrar cartas seleccionadas para Calypso */}
         {idBruja === 'calypso' && cartasSeleccionadas.length > 0 && (
-          <div className="mt-6 p-4 bg-dark/30 border border-secondary/30 rounded-lg">
+          <div className="mt-6 p-4 bg-dark/30 border border-secondary/30 rounded-lg overflow-x-auto">
             <h3 className="text-light mb-2">Tus cartas del tarot:</h3>
-            <div className="flex gap-4 justify-center">
+            <div className="flex gap-4 justify-center flex-wrap">
               {cartasSeleccionadas.map((carta, index) => (
                 <div
                   key={index}

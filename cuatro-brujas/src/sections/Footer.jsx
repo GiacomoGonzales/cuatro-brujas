@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const socialLinks = [
@@ -16,10 +17,26 @@ const Footer = () => {
   ];
 
   const services = [
-    { name: 'Lectura de Tarot', url: '/tarot' },
-    { name: 'Numerología y Destino', url: '/numerologia' },
-    { name: 'Chakras y Energía', url: '/chakras' },
-    { name: 'Horóscopo y Carta Astral', url: '/horoscopo' },
+    { 
+      name: 'Lectura de Tarot',
+      url: '/consulta/calypso',
+      bruja: 'Calypso'
+    },
+    { 
+      name: 'Numerología y Destino',
+      url: '/consulta/orula',
+      bruja: 'Orula'
+    },
+    { 
+      name: 'Chakras y Energía',
+      url: '/consulta/aisha',
+      bruja: 'Aisha'
+    },
+    { 
+      name: 'Horóscopo y Carta Astral',
+      url: '/consulta/sirona',
+      bruja: 'Sirona'
+    }
   ];
 
   return (
@@ -34,9 +51,17 @@ const Footer = () => {
             transition={{ duration: 0.8 }}
             className="text-center md:text-left"
           >
-            <h3 className="text-2xl font-bold magical-text mb-4">
-              ✨ Cuatro Brujas
-            </h3>
+            <div className="mb-4">
+              <img 
+                src="/logo.png" 
+                alt="Cuatro Brujas" 
+                className="h-12 md:h-14 w-auto mx-auto md:mx-0"
+                onError={(e) => {
+                  console.error('Error loading logo:', e);
+                  e.target.src = '/vite.svg'; // Fallback image
+                }}
+              />
+            </div>
             <p className="text-light/70 mb-6 leading-relaxed">
               Conectamos el mundo místico con la tecnología moderna. 
               Guiamos tu camino espiritual con sabiduría ancestral.
@@ -86,9 +111,15 @@ const Footer = () => {
             <ul className="space-y-2">
               {services.map((service) => (
                 <li key={service.name}>
-                  <a href={service.url} className="text-light/70 hover:text-accent transition-colors">
-                    {service.name}
-                  </a>
+                  <Link 
+                    to={service.url} 
+                    className="text-light/70 hover:text-accent transition-colors duration-300 flex items-center gap-2 group"
+                  >
+                    <span>{service.name}</span>
+                    <span className="text-xs text-secondary/50 group-hover:text-accent/70 transition-colors duration-300">
+                      por {service.bruja}
+                    </span>
+                  </Link>
                 </li>
               ))}
             </ul>

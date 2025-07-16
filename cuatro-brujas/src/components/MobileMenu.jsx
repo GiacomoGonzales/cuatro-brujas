@@ -37,8 +37,12 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
               {/* Logo */}
               <div className="mb-8 mt-2">
-                <Link to="/" className="text-xl font-bold magical-text" onClick={onClose}>
-                  ✨ Cuatro Brujas
+                <Link to="/" onClick={onClose}>
+                  <img 
+                    src="/logo.png" 
+                    alt="Cuatro Brujas" 
+                    className="h-12 w-auto mx-auto"
+                  />
                 </Link>
               </div>
 
