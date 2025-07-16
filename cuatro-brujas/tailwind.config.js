@@ -12,10 +12,11 @@ export default {
         accent: '#FFB700',
         light: '#FFFFFF',
         dark: '#1A002D',
+        golden: '#ceb27c',
       },
       fontFamily: {
-        title: ['"Playfair Display"', 'serif'],
-        body: ['"Inter"', 'sans-serif'],
+        title: ['Cinzel', 'serif'],
+        body: ['Inter', 'sans-serif'],
       },
       animation: {
         'float': 'float 3s ease-in-out infinite',

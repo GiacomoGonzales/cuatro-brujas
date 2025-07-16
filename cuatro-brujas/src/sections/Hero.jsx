@@ -62,7 +62,7 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-5xl md:text-6xl font-bold text-light font-title mb-4"
+            className="text-5xl md:text-6xl font-bold font-title mb-4 text-golden"
           >
             Cuatro Brujas
           </motion.h1>

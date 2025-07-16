@@ -60,39 +60,37 @@ const NuestraCartaPage = () => {
       {/* Hero Section */}
       <section className="relative py-16 px-4">
         <div className="container mx-auto">
-          <motion.div
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-3xl mx-auto mb-16"
+            className="text-5xl md:text-6xl font-bold font-title mb-6 magical-text"
           >
-            <h1 className="text-5xl md:text-6xl font-bold magical-text mb-6">
-              Nuestra Carta Mágica
-            </h1>
-            <p className="text-xl text-light/80 leading-relaxed">
-              Descubre nuestras creaciones místicas, donde cada bocado es una 
-              experiencia mágica que transporta tus sentidos a otra dimensión.
-            </p>
-          </motion.div>
+            Carta Mágica
+          </motion.h1>
+          <p className="text-xl text-light/80 leading-relaxed">
+            Descubre nuestras creaciones místicas, donde cada bocado es una 
+            experiencia mágica que transporta tus sentidos a otra dimensión.
+          </p>
         </div>
       </section>
 
       {/* Menu Categories */}
       <section className="py-8 px-4">
         <div className="container mx-auto">
-          {menuCategories.map((category, categoryIndex) => (
-            <motion.div
-              key={category.title}
+          {/* Categorías */}
+          <div className="grid gap-16 mt-16">
+            {/* Hamburguesas */}
+            <motion.section
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: categoryIndex * 0.2 }}
-              className="mb-16"
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center"
             >
-              <h2 className="text-3xl font-bold magical-text text-center mb-8">
-                {category.title}
+              <h2 className="text-3xl font-title font-bold mb-8 magical-text">
+                Hamburguesas Místicas
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                {category.items.map((item, itemIndex) => (
+                {menuCategories[1].items.map((item, itemIndex) => (
                   <motion.div
                     key={item.name}
                     initial={{ opacity: 0, x: itemIndex % 2 === 0 ? -20 : 20 }}
@@ -126,8 +124,102 @@ const NuestraCartaPage = () => {
                   </motion.div>
                 ))}
               </div>
-            </motion.div>
-          ))}
+            </motion.section>
+
+            {/* Complementos */}
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <h2 className="text-3xl font-title font-bold mb-8 magical-text">
+                Complementos Mágicos
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {menuCategories[2].items.map((item, itemIndex) => (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: itemIndex % 2 === 0 ? -20 : 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: itemIndex * 0.1 }}
+                    className="magical-card p-6"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-24 h-24 rounded-lg overflow-hidden border-2 border-secondary/30">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.src = '/placeholder-food.jpg';
+                          }}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-light mb-2">
+                          {item.name}
+                        </h3>
+                        <p className="text-light/70 text-sm mb-2">
+                          {item.description}
+                        </p>
+                        <p className="text-accent font-bold">
+                          {item.price}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.section>
+
+            {/* Bebidas */}
+            <motion.section
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <h2 className="text-3xl font-title font-bold mb-8 magical-text">
+                Pociones y Elixires
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {menuCategories[0].items.map((item, itemIndex) => (
+                  <motion.div
+                    key={item.name}
+                    initial={{ opacity: 0, x: itemIndex % 2 === 0 ? -20 : 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: itemIndex * 0.1 }}
+                    className="magical-card p-6"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-24 h-24 rounded-lg overflow-hidden border-2 border-secondary/30">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.src = '/placeholder-food.jpg';
+                          }}
+                        />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="text-xl font-bold text-light mb-2">
+                          {item.name}
+                        </h3>
+                        <p className="text-light/70 text-sm mb-2">
+                          {item.description}
+                        </p>
+                        <p className="text-accent font-bold">
+                          {item.price}
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.section>
+          </div>
         </div>
       </section>
 

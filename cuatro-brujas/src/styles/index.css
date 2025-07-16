@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  .bg-primary {
+    background-color: #0D001D;
+  }
+
   html, body {
     @apply overflow-x-hidden;
     max-width: 100%;

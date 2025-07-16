@@ -41,9 +41,13 @@ const QuienesSomosPage = () => {
             transition={{ duration: 0.8 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <h1 className="text-5xl md:text-6xl font-bold magical-text mb-6">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-5xl md:text-6xl font-bold font-title mb-6 magical-text"
+            >
               Magia y Sabor Unidos
-            </h1>
+            </motion.h1>
             <p className="text-xl text-light/80 leading-relaxed">
               En Cuatro Brujas, fusionamos la magia ancestral con el arte culinario moderno. 
               Nuestras smash burgers, preparadas con ingredientes seleccionados y un toque místico, 
@@ -56,6 +60,14 @@ const QuienesSomosPage = () => {
       {/* Valores Section */}
       <section className="py-16 px-4">
         <div className="container mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-4xl font-bold font-title mb-8 magical-text text-center"
+          >
+            Nuestros Valores
+          </motion.h2>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -94,7 +106,7 @@ const QuienesSomosPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-4xl font-bold magical-text text-center mb-12"
+            className="text-4xl font-bold font-title mb-8 magical-text text-center"
           >
             Nuestras Brujas Místicas
           </motion.h2>
@@ -114,7 +126,9 @@ const QuienesSomosPage = () => {
                     className="w-full h-full object-cover"
                   />
                 </div>
-                <h3 className="text-2xl font-bold text-light mb-2">{member.name}</h3>
+                <h3 className="text-2xl font-bold font-title text-light mb-2">
+                  {member.name}
+                </h3>
                 <p className="text-secondary mb-3">{member.role}</p>
                 <p className="text-light/70 text-sm">{member.description}</p>
               </motion.div>
@@ -132,9 +146,13 @@ const QuienesSomosPage = () => {
             transition={{ duration: 0.8 }}
             className="magical-card text-center max-w-3xl mx-auto p-8"
           >
-            <h2 className="text-3xl font-bold magical-text mb-6">
+            <motion.h2
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="text-3xl font-bold font-title mb-6 magical-text"
+            >
               ¡Pide tu Hamburguesa Mística!
-            </h2>
+            </motion.h2>
             <p className="text-light/80 mb-8">
               Disfruta de nuestras deliciosas smash burgers mientras descubres los secretos que el universo 
               tiene preparados para ti. Delivery 24/7 y consultas místicas en cada pedido.

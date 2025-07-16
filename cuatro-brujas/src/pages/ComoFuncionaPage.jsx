@@ -50,20 +50,64 @@ const ComoFuncionaPage = () => {
       {/* Hero Section */}
       <section className="relative py-16 px-4">
         <div className="container mx-auto">
-          <motion.div
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-center max-w-3xl mx-auto mb-16"
+            className="text-5xl md:text-6xl font-bold font-title mb-6 magical-text"
           >
-            <h1 className="text-5xl md:text-6xl font-bold magical-text mb-6">
-              Cómo Funciona la Magia
-            </h1>
-            <p className="text-xl text-light/80 leading-relaxed">
-              En Cuatro Brujas, fusionamos la gastronomía con el misticismo. 
-              Cada pedido te acerca más a los secretos que el universo tiene preparados para ti.
-            </p>
-          </motion.div>
+            Cómo Funciona
+          </motion.h1>
+
+          {/* Secciones */}
+          <div className="grid gap-12 mt-16">
+            {/* Sección 1: Elige tu Bruja */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <h2 className="text-3xl font-title font-bold mb-4 magical-text">
+                1. Elige tu Bruja
+              </h2>
+              <p className="text-xl text-light/80 leading-relaxed">
+                En Cuatro Brujas, fusionamos la gastronomía con el misticismo. 
+                Cada pedido te acerca más a los secretos que el universo tiene preparados para ti.
+              </p>
+            </motion.div>
+
+            {/* Sección 2: Realiza tu Consulta */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <h2 className="text-3xl font-title font-bold mb-4 magical-text">
+                2. Realiza tu Consulta
+              </h2>
+              <p className="text-xl text-light/80 leading-relaxed">
+                En Cuatro Brujas, fusionamos la gastronomía con el misticismo. 
+                Cada pedido te acerca más a los secretos que el universo tiene preparados para ti.
+              </p>
+            </motion.div>
+
+            {/* Sección 3: Recibe tu Lectura */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <h2 className="text-3xl font-title font-bold mb-4 magical-text">
+                3. Recibe tu Lectura
+              </h2>
+              <p className="text-xl text-light/80 leading-relaxed">
+                En Cuatro Brujas, fusionamos la gastronomía con el misticismo. 
+                Cada pedido te acerca más a los secretos que el universo tiene preparados para ti.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </section>
 

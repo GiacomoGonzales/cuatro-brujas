@@ -1,7 +1,20 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const MobileMenu = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
+
+  const handleScrollToBrujas = () => {
+    onClose();
+    navigate('/');
+    setTimeout(() => {
+      const brujasSection = document.getElementById('brujas-section');
+      if (brujasSection) {
+        brujasSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -80,13 +93,12 @@ const MobileMenu = ({ isOpen, onClose }) => {
 
               {/* Botones de acción */}
               <div className="mt-8 space-y-4">
-                <Link 
-                  to="/tarot"
-                  onClick={onClose}
+                <button 
+                  onClick={handleScrollToBrujas}
                   className="block w-full border border-secondary/30 text-light px-6 py-3 rounded-full hover:border-secondary/50 transition font-body text-center"
                 >
                   🔮 Comenzar Lectura
-                </Link>
+                </button>
                 <Link 
                   to="/nuestra-carta"
                   onClick={onClose}
