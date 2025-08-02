@@ -89,17 +89,39 @@ const AdminPage = () => {
     }
   };
 
+  // Función para enviar email con SendGrid
+  const sendEmail = async (email, name, code) => {
+    try {
+      setLoading(true);
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ to: email, name, code }),
+      });
+
+      if (response.ok) {
+        setSuccess("✅ Correo enviado correctamente");
+        setError('');
+      } else {
+        const errorData = await response.json();
+        setError(`❌ Error enviando el correo: ${errorData.error || 'Error desconocido'}`);
+        setSuccess('');
+      }
+    } catch (error) {
+      console.error("Error enviando el correo:", error);
+      setError("❌ Hubo un problema enviando el correo");
+      setSuccess('');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSendEmail = () => {
-    const subject = encodeURIComponent('Tu código de acceso mágico - Cuatro Brujas');
-    const body = encodeURIComponent(
-      `Hola ${formData.name || '[Nombre]'},\n\n` +
-      `Tu código de acceso es: ${generatedCode}\n\n` +
-      `Ingresa en cuatrobrujas.app/viaje-mistico para usarlo.\n\n` +
-      `¡Que disfrutes tu experiencia mágica!\n\n` +
-      `Saludos,\nEquipo Cuatro Brujas`
-    );
-    
-    window.open(`mailto:${formData.email}?subject=${subject}&body=${body}`);
+    if (!formData.email || !formData.name || !generatedCode) {
+      setError('Faltan datos para enviar el correo');
+      return;
+    }
+    sendEmail(formData.email, formData.name, generatedCode);
   };
 
   const handleSendWhatsApp = () => {
@@ -114,6 +136,27 @@ const AdminPage = () => {
     );
     
     const cleanNumber = formData.whatsapp.replace(/\D/g, '');
+    window.open(`https://wa.me/${cleanNumber}?text=${message}`, '_blank');
+  };
+
+  // Función para enviar email desde historial usando SendGrid
+  const handleSendEmailFromHistory = (codeData) => {
+    sendEmail(codeData.email, codeData.name, codeData.code);
+  };
+
+  // Función para enviar WhatsApp desde historial
+  const handleSendWhatsAppFromHistory = (codeData) => {
+    if (!codeData.whatsapp) {
+      setError('Este registro no tiene número de WhatsApp');
+      return;
+    }
+    
+    const message = encodeURIComponent(
+      `Hola ${codeData.name}, tu código de acceso a Cuatro Brujas es: ${codeData.code}. ` +
+      `Ingresa en cuatrobrujas.app/viaje-mistico para usarlo.`
+    );
+    
+    const cleanNumber = codeData.whatsapp.replace(/\D/g, '');
     window.open(`https://wa.me/${cleanNumber}?text=${message}`, '_blank');
   };
 
@@ -265,9 +308,10 @@ const AdminPage = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <button
                   onClick={handleSendEmail}
-                  className="flex-1 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 text-blue-300 px-4 py-3 rounded-lg transition-colors font-body"
+                  disabled={loading}
+                  className="flex-1 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 text-purple-300 px-4 py-3 rounded-lg transition-colors font-body disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  📧 Enviar Email
+                  {loading ? '⏳ Enviando...' : '✉️ Enviar Email (SendGrid)'}
                 </button>
                 <button
                   onClick={handleSendWhatsApp}
@@ -299,6 +343,7 @@ const AdminPage = () => {
                     <th className="text-left text-light/90 font-body py-2">Código</th>
                     <th className="text-left text-light/90 font-body py-2">Estado</th>
                     <th className="text-left text-light/90 font-body py-2">Fecha</th>
+                    <th className="text-left text-light/90 font-body py-2">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -318,6 +363,30 @@ const AdminPage = () => {
                       </td>
                       <td className="text-light/70 font-body py-3 text-sm">
                         {formatDate(code.createdAt)}
+                      </td>
+                      <td className="py-3">
+                        <div className="flex gap-2">
+                          {/* Botón Email con SendGrid */}
+                          <button
+                            onClick={() => handleSendEmailFromHistory(code)}
+                            disabled={loading}
+                            className="bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 text-purple-300 px-3 py-2 rounded-lg transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+                            title={`Enviar email con SendGrid a ${code.email}`}
+                          >
+                            {loading ? '⏳' : '✉️'}
+                          </button>
+                          
+                          {/* Botón WhatsApp - solo si tiene número */}
+                          {code.whatsapp && (
+                            <button
+                              onClick={() => handleSendWhatsAppFromHistory(code)}
+                              className="bg-green-600/20 hover:bg-green-600/30 border border-green-500/30 text-green-300 p-2 rounded-lg transition-colors text-sm"
+                              title={`Enviar WhatsApp a ${code.whatsapp}`}
+                            >
+                              📱
+                            </button>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))}
