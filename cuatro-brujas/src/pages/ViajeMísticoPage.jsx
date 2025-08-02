@@ -1,0 +1,244 @@
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { validateAccessCode } from '../services/firestoreService';
+
+const ViajeMísticoPage = () => {
+  const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const [code, setCode] = useState('');
+  const [isValidating, setIsValidating] = useState(false);
+  const [validationMessage, setValidationMessage] = useState('');
+  const [validationStatus, setValidationStatus] = useState(''); // 'success', 'error', ''
+  const [showCodeSection, setShowCodeSection] = useState(false);
+
+  // Autocompletar código desde URL
+  useEffect(() => {
+    const codigoFromUrl = searchParams.get('codigo');
+    if (codigoFromUrl) {
+      setCode(codigoFromUrl);
+      setShowCodeSection(true);
+    }
+  }, [searchParams]);
+
+  const scrollToCodeSection = () => {
+    setShowCodeSection(true);
+    setTimeout(() => {
+      const codeSection = document.getElementById('code-section');
+      if (codeSection) {
+        codeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  };
+
+  const handleValidateCode = async () => {
+    if (!code.trim()) {
+      setValidationMessage('Por favor ingresa tu código de acceso.');
+      setValidationStatus('error');
+      return;
+    }
+
+    setIsValidating(true);
+    setValidationMessage('');
+    setValidationStatus('');
+
+    try {
+      const result = await validateAccessCode(code.trim());
+      
+      if (result.success) {
+        setValidationMessage('¡Bienvenido! Tu acceso ha sido validado. Elige a tu bruja favorita para comenzar tu lectura.');
+        setValidationStatus('success');
+        
+        // Guardar el estado de validación en sessionStorage
+        sessionStorage.setItem('accessValidated', 'true');
+        
+        // Redirigir a la página de lecturas después de 2 segundos
+        setTimeout(() => {
+          navigate('/lecturas');
+        }, 2000);
+      } else {
+        setValidationMessage(result.message || 'Código inválido o expirado. Verifica tu código e inténtalo nuevamente.');
+        setValidationStatus('error');
+      }
+    } catch (error) {
+      console.error('Error validating code:', error);
+      setValidationMessage('Error al validar el código. Por favor intenta nuevamente.');
+      setValidationStatus('error');
+    } finally {
+      setIsValidating(false);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleValidateCode();
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-primary">
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center px-4">
+        {/* Fondo con imagen mágica */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/60 to-primary/90 z-10"></div>
+          <img 
+            src="/backgrounds/hero-bg.png" 
+            alt="Fondo mágico" 
+            className="w-full h-full object-cover opacity-40"
+          />
+        </div>
+
+        {/* Contenido Hero */}
+        <div className="relative z-20 text-center max-w-4xl mx-auto">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-4xl md:text-6xl lg:text-7xl font-title magical-text mb-6"
+          >
+            ✨ Bienvenido a tu Viaje Místico ✨
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-xl md:text-2xl text-light/90 mb-12 font-body"
+          >
+            Accede a las lecturas mágicas de nuestras brujas y descubre los secretos que tienen para ti.
+          </motion.p>
+
+          <motion.button
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={scrollToCodeSection}
+            className="bg-secondary text-light px-8 py-4 rounded-full text-lg font-body hover:bg-secondary/90 transition-all duration-300 animate-glow"
+          >
+            🔑 Tengo un código de acceso
+          </motion.button>
+        </div>
+      </section>
+
+      {/* Sección de Ingreso de Código */}
+      <AnimatePresence>
+        {showCodeSection && (
+          <motion.section
+            id="code-section"
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.6 }}
+            className="py-20 px-4 bg-gradient-to-b from-primary to-dark"
+          >
+            <div className="max-w-2xl mx-auto text-center">
+              <motion.h2
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-3xl md:text-4xl font-title magical-text mb-8"
+              >
+                🔑 Ingresa tu código mágico
+              </motion.h2>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="space-y-6"
+              >
+                <input
+                  type="text"
+                  value={code}
+                  onChange={(e) => setCode(e.target.value.toUpperCase())}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Introduce tu código de acceso"
+                  className="w-full max-w-md px-6 py-4 bg-primary/50 border border-secondary/30 rounded-full text-center text-light placeholder-light/50 focus:outline-none focus:border-secondary transition-colors text-lg font-body"
+                  disabled={isValidating}
+                />
+
+                <button
+                  onClick={handleValidateCode}
+                  disabled={isValidating || !code.trim()}
+                  className="w-full max-w-md bg-secondary text-light px-8 py-4 rounded-full text-lg font-body hover:bg-secondary/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isValidating ? '🔮 Validando...' : '✨ Desbloquear mi lectura'}
+                </button>
+
+                {/* Mensaje de validación */}
+                <AnimatePresence>
+                  {validationMessage && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      className={`p-4 rounded-lg border ${
+                        validationStatus === 'success'
+                          ? 'bg-green-900/30 border-green-500/50 text-green-300'
+                          : 'bg-red-900/30 border-red-500/50 text-red-300'
+                      }`}
+                    >
+                      {validationMessage}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            </div>
+          </motion.section>
+        )}
+      </AnimatePresence>
+
+      {/* Sección ¿Aún no tienes tu código? */}
+      <section className="py-20 px-4 bg-gradient-to-b from-dark to-primary">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-3xl md:text-4xl font-title magical-text mb-8"
+          >
+            🔮 ¿Aún no tienes tu código?
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="text-lg md:text-xl text-light/90 mb-8 leading-relaxed font-body"
+          >
+            ¡Es muy fácil! Solo necesitas pedir una de nuestras deliciosas hamburguesas y recibirás un código único para acceder a tu lectura semanal.
+            <br /><br />
+            <span className="magical-text font-semibold">
+              Vive la experiencia Cuatro Brujas: hamburguesas mágicas + lecturas esotéricas.
+            </span>
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            viewport={{ once: true }}
+          >
+            <Link 
+              to="/nuestra-carta"
+              className="inline-block bg-accent text-primary px-8 py-4 rounded-full text-lg font-body font-semibold hover:bg-accent/90 transition-all duration-300 animate-glow"
+            >
+              🍔 Ver Carta y Pedir
+            </Link>
+          </motion.div>
+        </div>
+      </section>
+
+
+
+
+    </div>
+  );
+};
+
+export default ViajeMísticoPage;

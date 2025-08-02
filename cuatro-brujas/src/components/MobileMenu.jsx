@@ -82,13 +82,7 @@ const MobileMenu = ({ isOpen, onClose }) => {
                 >
                   Cómo funciona
                 </Link>
-                <Link
-                  to="/nuestra-carta"
-                  className="text-light hover:text-secondary transition-colors py-2 border-b border-secondary/20"
-                  onClick={onClose}
-                >
-                  🍔 Nuestra Carta
-                </Link>
+
               </nav>
 
               {/* Botones de acción */}

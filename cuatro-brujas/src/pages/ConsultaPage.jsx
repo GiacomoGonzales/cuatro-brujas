@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import FormularioBruja from '../components/FormularioBruja';
@@ -7,11 +7,20 @@ import { brujas } from '../data/brujas';
 
 const ConsultaPage = () => {
   const { idBruja } = useParams();
+  const navigate = useNavigate();
   const bruja = brujas[idBruja];
 
+  // Verificar control de acceso al cargar la página
   useEffect(() => {
+    const accessValidated = sessionStorage.getItem('accessValidated');
+    if (accessValidated !== 'true') {
+      console.log('Acceso denegado: código de acceso requerido.');
+      navigate('/viaje-mistico');
+      return;
+    }
+    
     window.scrollTo(0, 0);
-  }, []);
+  }, [navigate]);
 
   if (!bruja) {
     return <div className="text-red-500">Bruja no encontrada</div>;

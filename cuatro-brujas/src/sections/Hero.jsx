@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 
 const phrases = [
   "Predice tu destino… o pídetelo con papas 🍟 a cualquier hora.",
@@ -192,17 +193,18 @@ const Hero = () => {
               whileTap={{ scale: 0.95 }}
               className="bg-secondary text-light px-6 py-3 rounded-full hover:bg-secondary/80 transition font-body"
             >
-              🧙‍♀️ Ver Carta Mágica
+              🍔 Ver Carta Mágica
             </motion.button>
             
-            <motion.button
-              onClick={scrollToBrujas}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="border border-secondary text-light px-6 py-3 rounded-full hover:bg-secondary/20 transition font-body"
-            >
-              ✨ Comenzar tu Viaje Místico
-            </motion.button>
+            <Link to="/viaje-mistico">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="border border-secondary text-light px-6 py-3 rounded-full hover:bg-secondary/20 transition font-body"
+              >
+                ✨ Comenzar tu Viaje Místico
+              </motion.button>
+            </Link>
           </motion.div>
         </div>
       </div>

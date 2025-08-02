@@ -8,6 +8,8 @@ import QuienesSomosPage from "../pages/QuienesSomosPage";
 import NuestraCartaPage from "../pages/NuestraCartaPage";
 import ComoFuncionaPage from "../pages/ComoFuncionaPage";
 import ConsultaPage from "../pages/ConsultaPage";
+import ViajeMísticoPage from "../pages/ViajeMísticoPage";
+import LecturasPage from "../pages/LecturasPage";
 
 // Página 404
 const NotFoundPage = () => {
@@ -58,6 +60,14 @@ export const router = createBrowserRouter([
             <p className="text-light/80">Página en construcción...</p>
           </div>
         </div>,
+      },
+      {
+        path: "viaje-mistico",
+        element: <ViajeMísticoPage />,
+      },
+      {
+        path: "lecturas",
+        element: <LecturasPage />,
       },
     ],
   },
