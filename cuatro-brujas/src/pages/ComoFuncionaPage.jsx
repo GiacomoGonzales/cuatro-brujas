@@ -21,27 +21,27 @@ const ComoFuncionaPage = () => {
   const steps = [
     {
       number: "1",
-      title: "Elige tu Combo Mágico",
-      description: "Selecciona entre nuestras deliciosas hamburguesas místicas y acompañamientos encantados.",
+      title: "Explora Nuestra Carta",
+      description: "Hamburguesas artesanales disponibles 24/7 para satisfacer tu antojo a cualquier hora.",
       icon: "🍔"
     },
     {
       number: "2",
-      title: "Realiza tu Pedido",
-      description: "Completa tu orden y recibe tu código místico único para tu lectura personal.",
-      icon: "🎫"
+      title: "Obtén tu Código Mágico",
+      description: "Cada pedido incluye un código válido por 7 días que abre las puertas al mundo místico.",
+      icon: "🔑"
     },
     {
       number: "3",
-      title: "Disfruta tu Comida",
-      description: "Mientras disfrutas de tu pedido, prepárate para tu experiencia mística.",
-      icon: "✨"
+      title: "Elige tu Bruja Guía",
+      description: "Selecciona entre tarot, astrología, numerología y más especialidades místicas.",
+      icon: "🔮"
     },
     {
       number: "4",
-      title: "Accede a tu Lectura",
-      description: "Usa tu código para recibir una lectura personalizada de nuestras brujas expertas.",
-      icon: "🔮"
+      title: "Recibe tu Lectura",
+      description: "Disfruta de una experiencia personalizada guiada por nuestras expertas brujas.",
+      icon: "✨"
     }
   ];
 
@@ -60,7 +60,7 @@ const ComoFuncionaPage = () => {
 
           {/* Secciones */}
           <div className="grid gap-12 mt-16">
-            {/* Sección 1: Elige tu Bruja */}
+            {/* Sección 1: Haz tu Pedido Mágico */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -68,15 +68,15 @@ const ComoFuncionaPage = () => {
               className="text-center"
             >
               <h2 className="text-3xl font-title font-bold mb-4 magical-text">
-                1. Elige tu Bruja
+                1. Haz tu Pedido Mágico
               </h2>
               <p className="text-xl text-light/80 leading-relaxed">
-                En Cuatro Brujas, fusionamos la gastronomía con el misticismo. 
-                Cada pedido te acerca más a los secretos que el universo tiene preparados para ti.
+                Explora nuestra carta disponible las 24 horas y elige nuestras hamburguesas artesanales, 
+                creadas para satisfacer tu antojo a cualquier hora del día… o de la noche.
               </p>
             </motion.div>
 
-            {/* Sección 2: Realiza tu Consulta */}
+            {/* Sección 2: Recibe tu Código de Acceso */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -84,15 +84,15 @@ const ComoFuncionaPage = () => {
               className="text-center"
             >
               <h2 className="text-3xl font-title font-bold mb-4 magical-text">
-                2. Realiza tu Consulta
+                2. Recibe tu Código de Acceso
               </h2>
               <p className="text-xl text-light/80 leading-relaxed">
-                En Cuatro Brujas, fusionamos la gastronomía con el misticismo. 
-                Cada pedido te acerca más a los secretos que el universo tiene preparados para ti.
+                Con cada pedido, obtienes un código mágico válido por 7 días. Este código te abre la puerta 
+                al mundo místico de Cuatro Brujas, donde podrás consultar con la bruja que elijas.
               </p>
             </motion.div>
 
-            {/* Sección 3: Recibe tu Lectura */}
+            {/* Sección 3: Disfruta tu Lectura Exclusiva */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -100,14 +100,26 @@ const ComoFuncionaPage = () => {
               className="text-center"
             >
               <h2 className="text-3xl font-title font-bold mb-4 magical-text">
-                3. Recibe tu Lectura
+                3. Disfruta tu Lectura Exclusiva
               </h2>
               <p className="text-xl text-light/80 leading-relaxed">
-                En Cuatro Brujas, fusionamos la gastronomía con el misticismo. 
-                Cada pedido te acerca más a los secretos que el universo tiene preparados para ti.
+                Usa tu código en nuestra web y accede a una lectura personalizada: tarot, astrología, 
+                numerología y más, guiada por nuestras brujas.
               </p>
             </motion.div>
           </div>
+
+          {/* Mensaje final */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mt-12"
+          >
+            <p className="text-2xl font-bold magical-text">
+              ¡Comida deliciosa y magia real, en un solo lugar!
+            </p>
+          </motion.div>
         </div>
       </section>
 
@@ -141,19 +153,26 @@ const ComoFuncionaPage = () => {
             <h2 className="text-3xl font-bold magical-text text-center mb-8">
               Beneficios Místicos
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">
-                <div className="text-3xl mb-4">🌟</div>
-                <h3 className="text-xl font-bold text-light mb-2">Código Único</h3>
+                <div className="text-3xl mb-4">🕐</div>
+                <h3 className="text-xl font-bold text-light mb-2">Disponible 24/7</h3>
                 <p className="text-light/70">
-                  Cada pedido incluye un código místico personal que desbloquea tu lectura.
+                  Hamburguesas artesanales a cualquier hora del día o de la noche.
+                </p>
+              </div>
+              <div className="text-center">
+                <div className="text-3xl mb-4">📅</div>
+                <h3 className="text-xl font-bold text-light mb-2">Código 7 Días</h3>
+                <p className="text-light/70">
+                  Tu código mágico es válido por una semana completa para que disfrutes cuando quieras.
                 </p>
               </div>
               <div className="text-center">
                 <div className="text-3xl mb-4">🎯</div>
                 <h3 className="text-xl font-bold text-light mb-2">Lectura Personalizada</h3>
                 <p className="text-light/70">
-                  Nuestras brujas realizan lecturas específicas para tu energía.
+                  Tarot, astrología, numerología y más, todo adaptado a tu energía única.
                 </p>
               </div>
             </div>

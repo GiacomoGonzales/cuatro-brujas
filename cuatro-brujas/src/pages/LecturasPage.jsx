@@ -22,10 +22,10 @@ const LecturasPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-black to-purple-900 relative overflow-hidden">
       {/* Contenido principal */}
-      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pt-24">
+      <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 pt-32">
         
         {/* Título */}
-        <div className="text-center mb-8 md:mb-12">
+        <div className="text-center mb-4 md:mb-6">
           <h1 className="text-4xl md:text-6xl font-bold font-title text-golden mb-4 drop-shadow-lg">
             Elige Tu Bruja Guía
           </h1>
