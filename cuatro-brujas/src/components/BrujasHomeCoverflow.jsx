@@ -81,46 +81,46 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
 
   const getCardProps = (indice) => {
     const diferencia = indice - indiceActivo;
+    const isMobile = window.innerWidth < 768;
     
     if (diferencia === 0) {
       // Bruja central
       return {
         x: 0,
-        scale: 1.2,
+        scale: 1.1,
         rotateY: 0,
-        z: 100,
+        z: 10,
         opacity: 1,
-        filter: 'blur(0px)',
       };
     } else if (diferencia === 1 || (diferencia === -(brujas.length - 1))) {
       // Bruja derecha
       return {
-        x: window.innerWidth > 768 ? 280 : 120,
-        scale: 0.8,
-        rotateY: -30,
+        x: isMobile ? 150 : 300,
+        scale: 0.7,
+        rotateY: -20,
         z: 0,
-        opacity: 0.7,
+        opacity: 0.3,
         filter: 'blur(2px)',
       };
     } else if (diferencia === -1 || (diferencia === brujas.length - 1)) {
       // Bruja izquierda
       return {
-        x: window.innerWidth > 768 ? -280 : -120,
-        scale: 0.8,
-        rotateY: 30,
+        x: isMobile ? -150 : -300,
+        scale: 0.7,
+        rotateY: 20,
         z: 0,
-        opacity: 0.7,
+        opacity: 0.3,
         filter: 'blur(2px)',
       };
     } else {
       // Brujas ocultas
       return {
-        x: diferencia > 0 ? (window.innerWidth > 768 ? 500 : 250) : (window.innerWidth > 768 ? -500 : -250),
+        x: diferencia > 0 ? (isMobile ? 400 : 500) : (isMobile ? -400 : -500),
         scale: 0.6,
-        rotateY: diferencia > 0 ? -45 : 45,
-        z: -100,
+        rotateY: 0,
+        z: -10,
         opacity: 0,
-        filter: 'blur(4px)',
+        filter: 'blur(3px)',
       };
     }
   };
@@ -136,25 +136,15 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
 
   return (
     <div className="relative py-8 overflow-hidden w-full">
-      {/* Partículas de fondo sutiles */}
+      {/* Partículas de fondo simplificadas */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(30)].map((_, i) => (
-          <motion.div
+        {[...Array(10)].map((_, i) => (
+          <div
             key={i}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full opacity-30"
+            className="absolute w-1 h-1 bg-purple-400 rounded-full opacity-20"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -15, 0],
-              opacity: [0.3, 0.8, 0.3],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 3,
             }}
           />
         ))}
@@ -197,27 +187,27 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
             return (
               <motion.div
                 key={bruja.nombre}
-                className="absolute cursor-pointer"
+                className={`absolute ${indice === indiceActivo ? 'cursor-grab' : 'cursor-pointer'}`}
                 style={{
                   perspective: '1000px',
                 }}
                 animate={cardProps}
                 transition={{
-                  type: 'spring',
-                  stiffness: 300,
-                  damping: 30,
+                  duration: 0.5,
+                  ease: "easeInOut"
                 }}
-                drag="x"
+                drag={indice === indiceActivo ? "x" : false}
                 dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2}
-                onDragEnd={handleDragEnd}
+                dragElastic={0.1}
+                onDragEnd={indice === indiceActivo ? handleDragEnd : undefined}
                 onClick={() => irABruja(indice)}
-                whileHover={{ scale: cardProps.scale * 1.02 }}
               >
                 <div 
-                  className="relative w-48 h-64 md:w-72 md:h-80 rounded-2xl overflow-hidden shadow-2xl"
+                  className="relative w-48 h-64 md:w-72 md:h-80 rounded-2xl overflow-hidden"
                   style={{
-                    boxShadow: `0 20px 60px rgba(147, 51, 234, ${indice === indiceActivo ? 0.4 : 0.2})`,
+                    boxShadow: indice === indiceActivo 
+                      ? '0 20px 40px rgba(147, 51, 234, 0.4)' 
+                      : '0 10px 20px rgba(0, 0, 0, 0.3)',
                     filter: cardProps.filter,
                   }}
                 >
@@ -232,41 +222,25 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
                   {/* Overlay degradado */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   
-                  {/* Información de la bruja */}
-                  <div className="absolute bottom-0 left-0 right-0 p-4 text-white text-center">
-                    <motion.h3 
-                      className="text-xl md:text-2xl font-bold mb-1"
-                      style={{
-                        textShadow: `0 0 15px ${bruja.color}80`,
-                        filter: "drop-shadow(0 0 8px rgba(255,255,255,0.3))"
-                      }}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.2 }}
-                    >
-                      {bruja.nombre}
-                    </motion.h3>
-                    <motion.p 
-                      className="text-sm md:text-base text-purple-200"
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.3 }}
-                    >
-                      {bruja.rol}
-                    </motion.p>
-                  </div>
+                  {/* Información de la bruja - solo en bruja activa */}
+                  {indice === indiceActivo && (
+                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white text-center">
+                      <h3 className="text-xl md:text-2xl font-bold mb-1 drop-shadow-lg">
+                        {bruja.nombre}
+                      </h3>
+                      <p className="text-sm md:text-base text-purple-200">
+                        {bruja.rol}
+                      </p>
+                    </div>
+                  )}
                   
                   {/* Borde brillante para bruja activa */}
                   {indice === indiceActivo && (
-                    <motion.div 
+                    <div 
                       className="absolute inset-0 rounded-2xl border-2 pointer-events-none"
                       style={{
                         borderColor: bruja.color,
-                        boxShadow: `inset 0 0 20px ${bruja.color}40`,
                       }}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
                     />
                   )}
                 </div>
@@ -278,17 +252,11 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
 
       {/* Información de la bruja activa */}
       <div className="text-center mt-8 px-4 md:px-0">
-        <motion.div
-          key={indiceActivo}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-2xl mx-auto"
-        >
+        <div className="max-w-2xl mx-auto">
           <p className="text-light/90 mb-6 leading-relaxed">
             {brujas[indiceActivo].descripcion}
           </p>
-        </motion.div>
+        </div>
       </div>
 
       {/* Indicadores de posición */}
