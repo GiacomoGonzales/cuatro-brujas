@@ -41,7 +41,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "consulta/:idBruja",
-        element: <ConsultaPage />,
+        element: (
+          <ProtectedRoute requireAccess={true}>
+            <ConsultaPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "quienes-somos",

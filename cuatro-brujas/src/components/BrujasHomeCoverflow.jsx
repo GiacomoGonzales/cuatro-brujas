@@ -3,13 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
-// Datos de las brujas para la homepage
-const brujas = [
+// Datos base de las brujas
+const brujasData = [
   { 
     nombre: "Calypso", 
     rol: "Tarot", 
     imagen: "/avatares/calypso.png", 
-    ruta: "/consulta/calypso",
+    rutaDirecta: "/consulta/calypso",
     color: "#9333ea",
     descripcion: "Descubre tu destino a través de las cartas místicas del tarot"
   },
@@ -17,7 +17,7 @@ const brujas = [
     nombre: "Orula", 
     rol: "Numerología y Destino", 
     imagen: "/avatares/orula.png", 
-    ruta: "/consulta/orula",
+    rutaDirecta: "/consulta/orula",
     color: "#dc2626",
     descripcion: "Los números y el destino revelan el camino de tu vida"
   },
@@ -25,7 +25,7 @@ const brujas = [
     nombre: "Aisha", 
     rol: "Chakras y Energía", 
     imagen: "/avatares/aisha.png", 
-    ruta: "/consulta/aisha",
+    rutaDirecta: "/consulta/aisha",
     color: "#059669",
     descripcion: "Equilibra tus chakras y armoniza tu energía vital"
   },
@@ -33,16 +33,29 @@ const brujas = [
     nombre: "Sirona", 
     rol: "Horóscopo y Carta Astral", 
     imagen: "/avatares/sirona.png", 
-    ruta: "/consulta/sirona",
+    rutaDirecta: "/consulta/sirona",
     color: "#2563eb",
     descripcion: "Los astros guían tu camino y revelan tu verdadera esencia"
   }
 ];
 
-const BrujasHomeCoverflow = () => {
+const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
   const [indiceActivo, setIndiceActivo] = useState(0);
   const [direccion, setDireccion] = useState(0);
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
   const navigate = useNavigate();
+
+  // Generar datos de brujas con rutas correctas según la página
+  const brujas = brujasData.map(bruja => ({
+    ...bruja,
+    ruta: isLecturasPage ? bruja.rutaDirecta : "/viaje-mistico"
+  }));
+
+  // Texto del botón según la página
+  const textoBoton = isLecturasPage 
+    ? `✨ Elegir a ${brujas[indiceActivo].nombre} ✨`
+    : "✨ Comenzar Lectura Mística ✨";
 
   const cambiarBruja = (nuevoIndice, dir) => {
     setDireccion(dir);
@@ -70,41 +83,46 @@ const BrujasHomeCoverflow = () => {
 
   const getCardProps = (indice) => {
     const diferencia = indice - indiceActivo;
+    const isMobile = window.innerWidth < 768;
+    const dragInfluence = isDragging ? dragOffset * 0.8 : 0; // Reducir influencia del drag
     
     if (diferencia === 0) {
       // Bruja central
       return {
-        x: 0,
-        scale: 1.2,
-        rotateY: 0,
+        x: dragInfluence,
+        scale: 1.2 - Math.abs(dragInfluence) * 0.0003, // Escala ligeramente menor al arrastrar
+        rotateY: dragInfluence * 0.02, // Rotación sutil durante drag
         z: 100,
-        opacity: 1,
-        filter: 'blur(0px)',
+        opacity: 1 - Math.abs(dragInfluence) * 0.0005,
+        filter: `blur(${Math.abs(dragInfluence) * 0.01}px)`,
       };
     } else if (diferencia === 1 || (diferencia === -(brujas.length - 1))) {
       // Bruja derecha
+      const baseX = isMobile ? 120 : 280;
       return {
-        x: window.innerWidth > 768 ? 280 : 180,
-        scale: 0.8,
-        rotateY: -30,
+        x: baseX + dragInfluence,
+        scale: 0.8 + (dragInfluence < 0 ? Math.abs(dragInfluence) * 0.0008 : 0),
+        rotateY: -30 + dragInfluence * 0.015,
         z: 0,
-        opacity: 0.7,
-        filter: 'blur(2px)',
+        opacity: 0.7 + (dragInfluence < 0 ? Math.abs(dragInfluence) * 0.0005 : 0),
+        filter: `blur(${2 - (dragInfluence < 0 ? Math.abs(dragInfluence) * 0.005 : 0)}px)`,
       };
     } else if (diferencia === -1 || (diferencia === brujas.length - 1)) {
       // Bruja izquierda
+      const baseX = isMobile ? -120 : -280;
       return {
-        x: window.innerWidth > 768 ? -280 : -180,
-        scale: 0.8,
-        rotateY: 30,
+        x: baseX + dragInfluence,
+        scale: 0.8 + (dragInfluence > 0 ? dragInfluence * 0.0008 : 0),
+        rotateY: 30 + dragInfluence * 0.015,
         z: 0,
-        opacity: 0.7,
-        filter: 'blur(2px)',
+        opacity: 0.7 + (dragInfluence > 0 ? dragInfluence * 0.0005 : 0),
+        filter: `blur(${2 - (dragInfluence > 0 ? dragInfluence * 0.005 : 0)}px)`,
       };
     } else {
       // Brujas ocultas
+      const baseX = diferencia > 0 ? (isMobile ? 250 : 500) : (isMobile ? -250 : -500);
       return {
-        x: diferencia > 0 ? (window.innerWidth > 768 ? 500 : 300) : (window.innerWidth > 768 ? -500 : -300),
+        x: baseX + dragInfluence,
         scale: 0.6,
         rotateY: diferencia > 0 ? -45 : 45,
         z: -100,
@@ -114,17 +132,35 @@ const BrujasHomeCoverflow = () => {
     }
   };
 
+  const handleDragStart = () => {
+    setIsDragging(true);
+  };
+
+  const handleDrag = (event, info) => {
+    // Actualizar el offset del drag en tiempo real para transiciones suaves
+    setDragOffset(info.offset.x);
+  };
+
   const handleDragEnd = (event, info) => {
-    const threshold = 50;
-    if (info.offset.x > threshold) {
+    setIsDragging(false);
+    setDragOffset(0);
+    
+    // Threshold más sensible para móvil
+    const threshold = window.innerWidth < 768 ? 40 : 60;
+    const velocity = Math.abs(info.velocity.x);
+    
+    // Si hay velocidad suficiente, threshold más bajo
+    const effectiveThreshold = velocity > 500 ? threshold * 0.6 : threshold;
+    
+    if (info.offset.x > effectiveThreshold) {
       anteriorBruja();
-    } else if (info.offset.x < -threshold) {
+    } else if (info.offset.x < -effectiveThreshold) {
       siguienteBruja();
     }
   };
 
   return (
-    <div className="relative py-16 overflow-hidden">
+    <div className="relative py-16 overflow-hidden w-full">
       {/* Partículas de fondo sutiles */}
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(30)].map((_, i) => (
@@ -150,7 +186,7 @@ const BrujasHomeCoverflow = () => {
       </div>
 
       {/* Contenedor del carrusel */}
-      <div className="relative w-full max-w-6xl mx-auto h-96 md:h-[500px] flex items-center justify-center perspective-1000 px-4">
+      <div className="relative w-full h-96 md:h-[500px] flex items-center justify-center perspective-1000 px-0">
         
         {/* Botón Anterior - Desktop */}
         <motion.button
@@ -193,18 +229,27 @@ const BrujasHomeCoverflow = () => {
                 animate={cardProps}
                 transition={{
                   type: 'spring',
-                  stiffness: 300,
-                  damping: 30,
+                  stiffness: isDragging ? 400 : 300,
+                  damping: isDragging ? 40 : 30,
+                  mass: 0.8,
                 }}
-                drag="x"
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.2}
-                onDragEnd={handleDragEnd}
-                onClick={() => irABruja(indice)}
-                whileHover={{ scale: cardProps.scale * 1.02 }}
+                drag={indice === indiceActivo ? "x" : false}
+                dragConstraints={{ left: -200, right: 200 }}
+                dragElastic={0.1}
+                dragMomentum={false}
+                onDragStart={indice === indiceActivo ? handleDragStart : undefined}
+                onDrag={indice === indiceActivo ? handleDrag : undefined}
+                onDragEnd={indice === indiceActivo ? handleDragEnd : undefined}
+                onClick={() => !isDragging && irABruja(indice)}
+                whileHover={!isDragging ? { scale: cardProps.scale * 1.02 } : {}}
+                style={{ 
+                  cursor: indice === indiceActivo 
+                    ? (isDragging ? 'grabbing' : 'grab') 
+                    : 'pointer'
+                }}
               >
                 <div 
-                  className="relative w-56 h-72 md:w-72 md:h-80 rounded-2xl overflow-hidden shadow-2xl"
+                  className="relative w-48 h-64 md:w-72 md:h-80 rounded-2xl overflow-hidden shadow-2xl"
                   style={{
                     boxShadow: `0 20px 60px rgba(147, 51, 234, ${indice === indiceActivo ? 0.4 : 0.2})`,
                     filter: cardProps.filter,
@@ -266,7 +311,7 @@ const BrujasHomeCoverflow = () => {
       </div>
 
       {/* Información de la bruja activa */}
-      <div className="text-center mt-8 px-4">
+      <div className="text-center mt-8 px-4 md:px-0">
         <motion.div
           key={indiceActivo}
           initial={{ opacity: 0, y: 20 }}
@@ -335,7 +380,7 @@ const BrujasHomeCoverflow = () => {
           />
           
           <span className="relative z-10">
-            ✨ Elegir a {brujas[indiceActivo].nombre} ✨
+            {textoBoton}
           </span>
         </motion.button>
       </div>

@@ -35,7 +35,7 @@ const LecturasPage = () => {
         </div>
 
         {/* Carrusel Coverflow 3D */}
-        <BrujasHomeCoverflow />
+        <BrujasHomeCoverflow isLecturasPage={true} />
       </div>
     </div>
   );

@@ -26,7 +26,18 @@ const ViajeMísticoPage = () => {
     setTimeout(() => {
       const codeSection = document.getElementById('code-section');
       if (codeSection) {
-        codeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Calcular offset personalizado para móvil
+        const isMobile = window.innerWidth < 768;
+        const headerHeight = 80; // Altura aproximada del header
+        const extraPadding = isMobile ? 60 : 40; // Más espacio en móvil
+        
+        const rect = codeSection.getBoundingClientRect();
+        const scrollPosition = window.pageYOffset + rect.top - headerHeight - extraPadding;
+        
+        window.scrollTo({
+          top: scrollPosition,
+          behavior: 'smooth'
+        });
       }
     }, 100);
   };
@@ -132,7 +143,7 @@ const ViajeMísticoPage = () => {
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.6 }}
-            className="py-20 px-4 bg-gradient-to-b from-primary to-dark"
+            className="pt-24 pb-20 px-4 bg-gradient-to-b from-primary to-dark"
           >
             <div className="max-w-2xl mx-auto text-center">
               <motion.h2
