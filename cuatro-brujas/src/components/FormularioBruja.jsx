@@ -88,7 +88,7 @@ const FormularioBruja = ({ idBruja }) => {
         return (
           <>
             <div>
-              <label htmlFor="nombre" className="block text-light mb-2">
+              <label htmlFor="nombre" className="block text-light mb-2 font-medium">
                 Tu nombre (opcional)
               </label>
               <input
@@ -97,12 +97,12 @@ const FormularioBruja = ({ idBruja }) => {
                 name="nombre"
                 value={formData.nombre}
                 onChange={handleInputChange}
-                className="w-full p-3 rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none"
+                className="mobile-input"
                 placeholder="Ingresa tu nombre"
               />
             </div>
             <div>
-              <label htmlFor="fechaNacimiento" className="block text-light mb-2">
+              <label htmlFor="fechaNacimiento" className="block text-light mb-2 font-medium">
                 Fecha de nacimiento *
               </label>
               <input
@@ -112,11 +112,11 @@ const FormularioBruja = ({ idBruja }) => {
                 value={formData.fechaNacimiento}
                 onChange={handleInputChange}
                 required
-                className="w-full p-3 rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none"
+                className="mobile-input"
               />
             </div>
             <div>
-              <label htmlFor="tema" className="block text-light mb-2">
+              <label htmlFor="tema" className="block text-light mb-2 font-medium">
                 Tema de la consulta *
               </label>
               <select
@@ -125,7 +125,7 @@ const FormularioBruja = ({ idBruja }) => {
                 value={formData.tema}
                 onChange={handleInputChange}
                 required
-                className="w-full p-3 rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none"
+                className="mobile-select"
               >
                 <option value="">Selecciona un tema</option>
                 {TEMAS_TAROT.map(tema => (
@@ -134,7 +134,7 @@ const FormularioBruja = ({ idBruja }) => {
               </select>
             </div>
             <div>
-              <label htmlFor="pregunta" className="block text-light mb-2">
+              <label htmlFor="pregunta" className="block text-light mb-2 font-medium">
                 Tu pregunta (opcional)
               </label>
               <textarea
@@ -143,7 +143,7 @@ const FormularioBruja = ({ idBruja }) => {
                 value={formData.pregunta}
                 onChange={handleInputChange}
                 rows="3"
-                className="w-full p-3 rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none"
+                className="mobile-textarea"
                 placeholder="¿Qué deseas saber?"
               />
             </div>
@@ -154,7 +154,7 @@ const FormularioBruja = ({ idBruja }) => {
         return (
           <>
             <div>
-              <label htmlFor="nombreCompleto" className="block text-light mb-2">
+              <label htmlFor="nombreCompleto" className="block text-light mb-2 font-medium">
                 Nombre completo *
               </label>
               <input
@@ -164,12 +164,12 @@ const FormularioBruja = ({ idBruja }) => {
                 value={formData.nombreCompleto}
                 onChange={handleInputChange}
                 required
-                className="w-full p-3 rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none"
+                className="mobile-input"
                 placeholder="Ingresa tu nombre completo"
               />
             </div>
             <div>
-              <label htmlFor="fechaNacimiento" className="block text-light mb-2">
+              <label htmlFor="fechaNacimiento" className="block text-light mb-2 font-medium">
                 Fecha de nacimiento *
               </label>
               <input
@@ -179,7 +179,7 @@ const FormularioBruja = ({ idBruja }) => {
                 value={formData.fechaNacimiento}
                 onChange={handleInputChange}
                 required
-                className="w-full p-3 rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none"
+                className="mobile-input"
               />
             </div>
           </>
@@ -189,7 +189,7 @@ const FormularioBruja = ({ idBruja }) => {
         return (
           <>
             <div>
-              <label htmlFor="nombre" className="block text-light mb-2">
+              <label htmlFor="nombre" className="block text-light mb-2 font-medium">
                 Tu nombre (opcional)
               </label>
               <input
@@ -198,12 +198,12 @@ const FormularioBruja = ({ idBruja }) => {
                 name="nombre"
                 value={formData.nombre}
                 onChange={handleInputChange}
-                className="w-full p-3 rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none"
+                className="mobile-input"
                 placeholder="Ingresa tu nombre"
               />
             </div>
             <div>
-              <label htmlFor="emociones" className="block text-light mb-2">
+              <label htmlFor="emociones" className="block text-light mb-2 font-medium">
                 ¿Cómo te sientes? Describe tus emociones o síntomas *
               </label>
               <textarea
@@ -213,7 +213,8 @@ const FormularioBruja = ({ idBruja }) => {
                 onChange={handleInputChange}
                 required
                 rows="4"
-                className="w-full p-3 rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none"
+                className="mobile-textarea"
+                style={{ minHeight: '120px' }}
                 placeholder="Describe cómo te sientes física y emocionalmente..."
               />
             </div>
@@ -224,7 +225,7 @@ const FormularioBruja = ({ idBruja }) => {
         return (
           <>
             <div>
-              <label htmlFor="nombre" className="block text-light mb-2">
+              <label htmlFor="nombre" className="block text-light mb-2 font-medium">
                 Tu nombre (opcional)
               </label>
               <input
@@ -233,12 +234,12 @@ const FormularioBruja = ({ idBruja }) => {
                 name="nombre"
                 value={formData.nombre}
                 onChange={handleInputChange}
-                className="w-full p-3 rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none"
+                className="mobile-input"
                 placeholder="Ingresa tu nombre"
               />
             </div>
             <div>
-              <label htmlFor="fechaNacimiento" className="block text-light mb-2">
+              <label htmlFor="fechaNacimiento" className="block text-light mb-2 font-medium">
                 Fecha de nacimiento *
               </label>
               <input
@@ -248,11 +249,11 @@ const FormularioBruja = ({ idBruja }) => {
                 value={formData.fechaNacimiento}
                 onChange={handleInputChange}
                 required
-                className="w-full p-3 rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none"
+                className="mobile-input"
               />
             </div>
             <div>
-              <label htmlFor="horaNacimiento" className="block text-light mb-2">
+              <label htmlFor="horaNacimiento" className="block text-light mb-2 font-medium">
                 Hora de nacimiento (opcional)
               </label>
               <input
@@ -261,11 +262,11 @@ const FormularioBruja = ({ idBruja }) => {
                 name="horaNacimiento"
                 value={formData.horaNacimiento}
                 onChange={handleInputChange}
-                className="w-full p-3 rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none"
+                className="mobile-input"
               />
             </div>
             <div>
-              <label htmlFor="lugarNacimiento" className="block text-light mb-2">
+              <label htmlFor="lugarNacimiento" className="block text-light mb-2 font-medium">
                 Lugar de nacimiento (opcional)
               </label>
               <input
@@ -274,12 +275,12 @@ const FormularioBruja = ({ idBruja }) => {
                 name="lugarNacimiento"
                 value={formData.lugarNacimiento}
                 onChange={handleInputChange}
-                className="w-full p-3 rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none"
+                className="mobile-input"
                 placeholder="Ciudad, País"
               />
             </div>
             <div>
-              <label htmlFor="tema" className="block text-light mb-2">
+              <label htmlFor="tema" className="block text-light mb-2 font-medium">
                 Tipo de lectura *
               </label>
               <select
@@ -288,7 +289,7 @@ const FormularioBruja = ({ idBruja }) => {
                 value={formData.tema}
                 onChange={handleInputChange}
                 required
-                className="w-full p-3 rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none"
+                className="mobile-select"
               >
                 <option value="">Selecciona el tipo de lectura</option>
                 {TEMAS_ASTRO.map(tema => (
@@ -315,7 +316,7 @@ const FormularioBruja = ({ idBruja }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 overflow-hidden">
+    <div className="max-w-2xl mx-auto mobile-form-container overflow-hidden">
       <form onSubmit={handleSubmit} className="space-y-6 w-full">
         {renderCampos()}
 

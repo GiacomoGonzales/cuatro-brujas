@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import BrujasCoverflow3D from '../components/BrujasCoverflow3D';
+import BrujasSwipeDeck from '../components/BrujasSwipeDeck';
 
 const LecturasPage = () => {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ const LecturasPage = () => {
   }, [navigate]);
 
   return (
-    <BrujasCoverflow3D />
+    <BrujasSwipeDeck />
   );
 };
 

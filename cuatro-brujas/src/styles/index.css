@@ -52,6 +52,50 @@
     @apply px-4 mx-auto;
     max-width: 100%;
   }
+
+  /* Inputs optimizados para móviles reales */
+  .mobile-input {
+    @apply w-full rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none;
+    padding: 12px 16px;
+    min-height: 48px; /* Touch target mínimo recomendado */
+    font-size: 16px; /* Previene zoom en iOS */
+    line-height: 1.5;
+  }
+
+  .mobile-textarea {
+    @apply w-full rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none;
+    padding: 12px 16px;
+    min-height: 96px; /* Altura mínima para textareas */
+    font-size: 16px; /* Previene zoom en iOS */
+    line-height: 1.5;
+    resize: vertical;
+  }
+
+  .mobile-select {
+    @apply w-full rounded-lg bg-dark/50 border border-secondary/30 text-light focus:border-secondary focus:outline-none;
+    padding: 12px 16px;
+    min-height: 48px; /* Touch target mínimo */
+    font-size: 16px; /* Previene zoom en iOS */
+    line-height: 1.5;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 12px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 40px;
+  }
+
+  /* Estilos específicos para móviles */
+  @media (max-width: 768px) {
+    .mobile-form-container {
+      padding: 16px;
+      margin-bottom: 120px; /* Espacio para teclado virtual */
+    }
+    
+    .mobile-input, .mobile-textarea, .mobile-select {
+      font-size: 16px !important; /* Forzar 16px en móviles para evitar zoom */
+    }
+  }
 }
 
 @layer utilities {
