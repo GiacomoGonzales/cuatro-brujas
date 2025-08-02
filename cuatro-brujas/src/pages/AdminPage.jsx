@@ -10,7 +10,7 @@ const AdminPage = () => {
     email: '',
     whatsapp: ''
   });
-  const [generatedCode, setGeneratedCode] = useState('');
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -65,8 +65,7 @@ const AdminPage = () => {
       const result = await createAccessCode(formData);
       
       if (result.success) {
-        setGeneratedCode(result.code);
-        setSuccess('¡Código generado exitosamente!');
+        setSuccess(`¡Código ${result.code} generado exitosamente!`);
         setFormData({ name: '', email: '', whatsapp: '' });
         loadRecentCodes(); // Recargar la tabla
       } else {
@@ -116,28 +115,7 @@ const AdminPage = () => {
     }
   };
 
-  const handleSendEmail = () => {
-    if (!formData.email || !formData.name || !generatedCode) {
-      setError('Faltan datos para enviar el correo');
-      return;
-    }
-    sendEmail(formData.email, formData.name, generatedCode);
-  };
 
-  const handleSendWhatsApp = () => {
-    if (!formData.whatsapp) {
-      setError('Por favor ingresa un número de WhatsApp');
-      return;
-    }
-    
-    const message = encodeURIComponent(
-      `Hola ${formData.name || '[Nombre]'}, tu código de acceso a Cuatro Brujas es: ${generatedCode}. ` +
-      `Ingresa en cuatrobrujas.app/viaje-mistico para usarlo.`
-    );
-    
-    const cleanNumber = formData.whatsapp.replace(/\D/g, '');
-    window.open(`https://wa.me/${cleanNumber}?text=${message}`, '_blank');
-  };
 
   // Función para enviar email desde historial usando SendGrid
   const handleSendEmailFromHistory = (codeData) => {
@@ -285,43 +263,7 @@ const AdminPage = () => {
             </form>
           </motion.div>
 
-          {/* Código generado */}
-          {generatedCode && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="magical-card p-6"
-            >
-              <h3 className="text-xl font-title magical-text mb-4">
-                🎉 Código Generado
-              </h3>
-              
-              <div className="text-center mb-6">
-                <div className="inline-block bg-secondary/20 border border-secondary/40 rounded-lg px-8 py-4">
-                  <span className="text-3xl font-mono font-bold text-secondary">
-                    {generatedCode}
-                  </span>
-                </div>
-              </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button
-                  onClick={handleSendEmail}
-                  disabled={loading}
-                  className="flex-1 bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 text-purple-300 px-4 py-3 rounded-lg transition-colors font-body disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {loading ? '⏳ Enviando...' : '✉️ Enviar Email (SendGrid)'}
-                </button>
-                <button
-                  onClick={handleSendWhatsApp}
-                  className="flex-1 bg-green-600/20 hover:bg-green-600/30 border border-green-500/30 text-green-300 px-4 py-3 rounded-lg transition-colors font-body"
-                >
-                  📱 Enviar WhatsApp
-                </button>
-              </div>
-            </motion.div>
-          )}
 
           {/* Historial */}
           <motion.div

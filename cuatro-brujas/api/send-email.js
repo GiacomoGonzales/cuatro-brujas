@@ -29,9 +29,44 @@ export default async function handler(req, res) {
             Gracias por ser parte de <strong>Cuatro Brujas</strong>.<br/>
             Aquí tienes tu <strong>código mágico</strong> para acceder a tu lectura:
           </p>
-          <div style="background:#3d1747; padding:15px; border-radius:8px; margin:20px auto; display:inline-block;">
-            <span style="font-size:24px; color:#ffd700; font-weight:bold;">${code}</span>
+          <div style="background:#3d1747; padding:15px; border-radius:8px; margin:20px auto; display:inline-block; position:relative;">
+            <span id="magicCode" style="font-size:24px; color:#ffd700; font-weight:bold;">${code}</span>
+            <button onclick="copyCode()" style="background:#e0aaff; color:#1c1124; border:none; padding:8px 12px; border-radius:6px; margin-left:15px; cursor:pointer; font-weight:bold; font-size:14px;">
+              📋 Copiar
+            </button>
           </div>
+          <script>
+            function copyCode() {
+              const code = '${code}';
+              navigator.clipboard.writeText(code).then(function() {
+                const button = event.target;
+                const originalText = button.innerHTML;
+                button.innerHTML = '✅ ¡Copiado!';
+                button.style.background = '#4ade80';
+                setTimeout(function() {
+                  button.innerHTML = originalText;
+                  button.style.background = '#e0aaff';
+                }, 2000);
+              }).catch(function() {
+                // Fallback para navegadores que no soportan clipboard API
+                const textArea = document.createElement('textarea');
+                textArea.value = code;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                const button = event.target;
+                const originalText = button.innerHTML;
+                button.innerHTML = '✅ ¡Copiado!';
+                button.style.background = '#4ade80';
+                setTimeout(function() {
+                  button.innerHTML = originalText;
+                  button.style.background = '#e0aaff';
+                }, 2000);
+              });
+            }
+          </script>
           <p style="font-size:16px;">Haz clic en el botón para usarlo ahora:</p>
           <a href="https://cuatrobrujas.app/viaje-mistico" 
              style="display:inline-block; background:#e0aaff; color:#1c1124; padding:12px 24px; text-decoration:none; border-radius:8px; font-weight:bold; margin-top:10px;">
