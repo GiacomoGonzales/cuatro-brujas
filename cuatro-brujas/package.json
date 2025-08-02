@@ -10,13 +10,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@react-three/drei": "^10.6.1",
+    "@react-three/fiber": "^9.3.0",
     "@sendgrid/mail": "^8.1.5",
     "@tsparticles/basic": "^3.8.1",
     "@tsparticles/engine": "^3.8.1",
     "@tsparticles/react": "^3.0.0",
     "emailjs-com": "^3.2.0",
     "firebase": "^12.0.0",
-    "framer-motion": "^12.23.3",
+    "framer-motion": "^12.23.12",
     "openai": "^5.9.2",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

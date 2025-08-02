@@ -7,8 +7,62 @@ import { db } from '../config/firebase';
  * @returns {Promise<{success: boolean, message: string}>}
  */
 export const validateAccessCode = async (code) => {
+  // Códigos hardcodeados para desarrollo - verificar PRIMERO
+  const validCodes = {
+    'BRUJA2025': {
+      used: false,
+      expiresAt: new Date('2025-12-31'),
+      type: 'lectura_semanal',
+      createdAt: new Date('2025-01-01')
+    },
+    'MAGIA123': {
+      used: false,
+      expiresAt: new Date('2025-06-30'),
+      type: 'general',
+      createdAt: new Date('2025-01-01')
+    },
+    'PRUEBA123': {
+      used: false,
+      expiresAt: new Date('2099-12-31'), // Nunca expira - código permanente para desarrollo
+      type: 'general',
+      createdAt: new Date(),
+      lecturaId: "",
+      permanent: true // Marcador para códigos permanentes
+    }
+  };
+
+  // Verificar códigos hardcodeados PRIMERO
+  const hardcodedCode = validCodes[code];
+  if (hardcodedCode) {
+    // Para códigos permanentes como PRUEBA123, siempre permitir acceso
+    if (hardcodedCode.permanent === true || code === 'PRUEBA123') {
+      console.log('✅ Código hardcodeado válido:', code);
+      return {
+        success: true,
+        message: '¡Código válido! Redirigiendo...',
+        codeData: {
+          type: hardcodedCode.type,
+          usedAt: new Date(),
+          permanent: hardcodedCode.permanent
+        }
+      };
+    }
+    
+    // Para otros códigos hardcodeados, verificar si están usados y expiración
+    if (!hardcodedCode.used && new Date() <= hardcodedCode.expiresAt) {
+      return {
+        success: true,
+        message: '¡Código válido! Redirigiendo...',
+        codeData: {
+          type: hardcodedCode.type,
+          usedAt: new Date()
+        }
+      };
+    }
+  }
+
   try {
-    // Buscar el código en Firestore
+    // Si no es un código hardcodeado, buscar en Firestore
     const q = query(collection(db, 'accessCodes'), where('code', '==', code));
     const querySnapshot = await getDocs(q);
 
@@ -55,43 +109,6 @@ export const validateAccessCode = async (code) => {
 
   } catch (error) {
     console.error('Error validating code:', error);
-    
-    // Fallback a códigos hardcodeados para desarrollo
-    const validCodes = {
-      'BRUJA2025': {
-        used: false,
-        expiresAt: new Date('2025-12-31'),
-        type: 'lectura_semanal',
-        createdAt: new Date('2025-01-01')
-      },
-      'MAGIA123': {
-        used: false,
-        expiresAt: new Date('2025-06-30'),
-        type: 'general',
-        createdAt: new Date('2025-01-01')
-      },
-      'PRUEBA123': {
-        used: false,
-        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-        type: 'general',
-        createdAt: new Date(),
-        lecturaId: ""
-      }
-    };
-
-    const codeData = validCodes[code];
-    
-    if (codeData && !codeData.used && new Date() <= codeData.expiresAt) {
-      return {
-        success: true,
-        message: '¡Código válido! Redirigiendo...',
-        codeData: {
-          type: codeData.type,
-          usedAt: new Date()
-        }
-      };
-    }
-
     return {
       success: false,
       message: 'Error al validar el código. Por favor intenta nuevamente.'
