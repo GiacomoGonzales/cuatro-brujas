@@ -10,6 +10,9 @@ import ComoFuncionaPage from "../pages/ComoFuncionaPage";
 import ConsultaPage from "../pages/ConsultaPage";
 import ViajeMísticoPage from "../pages/ViajeMísticoPage";
 import LecturasPage from "../pages/LecturasPage";
+import AdminPage from "../pages/AdminPage";
+import AdminLoginPage from "../pages/AdminLoginPage";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 // Página 404
 const NotFoundPage = () => {
@@ -68,6 +71,18 @@ export const router = createBrowserRouter([
       {
         path: "lecturas",
         element: <LecturasPage />,
+      },
+      {
+        path: "admin/login",
+        element: <AdminLoginPage />,
+      },
+      {
+        path: "admin",
+        element: (
+          <ProtectedRoute requireAdmin={true}>
+            <AdminPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
