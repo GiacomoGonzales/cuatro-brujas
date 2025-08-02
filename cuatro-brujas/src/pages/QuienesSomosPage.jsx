@@ -7,25 +7,25 @@ const QuienesSomosPage = () => {
       name: "Calypso",
       role: "Maestra del Tarot",
       description: "Experta en lectura de cartas del tarot, Calypso revela los misterios de tu destino mientras disfrutas de nuestras hamburguesas místicas.",
-      image: "/avatares/elvira.png"
+      image: "/avatares/calypso.png"
     },
     {
       name: "Orula",
       role: "Numerología y Destino",
       description: "Especialista en numerología y destino, Orula descifra los patrones numéricos que influyen en tu vida y te guía hacia tu verdadero camino.",
-      image: "/avatares/zodika.png"
+      image: "/avatares/orula.png"
     },
     {
       name: "Aisha",
       role: "Chakras y Energía",
       description: "Maestra en armonización de chakras y energías, Aisha te ayuda a encontrar el equilibrio perfecto entre cuerpo, mente y espíritu.",
-      image: "/avatares/numina.png"
+      image: "/avatares/aisha.png"
     },
     {
       name: "Sirona",
       role: "Horóscopo y Carta Astral",
       description: "Intérprete de los astros y cartas astrales, Sirona lee los mensajes celestiales para revelar tu verdadera esencia y destino.",
-      image: "/avatares/lunara.png"
+      image: "/avatares/sirona.png"
     }
   ];
 

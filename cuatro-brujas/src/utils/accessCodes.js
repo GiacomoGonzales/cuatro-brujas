@@ -1,29 +1,8 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, serverTimestamp } from 'firebase/firestore';
+// Firebase no está configurado actualmente - usando modo simulación
+// Cuando se configure Firebase, descomentar las importaciones necesarias
 
-// Configuración de Firebase (debes reemplazar con tus credenciales)
-const firebaseConfig = {
-  // TODO: Agregar configuración real de Firebase
-  apiKey: "your-api-key",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project-id",
-  storageBucket: "your-project.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "your-app-id"
-};
-
-// Inicializar Firebase (solo si no está ya inicializado)
-let app;
-let db;
-
-try {
-  app = initializeApp(firebaseConfig);
-  db = getFirestore(app);
-} catch (error) {
-  console.warn('Firebase ya está inicializado o hay un error de configuración:', error.message);
-  // En modo desarrollo, usar simulación
-  db = null;
-}
+// Simulación para desarrollo sin Firebase
+const db = null;
 
 /**
  * Crea un código de acceso de prueba en Firestore
@@ -42,21 +21,21 @@ export const createTestAccessCode = async () => {
     const expirationDate = new Date();
     expirationDate.setDate(expirationDate.getDate() + 30);
 
-    // Datos del documento a crear
+    // Simulación de datos para desarrollo
     const accessCodeData = {
       code: "PRUEBA123",
       used: false,
-      createdAt: serverTimestamp(),
+      createdAt: new Date(),
       expiresAt: expirationDate,
       type: "general",
       lecturaId: ""
     };
 
-    // Insertar el documento en la colección accessCodes
-    const docRef = await addDoc(collection(db, 'accessCodes'), accessCodeData);
+    // Simulación de inserción en modo desarrollo
+    console.log('Simulando inserción:', accessCodeData);
     
-    console.log('✅ Código de prueba "PRUEBA123" creado correctamente en Firestore.');
-    console.log('📄 ID del documento:', docRef.id);
+    console.log('✅ Código de prueba "PRUEBA123" creado correctamente en Firestore (simulado).');
+    console.log('📄 ID del documento: simulado-123');
     
     return true;
   } catch (error) {
@@ -77,12 +56,9 @@ export const checkCodeExists = async (code) => {
       return code === "PRUEBA123";
     }
 
-    const { getDocs, query, where } = await import('firebase/firestore');
-    
-    const q = query(collection(db, 'accessCodes'), where('code', '==', code));
-    const querySnapshot = await getDocs(q);
-    
-    return !querySnapshot.empty;
+    // Simulación para desarrollo sin Firebase
+    console.log('Simulando verificación de código:', code);
+    return code === "PRUEBA123";
   } catch (error) {
     console.error('❌ Error al verificar código:', error);
     return false;
@@ -100,18 +76,9 @@ export const cleanTestCodes = async () => {
       return true;
     }
 
-    const { getDocs, query, where, deleteDoc, doc } = await import('firebase/firestore');
-    
-    const q = query(collection(db, 'accessCodes'), where('code', '==', 'PRUEBA123'));
-    const querySnapshot = await getDocs(q);
-    
-    const deletePromises = querySnapshot.docs.map(document => 
-      deleteDoc(doc(db, 'accessCodes', document.id))
-    );
-    
-    await Promise.all(deletePromises);
-    
-    console.log(`🧹 ${querySnapshot.docs.length} códigos de prueba eliminados`);
+    // Simulación para desarrollo sin Firebase
+    console.log('🧹 Simulando limpieza de códigos de prueba');
+    console.log('🧹 1 código de prueba eliminado (simulado)');
     return true;
   } catch (error) {
     console.error('❌ Error al limpiar códigos de prueba:', error);

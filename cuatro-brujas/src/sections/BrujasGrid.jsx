@@ -7,7 +7,7 @@ const BrujasGrid = () => {
       name: "Calypso",
       role: "Tarot",
       description: "Descubre tu destino a través de las cartas místicas del tarot.",
-      image: "/avatares/elvira.png",
+      image: "/avatares/calypso.png",
       route: "/tarot",
       idBruja: "calypso"
     },
@@ -15,7 +15,7 @@ const BrujasGrid = () => {
       name: "Orula",
       role: "Numerología y Destino",
       description: "Los números y el destino revelan el camino de tu vida.",
-      image: "/avatares/zodika.png",
+      image: "/avatares/orula.png",
       route: "/numerologia",
       idBruja: "orula"
     },
@@ -23,7 +23,7 @@ const BrujasGrid = () => {
       name: "Aisha",
       role: "Chakras y Energía",
       description: "Equilibra tus chakras y armoniza tu energía vital.",
-      image: "/avatares/numina.png",
+      image: "/avatares/aisha.png",
       route: "/chakras",
       idBruja: "aisha"
     },
@@ -31,7 +31,7 @@ const BrujasGrid = () => {
       name: "Sirona",
       role: "Horóscopo y Carta Astral",
       description: "Los astros guían tu camino y revelan tu verdadera esencia.",
-      image: "/avatares/lunara.png",
+      image: "/avatares/sirona.png",
       route: "/horoscopo",
       idBruja: "sirona"
     }

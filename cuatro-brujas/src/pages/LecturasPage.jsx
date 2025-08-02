@@ -31,7 +31,7 @@ const LecturasPage = () => {
       id: 'calypso',
       name: 'CALYPSO',
       specialty: 'Tarot',
-      image: '/avatares/elvira.png',
+      image: '/avatares/calypso.png',
       buttonText: 'Consultar',
       route: '/consulta/calypso'
     },
@@ -39,7 +39,7 @@ const LecturasPage = () => {
       id: 'orula',
       name: 'ORULA',
       specialty: 'Numerología y Destino',
-      image: '/avatares/numina.png',
+      image: '/avatares/orula.png',
       buttonText: 'Descifrar',
       route: '/consulta/orula'
     },
@@ -47,7 +47,7 @@ const LecturasPage = () => {
       id: 'aisha',
       name: 'AISHA',
       specialty: 'Chakras y Energía',
-      image: '/avatares/lunara.png',
+      image: '/avatares/aisha.png',
       buttonText: 'Armonizar',
       route: '/consulta/aisha'
     },
@@ -55,7 +55,7 @@ const LecturasPage = () => {
       id: 'sirona',
       name: 'SIRONA',
       specialty: 'Horóscopo y Carta Astral',
-      image: '/avatares/zodika.png',
+      image: '/avatares/sirona.png',
       buttonText: 'Explorar',
       route: '/consulta/sirona'
     }

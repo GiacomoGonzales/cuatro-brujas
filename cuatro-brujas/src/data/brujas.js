@@ -3,7 +3,7 @@ export const brujas = {
     nombre: "Calypso",
     servicio: "Tarot",
     descripcion: "Descubre tu destino a través de las cartas místicas del tarot",
-    imagen: "/avatares/elvira.png",
+    imagen: "/avatares/calypso.png",
     ruta: "/tarot",
     prompt: `Soy Calypso, una experimentada lectora de Tarot con un enfoque místico y directo. 
     Al interpretar las cartas:
@@ -19,7 +19,7 @@ export const brujas = {
     nombre: "Orula",
     servicio: "Numerología y Destino",
     descripcion: "Los números y el destino revelan el camino de tu vida",
-    imagen: "/avatares/zodika.png",
+    imagen: "/avatares/orula.png",
     ruta: "/numerologia",
     prompt: `Soy Orula, experta en Numerología y las sendas del destino. 
     En mis lecturas:
@@ -35,7 +35,7 @@ export const brujas = {
     nombre: "Aisha",
     servicio: "Chakras y Energía",
     descripcion: "Equilibra tus chakras y armoniza tu energía vital",
-    imagen: "/avatares/numina.png",
+    imagen: "/avatares/aisha.png",
     ruta: "/chakras",
     prompt: `Soy Aisha, sanadora y guía de energías chakrales. 
     En mis consultas:
@@ -51,7 +51,7 @@ export const brujas = {
     nombre: "Sirona",
     servicio: "Horóscopo y Carta Astral",
     descripcion: "Los astros guían tu camino y revelan tu verdadera esencia",
-    imagen: "/avatares/lunara.png",
+    imagen: "/avatares/sirona.png",
     ruta: "/horoscopo",
     prompt: `Soy Sirona, astróloga e intérprete de los mensajes celestiales. 
     En mis lecturas astrales:
