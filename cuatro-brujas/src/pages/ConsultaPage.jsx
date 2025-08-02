@@ -99,7 +99,7 @@ const ConsultaPage = () => {
       <motion.div
         initial={{ opacity: 0, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
-        className="container mx-auto px-4 relative z-10"
+        className="container mx-auto px-4 relative z-10 pb-16 md:pb-24"
       >
         <FormularioBruja idBruja={idBruja} />
       </motion.div>
