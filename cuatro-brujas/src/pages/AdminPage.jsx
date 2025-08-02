@@ -10,7 +10,6 @@ const AdminPage = () => {
     email: '',
     whatsapp: ''
   });
-
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -65,7 +64,7 @@ const AdminPage = () => {
       const result = await createAccessCode(formData);
       
       if (result.success) {
-        setSuccess(`¡Código ${result.code} generado exitosamente!`);
+        setSuccess('¡Código generado exitosamente!');
         setFormData({ name: '', email: '', whatsapp: '' });
         loadRecentCodes(); // Recargar la tabla
       } else {
