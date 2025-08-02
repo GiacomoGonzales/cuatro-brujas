@@ -55,7 +55,7 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
   // Texto del botón según la página
   const textoBoton = isLecturasPage 
     ? `✨ Elegir a ${brujas[indiceActivo].nombre} ✨`
-    : "✨ Comenzar Lectura Mística ✨";
+    : "Comenzar Lectura Mística";
 
   const cambiarBruja = (nuevoIndice, dir) => {
     setDireccion(dir);
@@ -84,39 +84,39 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
   const getCardProps = (indice) => {
     const diferencia = indice - indiceActivo;
     const isMobile = window.innerWidth < 768;
-    const dragInfluence = isDragging ? dragOffset * 0.8 : 0; // Reducir influencia del drag
+    const dragInfluence = isDragging ? dragOffset * 0.6 : 0; // Más suave, menos influencia
     
     if (diferencia === 0) {
       // Bruja central
       return {
         x: dragInfluence,
-        scale: 1.2 - Math.abs(dragInfluence) * 0.0003, // Escala ligeramente menor al arrastrar
-        rotateY: dragInfluence * 0.02, // Rotación sutil durante drag
+        scale: 1.2 - Math.abs(dragInfluence) * 0.0002, // Menos cambio de escala
+        rotateY: dragInfluence * 0.015, // Rotación más sutil
         z: 100,
-        opacity: 1 - Math.abs(dragInfluence) * 0.0005,
-        filter: `blur(${Math.abs(dragInfluence) * 0.01}px)`,
+        opacity: 1 - Math.abs(dragInfluence) * 0.0003, // Menos cambio de opacidad
+        filter: `blur(${Math.abs(dragInfluence) * 0.005}px)`, // Menos blur
       };
     } else if (diferencia === 1 || (diferencia === -(brujas.length - 1))) {
       // Bruja derecha
       const baseX = isMobile ? 120 : 280;
       return {
-        x: baseX + dragInfluence,
-        scale: 0.8 + (dragInfluence < 0 ? Math.abs(dragInfluence) * 0.0008 : 0),
-        rotateY: -30 + dragInfluence * 0.015,
+        x: baseX + dragInfluence * 0.8, // Menos movimiento de las laterales
+        scale: 0.8 + (dragInfluence < 0 ? Math.abs(dragInfluence) * 0.0005 : 0),
+        rotateY: -30 + dragInfluence * 0.01, // Rotación más sutil
         z: 0,
-        opacity: 0.7 + (dragInfluence < 0 ? Math.abs(dragInfluence) * 0.0005 : 0),
-        filter: `blur(${2 - (dragInfluence < 0 ? Math.abs(dragInfluence) * 0.005 : 0)}px)`,
+        opacity: 0.7 + (dragInfluence < 0 ? Math.abs(dragInfluence) * 0.0003 : 0),
+        filter: `blur(${2 - (dragInfluence < 0 ? Math.abs(dragInfluence) * 0.003 : 0)}px)`,
       };
     } else if (diferencia === -1 || (diferencia === brujas.length - 1)) {
       // Bruja izquierda
       const baseX = isMobile ? -120 : -280;
       return {
-        x: baseX + dragInfluence,
-        scale: 0.8 + (dragInfluence > 0 ? dragInfluence * 0.0008 : 0),
-        rotateY: 30 + dragInfluence * 0.015,
+        x: baseX + dragInfluence * 0.8, // Menos movimiento de las laterales
+        scale: 0.8 + (dragInfluence > 0 ? dragInfluence * 0.0005 : 0),
+        rotateY: 30 + dragInfluence * 0.01, // Rotación más sutil
         z: 0,
-        opacity: 0.7 + (dragInfluence > 0 ? dragInfluence * 0.0005 : 0),
-        filter: `blur(${2 - (dragInfluence > 0 ? dragInfluence * 0.005 : 0)}px)`,
+        opacity: 0.7 + (dragInfluence > 0 ? dragInfluence * 0.0003 : 0),
+        filter: `blur(${2 - (dragInfluence > 0 ? dragInfluence * 0.003 : 0)}px)`,
       };
     } else {
       // Brujas ocultas
@@ -137,8 +137,9 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
   };
 
   const handleDrag = (event, info) => {
-    // Actualizar el offset del drag en tiempo real para transiciones suaves
-    setDragOffset(info.offset.x);
+    // Actualizar el offset del drag en tiempo real, con throttling para mejor rendimiento
+    const throttledOffset = Math.round(info.offset.x / 2) * 2; // Throttle cada 2px
+    setDragOffset(throttledOffset);
   };
 
   const handleDragEnd = (event, info) => {
@@ -161,32 +162,32 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
 
   return (
     <div className="relative py-16 overflow-hidden w-full">
-      {/* Partículas de fondo sutiles */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(30)].map((_, i) => (
+      {/* Partículas de fondo fijas */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full opacity-30"
+            className="absolute w-1 h-1 bg-purple-400 rounded-full opacity-20"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: [0, -15, 0],
-              opacity: [0.3, 0.8, 0.3],
-              scale: [1, 1.2, 1],
+              y: [0, -10, 0],
+              opacity: [0.2, 0.6, 0.2],
+              scale: [1, 1.1, 1],
             }}
             transition={{
-              duration: 4 + Math.random() * 2,
+              duration: 6 + Math.random() * 3,
               repeat: Infinity,
-              delay: Math.random() * 3,
+              delay: Math.random() * 4,
             }}
           />
         ))}
       </div>
 
       {/* Contenedor del carrusel */}
-      <div className="relative w-full h-96 md:h-[500px] flex items-center justify-center perspective-1000 px-0">
+      <div className="relative w-full h-96 md:h-[500px] flex items-center justify-center perspective-1000 px-0 z-10">
         
         {/* Botón Anterior - Desktop */}
         <motion.button
@@ -229,9 +230,10 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
                 animate={cardProps}
                 transition={{
                   type: 'spring',
-                  stiffness: isDragging ? 400 : 300,
-                  damping: isDragging ? 40 : 30,
-                  mass: 0.8,
+                  stiffness: isDragging ? 200 : 300,
+                  damping: isDragging ? 25 : 30,
+                  mass: isDragging ? 0.5 : 0.8,
+                  velocity: isDragging ? 0 : undefined,
                 }}
                 drag={indice === indiceActivo ? "x" : false}
                 dragConstraints={{ left: -200, right: 200 }}
