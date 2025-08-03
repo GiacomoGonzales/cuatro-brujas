@@ -142,16 +142,7 @@ const PortalMagico = () => {
               />
             </motion.div>
 
-            {/* Texto de instrucción */}
-            <motion.div
-              className="absolute -bottom-16 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              initial={{ y: 10 }}
-              whileHover={{ y: 0 }}
-            >
-              <p className="text-secondary font-semibold text-lg">
-                ✨ Entrar al Portal
-              </p>
-            </motion.div>
+
           </motion.div>
 
           {/* Partículas orbitales */}
