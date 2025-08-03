@@ -12,6 +12,7 @@ import ViajeMísticoPage from "../pages/ViajeMísticoPage";
 import LecturasPage from "../pages/LecturasPage";
 import AdminPage from "../pages/AdminPage";
 import AdminLoginPage from "../pages/AdminLoginPage";
+import IngresarCodigoPage from "../pages/IngresarCodigoPage";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 // Página 404
@@ -75,6 +76,10 @@ export const router = createBrowserRouter([
       {
         path: "lecturas",
         element: <LecturasPage />,
+      },
+      {
+        path: "ingresar-codigo",
+        element: <IngresarCodigoPage />,
       },
       {
         path: "admin/login",

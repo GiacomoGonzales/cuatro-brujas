@@ -136,18 +136,53 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
 
   return (
     <div className="relative py-8 overflow-hidden w-full">
-      {/* Partículas de fondo simplificadas */}
+      {/* Partículas místicas mejoradas */}
       <div className="absolute inset-0 pointer-events-none">
-        {[...Array(10)].map((_, i) => (
-          <div
+        {[...Array(25)].map((_, i) => (
+          <motion.div
             key={i}
-            className="absolute w-1 h-1 bg-purple-400 rounded-full opacity-20"
+            className="absolute rounded-full"
             style={{
+              width: `${2 + Math.random() * 3}px`,
+              height: `${2 + Math.random() * 3}px`,
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
+              background: 'radial-gradient(circle, #A259FF, #FFB700, transparent)',
+              boxShadow: '0 0 8px #A259FF',
+            }}
+            animate={{
+              y: [-15, 15, -15],
+              x: [-8, 8, -8],
+              opacity: [0.2, 0.8, 0.2],
+              scale: [1, 1.3, 1],
+            }}
+            transition={{
+              duration: 4 + Math.random() * 3,
+              delay: Math.random() * 3,
+              repeat: Infinity,
+              ease: "easeInOut",
             }}
           />
         ))}
+      </div>
+
+      {/* Efectos de aura alrededor del carrusel */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute inset-0 opacity-20"
+          animate={{
+            background: [
+              'radial-gradient(ellipse at center, #A259FF 0%, transparent 60%)',
+              'radial-gradient(ellipse at center, #FFB700 0%, transparent 60%)',
+              'radial-gradient(ellipse at center, #A259FF 0%, transparent 60%)',
+            ],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
       </div>
 
       {/* Contenedor del carrusel */}
@@ -206,11 +241,41 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
                   className="relative w-48 h-64 md:w-72 md:h-80 rounded-2xl overflow-hidden"
                   style={{
                     boxShadow: indice === indiceActivo 
-                      ? '0 20px 40px rgba(147, 51, 234, 0.4)' 
+                      ? `0 20px 40px ${bruja.color}40, 0 0 60px ${bruja.color}20` 
                       : '0 10px 20px rgba(0, 0, 0, 0.3)',
                     filter: cardProps.filter,
                   }}
                 >
+                  {/* Partículas místicas alrededor de la carta activa */}
+                  {indice === indiceActivo && (
+                    <div className="absolute inset-0 pointer-events-none">
+                      {[...Array(8)].map((_, i) => (
+                        <motion.div
+                          key={i}
+                          className="absolute w-2 h-2 rounded-full"
+                          style={{
+                            background: bruja.color,
+                            boxShadow: `0 0 10px ${bruja.color}`,
+                            left: `${10 + i * 10}%`,
+                            top: `${10 + (i % 2) * 80}%`,
+                          }}
+                          animate={{
+                            y: [-10, 10, -10],
+                            x: [-5, 5, -5],
+                            opacity: [0.3, 1, 0.3],
+                            scale: [1, 1.5, 1],
+                          }}
+                          transition={{
+                            duration: 2 + Math.random(),
+                            delay: i * 0.2,
+                            repeat: Infinity,
+                            ease: "easeInOut",
+                          }}
+                        />
+                      ))}
+                    </div>
+                  )}
+
                   {/* Imagen de la bruja */}
                   <img
                     src={bruja.imagen}
@@ -222,27 +287,78 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
                   {/* Overlay degradado */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
                   
+                  {/* Efecto de aura místico para carta activa */}
+                  {indice === indiceActivo && (
+                    <motion.div
+                      className="absolute inset-0 rounded-2xl pointer-events-none"
+                      style={{
+                        background: `linear-gradient(45deg, transparent, ${bruja.color}10, transparent)`,
+                      }}
+                      animate={{
+                        opacity: [0.3, 0.7, 0.3],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  )}
+                  
                   {/* Información de la bruja - solo en bruja activa */}
                   {indice === indiceActivo && (
-                    <div className="absolute bottom-0 left-0 right-0 p-4 text-white text-center">
-                      <h3 className="text-xl md:text-2xl font-bold mb-1 drop-shadow-lg">
+                    <motion.div 
+                      className="absolute bottom-0 left-0 right-0 p-4 text-white text-center"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.5 }}
+                    >
+                      <motion.h3 
+                        className="text-xl md:text-2xl font-bold mb-1 drop-shadow-lg"
+                        animate={{
+                          textShadow: [
+                            `0 0 10px ${bruja.color}`,
+                            `0 0 20px ${bruja.color}, 0 0 30px ${bruja.color}`,
+                            `0 0 10px ${bruja.color}`,
+                          ],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "easeInOut",
+                        }}
+                      >
                         {bruja.nombre}
-                      </h3>
+                      </motion.h3>
                       <p className="text-sm md:text-base text-purple-200">
                         {bruja.rol}
                       </p>
-                    </div>
+                    </motion.div>
                   )}
                   
-                  {/* Borde brillante para bruja activa */}
+                  {/* Borde brillante animado para bruja activa */}
                   {indice === indiceActivo && (
-                    <div 
+                    <motion.div 
                       className="absolute inset-0 rounded-2xl border-2 pointer-events-none"
                       style={{
                         borderColor: bruja.color,
                       }}
+                      animate={{
+                        boxShadow: [
+                          `0 0 10px ${bruja.color}`,
+                          `0 0 20px ${bruja.color}, 0 0 30px ${bruja.color}`,
+                          `0 0 10px ${bruja.color}`,
+                        ],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
                     />
                   )}
+
+
                 </div>
               </motion.div>
             );

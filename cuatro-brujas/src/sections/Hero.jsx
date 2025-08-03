@@ -141,10 +141,10 @@ const BackgroundVideo = ({ src, fallbackImage }) => {
 };
 
 const Hero = () => {
-  const scrollToBrujas = () => {
-    const brujasSection = document.getElementById('brujas-section');
-    if (brujasSection) {
-      brujasSection.scrollIntoView({ 
+  const scrollToPortal = () => {
+    const portalSection = document.getElementById('portal-section');
+    if (portalSection) {
+      portalSection.scrollIntoView({ 
         behavior: 'smooth',
         block: 'start'
       });
@@ -196,15 +196,14 @@ const Hero = () => {
               🍔 Ver Carta Mágica
             </motion.button>
             
-            <Link to="/viaje-mistico">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="border border-secondary text-light px-6 py-3 rounded-full hover:bg-secondary/20 transition font-body"
-              >
-                ✨ Comenzar tu Viaje Místico
-              </motion.button>
-            </Link>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={scrollToPortal}
+              className="border border-secondary text-light px-6 py-3 rounded-full hover:bg-secondary/20 transition font-body"
+            >
+              ✨ Comenzar tu Viaje Místico
+            </motion.button>
           </motion.div>
         </div>
       </div>
