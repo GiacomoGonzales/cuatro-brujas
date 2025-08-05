@@ -41,13 +41,13 @@ const Footer = () => {
     <footer className="bg-primary/90 border-t border-secondary/30">
       <div className="container mx-auto px-4 py-12">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 mb-12">
           {/* Brand Column */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-center md:text-left"
+            className="text-center md:text-left lg:col-span-5"
           >
             <div className="mb-4">
               <img 
@@ -60,9 +60,8 @@ const Footer = () => {
                 }}
               />
             </div>
-            <p className="text-light/70 mb-6 leading-relaxed">
-              Conectamos el mundo místico con la tecnología moderna. 
-              Guiamos tu camino espiritual con sabiduría ancestral.
+            <p className="text-light/70 mb-6 leading-relaxed max-w-md">
+              Fusionamos el <span className="text-secondary font-semibold">mundo místico</span> con deliciosas <span className="text-accent font-semibold">smash burgers</span>. <span className="text-golden font-semibold">Delivery 24 horas</span> a Lima Metropolitana con consultas espirituales incluidas.
             </p>
             <div className="flex gap-4 justify-center md:justify-start">
               {socialLinks.map((social) => (
@@ -84,7 +83,7 @@ const Footer = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-center md:text-left"
+            className="text-center md:text-left lg:col-span-2"
           >
             <h4 className="text-xl font-semibold text-light mb-4">Enlaces Rápidos</h4>
             <ul className="space-y-2">
@@ -103,7 +102,7 @@ const Footer = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-center md:text-left"
+            className="text-center md:text-left lg:col-span-2"
           >
             <h4 className="text-xl font-semibold text-light mb-4">Nuestros Servicios</h4>
             <ul className="space-y-2">
@@ -128,7 +127,7 @@ const Footer = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-center md:text-left"
+            className="text-center md:text-left lg:col-span-3"
           >
             <h4 className="text-xl font-semibold text-light mb-4">Contacto</h4>
             <div className="space-y-3 text-light/70">
