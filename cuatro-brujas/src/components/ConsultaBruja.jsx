@@ -35,7 +35,7 @@ const ConsultaBruja = ({ idBruja }) => {
     setRespuesta('');
 
     try {
-      const respuestaIA = await consultarBruja(bruja.prompt, datosConsulta);
+      const respuestaIA = await consultarBruja(bruja, datosConsulta);
       setRespuesta(respuestaIA);
     } catch (err) {
       setError(err.message || 'Error al realizar la consulta');

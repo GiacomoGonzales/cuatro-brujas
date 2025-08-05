@@ -1,5 +1,5 @@
-// Función para llamar a la API de OpenAI
-async function llamarOpenAI(messages) {
+// Función para llamar a la API de OpenAI con configuración dinámica
+async function llamarOpenAI(messages, config = {}) {
   const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
   
   if (!apiKey) {
@@ -8,6 +8,14 @@ async function llamarOpenAI(messages) {
       data: "✨ Esta es una respuesta de prueba. La funcionalidad completa requiere una API key válida de OpenAI."
     };
   }
+
+  // Configuración por defecto
+  const defaultConfig = {
+    max_tokens: 250,
+    temperature: 0.7
+  };
+  
+  const finalConfig = { ...defaultConfig, ...config };
 
   try {
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
@@ -19,8 +27,8 @@ async function llamarOpenAI(messages) {
       body: JSON.stringify({
         model: "gpt-4",
         messages,
-        temperature: 0.7,
-        max_tokens: 250 // Aumentado para permitir aproximadamente 800 caracteres
+        temperature: finalConfig.temperature,
+        max_tokens: finalConfig.max_tokens
       })
     });
 
@@ -42,38 +50,43 @@ async function llamarOpenAI(messages) {
 }
 
 // Función principal para consultar a la bruja
-export async function consultarBruja(promptBase, datosCliente) {
+export async function consultarBruja(bruja, datosCliente) {
+  // Extraer datos de la bruja
+  const { prompt, config = {} } = bruja;
+  
   // Construir el prompt
   const systemMessage = {
     role: "system",
-    content: "Eres una bruja mística experta en tu área. Mantén un tono místico pero accesible, y ofrece consejos prácticos y específicos. Tus respuestas deben ser concisas, no más de 800 caracteres."
+    content: "Eres una bruja mística experta en tu área. Mantén un tono místico pero accesible, y ofrece consejos prácticos y específicos."
   };
 
   const userMessage = {
     role: "user",
     content: `
-${promptBase}
+${prompt}
 
 DATOS DEL CONSULTANTE:
 ${Object.entries(datosCliente)
   .map(([key, value]) => `${key}: ${value}`)
   .join('\n')}
 
-Por favor, responde a la consulta manteniendo tu personalidad y estilo definidos arriba.
-IMPORTANTE: Tu respuesta debe ser concisa y no exceder los 800 caracteres.`
+Por favor, responde a la consulta manteniendo tu personalidad y estilo definidos arriba.`
   };
 
-  // Llamar a la API
-  const result = await llamarOpenAI([systemMessage, userMessage]);
+  // Llamar a la API con la configuración específica de la bruja
+  const result = await llamarOpenAI([systemMessage, userMessage], config);
 
   if (!result.success) {
     throw new Error(result.error);
   }
 
-  // Asegurar que la respuesta no exceda 800 caracteres
+  // Calcular límite dinámico basado en tokens (aprox 3.2 caracteres por token)
+  const limiteCaracteres = (config.max_tokens || 250) * 3.2;
+  
+  // Asegurar que la respuesta no exceda el límite calculado
   let respuesta = result.data;
-  if (respuesta.length > 800) {
-    respuesta = respuesta.substring(0, 797) + "...";
+  if (respuesta.length > limiteCaracteres) {
+    respuesta = respuesta.substring(0, limiteCaracteres - 3) + "...";
   }
 
   return respuesta;

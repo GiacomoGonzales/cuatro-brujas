@@ -60,15 +60,7 @@ export const router = createBrowserRouter([
         path: "como-funciona",
         element: <ComoFuncionaPage />,
       },
-      {
-        path: "zona-reparto",
-        element: <div className="min-h-screen pt-20">
-          <div className="container mx-auto px-4">
-            <h1 className="text-4xl font-bold magical-text mb-8">Zona de Reparto</h1>
-            <p className="text-light/80">Página en construcción...</p>
-          </div>
-        </div>,
-      },
+
       {
         path: "viaje-mistico",
         element: <ViajeMísticoPage />,

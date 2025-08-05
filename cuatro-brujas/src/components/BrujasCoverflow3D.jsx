@@ -7,28 +7,28 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 const brujas = [
   { 
     nombre: "Calypso", 
-    rol: "Tarot", 
+    rol: "Tarot - Lectura Diaria", 
     imagen: "/avatares/calypso.png", 
     ruta: "/consulta/calypso",
     color: "#9333ea" 
   },
   { 
     nombre: "Orula", 
-    rol: "Numerología y Destino", 
+    rol: "Numerología - Lectura Semanal", 
     imagen: "/avatares/orula.png", 
     ruta: "/consulta/orula",
     color: "#dc2626" 
   },
   { 
     nombre: "Aisha", 
-    rol: "Chakras y Energía", 
+    rol: "Chakras - Lectura Mensual", 
     imagen: "/avatares/aisha.png", 
     ruta: "/consulta/aisha",
     color: "#059669" 
   },
   { 
     nombre: "Sirona", 
-    rol: "Horóscopo y Carta Astral", 
+    rol: "Astrología - Lectura Anual", 
     imagen: "/avatares/sirona.png", 
     ruta: "/consulta/sirona",
     color: "#2563eb" 

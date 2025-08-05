@@ -72,7 +72,7 @@ const FormularioBruja = ({ idBruja }) => {
     }
 
     try {
-      const respuestaIA = await consultarBruja(bruja.prompt, datosCliente);
+      const respuestaIA = await consultarBruja(bruja, datosCliente);
       setRespuesta(respuestaIA);
     } catch (err) {
       setError(err.message || 'Error en la consulta mística');

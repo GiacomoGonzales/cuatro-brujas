@@ -7,35 +7,35 @@ import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 const brujasData = [
   { 
     nombre: "Calypso", 
-    rol: "Tarot", 
+    rol: "Tarot - Lectura Diaria", 
     imagen: "/avatares/calypso.png", 
     rutaDirecta: "/consulta/calypso",
     color: "#9333ea",
-    descripcion: "Descubre tu destino a través de las cartas místicas del tarot"
+    descripcion: "Descubre las energías inmediatas para las próximas 24 horas a través de las cartas místicas del tarot"
   },
   { 
     nombre: "Orula", 
-    rol: "Numerología y Destino", 
+    rol: "Numerología - Lectura Semanal", 
     imagen: "/avatares/orula.png", 
     rutaDirecta: "/consulta/orula",
     color: "#dc2626",
-    descripcion: "Los números y el destino revelan el camino de tu vida"
+    descripcion: "Los números revelan tu vibración y camino para los próximos 7 días"
   },
   { 
     nombre: "Aisha", 
-    rol: "Chakras y Energía", 
+    rol: "Chakras - Lectura Mensual", 
     imagen: "/avatares/aisha.png", 
     rutaDirecta: "/consulta/aisha",
     color: "#059669",
-    descripcion: "Equilibra tus chakras y armoniza tu energía vital"
+    descripcion: "Equilibra tu energía vital y armoniza tus chakras durante todo el mes"
   },
   { 
     nombre: "Sirona", 
-    rol: "Horóscopo y Carta Astral", 
+    rol: "Astrología - Lectura Anual", 
     imagen: "/avatares/sirona.png", 
     rutaDirecta: "/consulta/sirona",
     color: "#2563eb",
-    descripcion: "Los astros guían tu camino y revelan tu verdadera esencia"
+    descripcion: "Los astros revelan tu destino completo para todo el año venidero"
   }
 ];
 

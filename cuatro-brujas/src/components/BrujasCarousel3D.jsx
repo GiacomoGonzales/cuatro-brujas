@@ -12,7 +12,7 @@ const brujasData = [
     id: 'calypso',
     nombre: 'Calypso',
     imagen: '/avatares/calypso.png',
-    especialidad: 'Tarot',
+    especialidad: 'Tarot - Lectura Diaria',
     ruta: '/consulta/calypso',
     color: '#9333ea'
   },
@@ -20,7 +20,7 @@ const brujasData = [
     id: 'orula',
     nombre: 'Orula',
     imagen: '/avatares/orula.png',
-    especialidad: 'Numerología y Destino',
+    especialidad: 'Numerología - Lectura Semanal',
     ruta: '/consulta/orula',
     color: '#dc2626'
   },
@@ -28,7 +28,7 @@ const brujasData = [
     id: 'aisha',
     nombre: 'Aisha',
     imagen: '/avatares/aisha.png',
-    especialidad: 'Chakras y Energía',
+    especialidad: 'Chakras - Lectura Mensual',
     ruta: '/consulta/aisha',
     color: '#059669'
   },
@@ -36,7 +36,7 @@ const brujasData = [
     id: 'sirona',
     nombre: 'Sirona',
     imagen: '/avatares/sirona.png',
-    especialidad: 'Horóscopo y Carta Astral',
+    especialidad: 'Astrología - Lectura Anual',
     ruta: '/consulta/sirona',
     color: '#2563eb'
   }

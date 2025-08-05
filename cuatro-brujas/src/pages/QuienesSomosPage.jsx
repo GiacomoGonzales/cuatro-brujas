@@ -1,7 +1,24 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const QuienesSomosPage = () => {
+  // Cargar script de Gloria Food
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://www.fbgcdn.com/embedder/js/ewm2.js';
+    script.defer = true;
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // Limpiar script al desmontar componente
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
+
   const teamMembers = [
     {
       name: "Calypso",
@@ -92,9 +109,54 @@ const QuienesSomosPage = () => {
               <div className="text-4xl mb-4">⚡</div>
               <h3 className="text-xl font-bold text-light mb-3">Delivery 24/7</h3>
               <p className="text-light/70">
-                Entrega a domicilio las 24 horas, porque la magia y el antojo no tienen horario.
+                Entrega a domicilio las 24 horas a casi todo Lima Metropolitana. 
+                Llevamos magia y sabor a tu puerta sin importar la hora.
               </p>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Delivery Section */}
+      <section className="py-16 px-4 bg-gradient-to-r from-primary via-primary/95 to-primary">
+        <div className="container mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl mx-auto text-center"
+          >
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-4xl font-bold font-title mb-6 magical-text"
+            >
+              🚚 Delivery Mágico 24/7
+            </motion.h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            >
+              <div className="magical-card p-6">
+                <div className="text-3xl mb-4">🌃</div>
+                <h3 className="text-xl font-bold text-light mb-3">24 Horas, 7 Días</h3>
+                <p className="text-light/80">
+                  No importa si es medianoche o madrugada, estamos aquí para satisfacer 
+                  tus antojos místicos las 24 horas del día, todos los días del año.
+                </p>
+              </div>
+              <div className="magical-card p-6">
+                <div className="text-3xl mb-4">🏙️</div>
+                <h3 className="text-xl font-bold text-light mb-3">Lima Metropolitana</h3>
+                <p className="text-light/80">
+                  Delivery 24 horas a todo Lima Metropolitana. Los pedidos se realizan 
+                  a través de nuestra carta virtual directamente en esta web.
+                </p>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -155,11 +217,51 @@ const QuienesSomosPage = () => {
             </motion.h2>
             <p className="text-light/80 mb-8">
               Disfruta de nuestras deliciosas smash burgers mientras descubres los secretos que el universo 
-              tiene preparados para ti. Delivery 24/7 y consultas místicas en cada pedido.
+              tiene preparados para ti. Con delivery 24 horas a casi todo Lima Metropolitana, 
+              puedes disfrutar de la magia culinaria en cualquier momento del día o la noche.
             </p>
-            <Link to="/nuestra-carta" className="magical-btn inline-block">
-              🍔 Ver Carta Mágica
-            </Link>
+            <div className="relative">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="magical-btn"
+                onClick={() => {
+                  // Pequeño delay para asegurar que Gloria Food esté inicializado
+                  setTimeout(() => {
+                    const gloriaButton = document.querySelector('.glf-button-hidden');
+                    if (gloriaButton) {
+                      gloriaButton.click();
+                    } else {
+                      console.log('Gloria Food button not found, trying alternative approach');
+                      // Intentar disparar el evento manualmente
+                      if (window.GloriaFood && window.GloriaFood.openModal) {
+                        window.GloriaFood.openModal();
+                      }
+                    }
+                  }, 100);
+                }}
+              >
+                🍔 Ver Carta Mágica
+              </motion.button>
+              
+              {/* Botón oculto de Gloria Food - Debe estar visible en el DOM pero oculto visualmente */}
+              <span 
+                className="glf-button glf-button-hidden"
+                data-glf-cuid="cab9aa12-59eb-4058-ac46-594953a61cfa"
+                data-glf-ruid="0a86274a-3227-422f-b140-e04bf8f9b334"
+                style={{ 
+                  position: 'absolute', 
+                  left: '-9999px', 
+                  top: '-9999px',
+                  opacity: 0,
+                  width: '1px',
+                  height: '1px',
+                  overflow: 'hidden'
+                }}
+              >
+                Ver el MENÚ y PEDIR
+              </span>
+            </div>
           </motion.div>
         </div>
       </section>

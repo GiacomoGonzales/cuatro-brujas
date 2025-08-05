@@ -11,12 +11,16 @@ const WitchCard = ({ name, role, description, image, route, idBruja }) => {
   const getButtonText = () => {
     switch (role) {
       case 'Tarot':
+      case 'Tarot - Lectura Diaria':
         return 'Consultar';
       case 'Numerología y Destino':
+      case 'Numerología - Lectura Semanal':
         return 'Descifrar';
       case 'Chakras y Energía':
+      case 'Chakras - Lectura Mensual':
         return 'Armonizar';
       case 'Horóscopo y Carta Astral':
+      case 'Astrología - Lectura Anual':
         return 'Explorar';
       default:
         return 'Consultar Ahora';
@@ -26,12 +30,16 @@ const WitchCard = ({ name, role, description, image, route, idBruja }) => {
   const getAuraColor = () => {
     switch (role) {
       case 'Tarot':
+      case 'Tarot - Lectura Diaria':
         return 'from-purple-500/30 via-fuchsia-500/20 to-transparent';
       case 'Numerología y Destino':
+      case 'Numerología - Lectura Semanal':
         return 'from-emerald-500/30 via-teal-500/20 to-transparent';
       case 'Chakras y Energía':
+      case 'Chakras - Lectura Mensual':
         return 'from-indigo-500/30 via-violet-500/20 to-transparent';
       case 'Horóscopo y Carta Astral':
+      case 'Astrología - Lectura Anual':
         return 'from-orange-500/30 via-amber-500/20 to-transparent';
       default:
         return 'from-violet-500/30 via-purple-500/20 to-transparent';

@@ -11,9 +11,7 @@ const Footer = () => {
 
   const quickLinks = [
     { name: 'Quiénes somos', url: '/quienes-somos' },
-    { name: 'Zona de reparto', url: '/zona-reparto' },
     { name: 'Cómo funciona', url: '/como-funciona' },
-    { name: 'Blog Místico', url: '/blog' },
   ];
 
   const services = [
