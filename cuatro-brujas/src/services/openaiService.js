@@ -52,25 +52,52 @@ async function llamarOpenAI(messages, config = {}) {
 // Función principal para consultar a la bruja
 export async function consultarBruja(bruja, datosCliente) {
   // Extraer datos de la bruja
-  const { prompt, config = {} } = bruja;
+  const { prompt, config = {}, nombre } = bruja;
   
-  // Construir el prompt
+  // Calcular fechas dinámicas
+  const today = new Date();
+  const currentYear = today.getFullYear();
+  const currentDate = today.toLocaleDateString('es-PE', { year: 'numeric', month: 'long', day: 'numeric' });
+  const currentWeekStart = new Date(today);
+  currentWeekStart.setDate(today.getDate() - today.getDay() + 1); // Lunes de la semana actual
+  const weekStart = currentWeekStart.toLocaleDateString('es-PE', { year: 'numeric', month: 'long', day: 'numeric' });
+  const currentMonth = today.toLocaleDateString('es-PE', { month: 'long', year: 'numeric' });
+  
+  // Crear prompt temporal dinámico según la bruja seleccionada
+  let temporalPrompt = '';
+  const selectedWitch = nombre.toLowerCase();
+  
+  switch (selectedWitch) {
+    case 'calypso': 
+      temporalPrompt = `Hoy es ${currentDate}. Realiza una lectura de tarot centrada únicamente en este día.`;
+      break;
+    case 'orula': 
+      temporalPrompt = `Hoy es ${currentDate}. Esta lectura de numerología es para la semana que comienza el ${weekStart}.`;
+      break;
+    case 'aisha': 
+      temporalPrompt = `Hoy es ${currentDate}. Evalúa la energía y los chakras del consultante para todo el mes de ${currentMonth}.`;
+      break;
+    case 'sirona': 
+      temporalPrompt = `Hoy es ${currentDate}. Interpreta los astros y predice el destino para el año ${currentYear}.`;
+      break;
+    default:
+      temporalPrompt = `Hoy es ${currentDate}. Realiza tu lectura mística con esta fecha como referencia.`;
+  }
+  
+  // Construir el prompt con contexto temporal dinámico
   const systemMessage = {
     role: "system",
-    content: "Eres una bruja mística experta en tu área. Mantén un tono místico pero accesible, y ofrece consejos prácticos y específicos."
+    content: `${temporalPrompt}\n\n${prompt}`
   };
 
   const userMessage = {
     role: "user",
-    content: `
-${prompt}
-
-DATOS DEL CONSULTANTE:
+    content: `DATOS DEL CONSULTANTE:
 ${Object.entries(datosCliente)
   .map(([key, value]) => `${key}: ${value}`)
   .join('\n')}
 
-Por favor, responde a la consulta manteniendo tu personalidad y estilo definidos arriba.`
+Por favor, responde a la consulta manteniendo tu personalidad y estilo definidos en el contexto del sistema.`
   };
 
   // Llamar a la API con la configuración específica de la bruja
