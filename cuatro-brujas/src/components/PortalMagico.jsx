@@ -140,6 +140,19 @@ const PortalMagico = () => {
                 }}
                 transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
               />
+
+              {/* Mensaje "toca aquí" casi imperceptible */}
+              <motion.div
+                className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-none"
+                animate={{
+                  opacity: [0.15, 0.35, 0.15],
+                }}
+                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <p className="text-white/40 text-sm font-light tracking-wider select-none">
+                  toca aquí
+                </p>
+              </motion.div>
             </motion.div>
 
 

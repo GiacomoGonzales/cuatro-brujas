@@ -224,7 +224,7 @@ const QuienesSomosPage = () => {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="magical-btn"
+                className="bg-accent text-primary px-8 py-4 rounded-full text-lg font-body font-semibold hover:bg-accent/90 transition-all duration-300 animate-glow"
                 onClick={() => {
                   // Pequeño delay para asegurar que Gloria Food esté inicializado
                   setTimeout(() => {

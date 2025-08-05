@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
 
 const StepCard = ({ number, title, description, icon, delay = 0 }) => (
   <motion.div
@@ -18,6 +18,22 @@ const StepCard = ({ number, title, description, icon, delay = 0 }) => (
 );
 
 const ComoFuncionaPage = () => {
+  // Cargar script de Gloria Food
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://www.fbgcdn.com/embedder/js/ewm2.js';
+    script.defer = true;
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      // Limpiar script al desmontar componente
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
+
   const steps = [
     {
       number: "1",
@@ -190,12 +206,40 @@ const ComoFuncionaPage = () => {
             className="text-center max-w-xl mx-auto"
           >
             <div className="space-y-4">
-              <Link 
-                to="/nuestra-carta"
-                className="magical-btn inline-block bg-secondary hover:bg-secondary/90 text-light px-8 py-4 rounded-full transition"
-              >
-                🍔 Ver Nuestra Carta
-              </Link>
+              <div className="relative inline-block">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-secondary hover:bg-secondary/90 text-light px-8 py-4 rounded-full transition-all duration-300"
+                  onClick={() => {
+                    // Pequeño delay para asegurar que Gloria Food esté inicializado
+                    setTimeout(() => {
+                      const gloriaButton = document.querySelector('.glf-button-hidden');
+                      if (gloriaButton) {
+                        gloriaButton.click();
+                      } else {
+                        console.log('Gloria Food button not found, trying alternative approach');
+                        // Intentar disparar el evento manualmente
+                        if (window.GloriaFood && window.GloriaFood.openModal) {
+                          window.GloriaFood.openModal();
+                        }
+                      }
+                    }, 100);
+                  }}
+                >
+                  🍔 Ver Nuestra Carta
+                </motion.button>
+                
+                {/* Botón oculto de Gloria Food - Debe estar visible en el DOM pero oculto visualmente */}
+                <span 
+                  className="glf-button glf-button-hidden"
+                  data-glf-cuid="cab9aa12-59eb-4058-ac46-594953a61cfa"
+                  data-glf-ruid="0a86274a-3227-422f-b140-e04bf8f9b334"
+                  style={{ position: 'absolute', left: '-9999px', opacity: 0 }}
+                >
+                  Order Online
+                </span>
+              </div>
               <p className="text-light/60 text-sm mt-4">
                 * El código místico se enviará junto con la confirmación de tu pedido
               </p>
