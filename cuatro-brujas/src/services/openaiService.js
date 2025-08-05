@@ -80,10 +80,10 @@ Por favor, responde a la consulta manteniendo tu personalidad y estilo definidos
     throw new Error(result.error);
   }
 
-  // Calcular límite dinámico basado en tokens (aprox 3.2 caracteres por token)
-  const limiteCaracteres = (config.max_tokens || 250) * 3.2;
+  // Calcular límite dinámico basado en tokens (aprox 4.5 caracteres por token en español)
+  const limiteCaracteres = (config.max_tokens || 250) * 4.5;
   
-  // Asegurar que la respuesta no exceda el límite calculado
+  // Asegurar que la respuesta no exceda el límite calculado solo si es excesivamente larga
   let respuesta = result.data;
   if (respuesta.length > limiteCaracteres) {
     respuesta = respuesta.substring(0, limiteCaracteres - 3) + "...";
