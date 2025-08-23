@@ -88,12 +88,15 @@ const ConsultaPage = () => {
                   loop
                   muted
                   playsInline
+                  preload="none"
+                  loading="lazy"
                 />
               ) : (
                 <img
                   src={bruja.imagen}
                   alt={bruja.nombre}
                   className="w-full h-full object-cover"
+                  loading="lazy"
                 />
               )}
             </div>

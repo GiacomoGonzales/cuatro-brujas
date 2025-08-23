@@ -286,6 +286,8 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
                       loop
                       muted
                       playsInline
+                      preload="none"
+                      loading="lazy"
                       draggable={false}
                     />
                   ) : (
@@ -293,6 +295,7 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
                       src={bruja.imagen}
                       alt={bruja.nombre}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                       draggable={false}
                     />
                   )}

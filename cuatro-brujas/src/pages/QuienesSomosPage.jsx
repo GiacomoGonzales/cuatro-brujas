@@ -192,12 +192,15 @@ const QuienesSomosPage = () => {
                       loop
                       muted
                       playsInline
+                      preload="none"
+                      loading="lazy"
                     />
                   ) : (
                     <img
                       src={member.image}
                       alt={member.name}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                     />
                   )}
                 </div>

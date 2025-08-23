@@ -241,6 +241,8 @@ const BrujasSwipeDeck = () => {
                       loop
                       muted
                       playsInline
+                      preload="none"
+                      loading="lazy"
                       draggable={false}
                       initial={{ scale: 1.1 }}
                       animate={{ scale: 1 }}
@@ -251,6 +253,7 @@ const BrujasSwipeDeck = () => {
                       src={brujas[indiceActivo].imagen}
                       alt={brujas[indiceActivo].nombre}
                       className="w-full h-full object-cover"
+                      loading="lazy"
                       draggable={false}
                       initial={{ scale: 1.1 }}
                       animate={{ scale: 1 }}

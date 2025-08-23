@@ -212,6 +212,8 @@ const BrujasCoverflow3D = () => {
                         loop
                         muted
                         playsInline
+                        preload="none"
+                        loading="lazy"
                         draggable={false}
                       />
                     ) : (
@@ -219,6 +221,7 @@ const BrujasCoverflow3D = () => {
                         src={bruja.imagen}
                         alt={bruja.nombre}
                         className="w-full h-full object-cover"
+                        loading="lazy"
                         draggable={false}
                       />
                     )}
