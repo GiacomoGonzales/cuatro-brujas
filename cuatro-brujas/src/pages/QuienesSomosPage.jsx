@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-// Force deployment update - fix MP4 video display
+// Force deployment update - fix Zaira video display issue
 
 const QuienesSomosPage = () => {
   // Cargar script de Gloria Food
