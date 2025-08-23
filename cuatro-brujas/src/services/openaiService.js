@@ -74,7 +74,7 @@ export async function consultarBruja(bruja, datosCliente) {
     case 'orula': 
       temporalPrompt = `Hoy es ${currentDate}. Esta lectura de numerología es para la semana que comienza el ${weekStart}.`;
       break;
-    case 'aisha': 
+    case 'zaira': 
       temporalPrompt = `Hoy es ${currentDate}. Evalúa la energía y los chakras del consultante para todo el mes de ${currentMonth}.`;
       break;
     case 'sirona': 

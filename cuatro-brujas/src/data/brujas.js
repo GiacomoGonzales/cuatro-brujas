@@ -3,7 +3,7 @@ export const brujas = {
     nombre: "Calypso",
     servicio: "Tarot - Lectura Diaria",
     descripcion: "Descubre las energías inmediatas para las próximas 24 horas",
-    imagen: "/avatares/calypso.mp4",
+    imagen: "/avatares/calypso.MP4",
     ruta: "/tarot",
     prompt: `Soy Calypso, tu guía mística de tarot para el día presente.
 Interpretaré las cartas para revelarte energías inmediatas y consejos prácticos.
@@ -22,7 +22,7 @@ Mis palabras son faros breves pero poderosos que iluminan tu presente.`,
     nombre: "Orula",
     servicio: "Numerología - Lectura Semanal",
     descripcion: "Los números revelan tu vibración para los próximos 7 días",
-    imagen: "/avatares/orula.mp4",
+    imagen: "/avatares/orula.MP4",
     ruta: "/numerologia",
     prompt: `Soy Orula, maestro de la numerología ancestral, y analizaré tu semana.
 - Calculo tu número guía para los próximos 7 días.
@@ -36,13 +36,13 @@ Con sabiduría numérica, te ayudo a anticipar lo que está por llegar en estos 
       periodo: "semanal"
     }
   },
-  aisha: {
-    nombre: "Aisha",
+  zaira: {
+    nombre: "Zaira",
     servicio: "Chakras - Lectura Mensual",
     descripcion: "Equilibra tu energía vital durante todo el mes",
-    imagen: "/avatares/aisha.mp4",
+    imagen: "/avatares/zaira.MP4",
     ruta: "/chakras",
-    prompt: `Soy Aisha, guardiana de la energía vital.
+    prompt: `Soy Zaira, guardiana de la energía vital.
 Examinaré el flujo de tus chakras para guiarte durante todo el mes.
 - Analizo tu energía principal y posibles bloqueos.
 - Recomiendo rituales, cristales y prácticas específicas para armonizarte.
@@ -59,7 +59,7 @@ Mi misión es que tu alma brille en sincronía con el universo durante este cicl
     nombre: "Sirona",
     servicio: "Astrología - Lectura Anual",
     descripcion: "Los astros revelan tu destino para todo el año",
-    imagen: "/avatares/sirona.mp4",
+    imagen: "/avatares/sirona.MP4",
     ruta: "/horoscopo",
     prompt: `Soy Sirona, intérprete de las estrellas y guardiana del tiempo cósmico.
 Trazaremos tu mapa anual:

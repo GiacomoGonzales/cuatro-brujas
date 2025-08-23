@@ -133,7 +133,7 @@ const ConsultaBruja = ({ idBruja }) => {
               Consultando...
             </span>
           ) : respuesta ? (
-            '✅ Consulta Completada'
+            'Consulta Completada'
           ) : (
             'Realizar Consulta'
           )}

@@ -8,7 +8,7 @@ const brujasData = [
   { 
     nombre: "Calypso", 
     rol: "Tarot - Lectura Diaria", 
-    imagen: "/avatares/calypso.mp4", 
+    imagen: "/avatares/calypso.MP4", 
     rutaDirecta: "/consulta/calypso",
     color: "#9333ea",
     descripcion: "Descubre las energías inmediatas para las próximas 24 horas a través de las cartas místicas del tarot"
@@ -16,23 +16,23 @@ const brujasData = [
   { 
     nombre: "Orula", 
     rol: "Numerología - Lectura Semanal", 
-    imagen: "/avatares/orula.mp4", 
+    imagen: "/avatares/orula.MP4", 
     rutaDirecta: "/consulta/orula",
     color: "#dc2626",
     descripcion: "Los números revelan tu vibración y camino para los próximos 7 días"
   },
   { 
-    nombre: "Aisha", 
+    nombre: "Zaira", 
     rol: "Chakras - Lectura Mensual", 
-    imagen: "/avatares/aisha.mp4", 
-    rutaDirecta: "/consulta/aisha",
+    imagen: "/avatares/zaira.MP4", 
+    rutaDirecta: "/consulta/zaira",
     color: "#059669",
     descripcion: "Equilibra tu energía vital y armoniza tus chakras durante todo el mes"
   },
   { 
     nombre: "Sirona", 
     rol: "Astrología - Lectura Anual", 
-    imagen: "/avatares/sirona.mp4", 
+    imagen: "/avatares/sirona.MP4", 
     rutaDirecta: "/consulta/sirona",
     color: "#2563eb",
     descripcion: "Los astros revelan tu destino completo para todo el año venidero"
@@ -277,7 +277,7 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
                   )}
 
                   {/* Imagen/Video de la bruja */}
-                  {bruja.imagen.endsWith('.mp4') ? (
+                  {bruja.imagen.toLowerCase().endsWith('.mp4') ? (
                     <video
                       src={bruja.imagen}
                       alt={bruja.nombre}

@@ -79,7 +79,7 @@ const ConsultaPage = () => {
           >
             <div className="w-48 h-48 mx-auto overflow-hidden rounded-full border-2 border-secondary/30
                           shadow-lg shadow-secondary/20">
-              {bruja.imagen.endsWith('.mp4') ? (
+              {bruja.imagen.toLowerCase().endsWith('.mp4') ? (
                 <video
                   src={bruja.imagen}
                   alt={bruja.nombre}

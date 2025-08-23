@@ -17,23 +17,19 @@ const Footer = () => {
   const services = [
     { 
       name: 'Lectura de Tarot',
-      url: '/consulta/calypso',
-      bruja: 'Calypso'
+      url: '/consulta/calypso'
     },
     { 
       name: 'Numerología y Destino',
-      url: '/consulta/orula',
-      bruja: 'Orula'
+      url: '/consulta/orula'
     },
     { 
       name: 'Chakras y Energía',
-      url: '/consulta/aisha',
-      bruja: 'Aisha'
+      url: '/consulta/zaira'
     },
     { 
       name: 'Horóscopo y Carta Astral',
-      url: '/consulta/sirona',
-      bruja: 'Sirona'
+      url: '/consulta/sirona'
     }
   ];
 
@@ -110,12 +106,9 @@ const Footer = () => {
                 <li key={service.name}>
                   <Link 
                     to={service.url} 
-                    className="text-light/70 hover:text-accent transition-colors duration-300 flex items-center gap-2 group md:justify-start justify-center"
+                    className="text-light/70 hover:text-accent transition-colors duration-300"
                   >
-                    <span>{service.name}</span>
-                    <span className="text-xs text-secondary/50 group-hover:text-accent/70 transition-colors duration-300 hidden md:inline">
-                      por {service.bruja}
-                    </span>
+                    {service.name}
                   </Link>
                 </li>
               ))}

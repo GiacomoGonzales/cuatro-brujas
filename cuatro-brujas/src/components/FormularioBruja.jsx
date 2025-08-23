@@ -190,7 +190,7 @@ const FormularioBruja = ({ idBruja }) => {
           </>
         );
 
-      case 'aisha':
+      case 'zaira':
         return (
           <>
             <div>
@@ -314,7 +314,7 @@ const FormularioBruja = ({ idBruja }) => {
     switch (idBruja) {
       case 'calypso': return 'Consultar a Calypso';
       case 'orula': return 'Descifrar con Orula';
-      case 'aisha': return 'Armonizar con Aisha';
+      case 'zaira': return 'Armonizar con Zaira';
       case 'sirona': return 'Explorar con Sirona';
       default: return 'Consultar';
     }
@@ -360,7 +360,7 @@ const FormularioBruja = ({ idBruja }) => {
               Consultando...
             </span>
           ) : respuesta ? (
-            '✅ Consulta Completada'
+            'Consulta Completada'
           ) : (
             getButtonText()
           )}

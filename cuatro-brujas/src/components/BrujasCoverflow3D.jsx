@@ -8,28 +8,28 @@ const brujas = [
   { 
     nombre: "Calypso", 
     rol: "Tarot - Lectura Diaria", 
-    imagen: "/avatares/calypso.mp4", 
+    imagen: "/avatares/calypso.MP4", 
     ruta: "/consulta/calypso",
     color: "#9333ea" 
   },
   { 
     nombre: "Orula", 
     rol: "Numerología - Lectura Semanal", 
-    imagen: "/avatares/orula.mp4", 
+    imagen: "/avatares/orula.MP4", 
     ruta: "/consulta/orula",
     color: "#dc2626" 
   },
   { 
-    nombre: "Aisha", 
+    nombre: "Zaira", 
     rol: "Chakras - Lectura Mensual", 
-    imagen: "/avatares/aisha.mp4", 
-    ruta: "/consulta/aisha",
+    imagen: "/avatares/zaira.MP4", 
+    ruta: "/consulta/zaira",
     color: "#059669" 
   },
   { 
     nombre: "Sirona", 
     rol: "Astrología - Lectura Anual", 
-    imagen: "/avatares/sirona.mp4", 
+    imagen: "/avatares/sirona.MP4", 
     ruta: "/consulta/sirona",
     color: "#2563eb" 
   }
@@ -203,7 +203,7 @@ const BrujasCoverflow3D = () => {
                     }}
                   >
                     {/* Imagen/Video de la bruja */}
-                    {bruja.imagen.endsWith('.mp4') ? (
+                    {bruja.imagen.toLowerCase().endsWith('.mp4') ? (
                       <video
                         src={bruja.imagen}
                         alt={bruja.nombre}

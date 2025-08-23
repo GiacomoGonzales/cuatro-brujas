@@ -8,7 +8,7 @@ const brujas = [
   { 
     nombre: "Calypso", 
     rol: "Tarot - Lectura Diaria", 
-    imagen: "/avatares/calypso.mp4", 
+    imagen: "/avatares/calypso.MP4", 
     ruta: "/consulta/calypso",
     color: "#9333ea",
     descripcion: "Las cartas revelan tu día"
@@ -16,23 +16,23 @@ const brujas = [
   { 
     nombre: "Orula", 
     rol: "Numerología - Lectura Semanal", 
-    imagen: "/avatares/orula.mp4", 
+    imagen: "/avatares/orula.MP4", 
     ruta: "/consulta/orula",
     color: "#dc2626",
     descripcion: "Los números guían tu semana"
   },
   { 
-    nombre: "Aisha", 
+    nombre: "Zaira", 
     rol: "Chakras - Lectura Mensual", 
-    imagen: "/avatares/aisha.mp4", 
-    ruta: "/consulta/aisha",
+    imagen: "/avatares/zaira.MP4", 
+    ruta: "/consulta/zaira",
     color: "#059669",
     descripcion: "Equilibra tu energía mensual"
   },
   { 
     nombre: "Sirona", 
     rol: "Astrología - Lectura Anual", 
-    imagen: "/avatares/sirona.mp4", 
+    imagen: "/avatares/sirona.MP4", 
     ruta: "/consulta/sirona",
     color: "#2563eb",
     descripcion: "Los astros revelan tu año"
@@ -40,23 +40,19 @@ const brujas = [
 ];
 
 const BrujasCarouselLigero = () => {
+  const [indiceActivo, setIndiceActivo] = useState(0);
   const navigate = useNavigate();
 
-  // Crear array infinito duplicando las brujas
-  const brujasInfinitas = [...brujas, ...brujas, ...brujas];
-  const offsetInicial = brujas.length; // Empezar en el segundo set
-  const [indiceActivo, setIndiceActivo] = useState(0);
-
   const siguienteBruja = () => {
-    setIndiceActivo((prev) => (prev + 1) % brujasInfinitas.length);
+    setIndiceActivo((prev) => (prev + 1) % brujas.length);
   };
 
   const anteriorBruja = () => {
-    setIndiceActivo((prev) => (prev - 1 + brujasInfinitas.length) % brujasInfinitas.length);
+    setIndiceActivo((prev) => (prev - 1 + brujas.length) % brujas.length);
   };
 
   const seleccionarBruja = (indice) => {
-    setIndiceActivo(indice + offsetInicial);
+    setIndiceActivo(indice);
   };
 
   return (
@@ -80,24 +76,23 @@ const BrujasCarouselLigero = () => {
         </button>
 
         {/* Contenedor de cartas */}
-        <div className="overflow-hidden rounded-2xl py-4">
+        <div className="overflow-visible rounded-2xl py-4">
           <motion.div
             className="flex"
-            animate={{ x: `-${(indiceActivo + offsetInicial) * (100/3)}%` }}
+            animate={{ x: `-${indiceActivo * 100}%` }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            style={{ width: `${brujasInfinitas.length * (100/3)}%` }}
           >
-            {brujasInfinitas.map((bruja, indice) => (
+            {brujas.map((bruja, indice) => (
               <div
-                key={`${bruja.nombre}-${indice}`}
-                className="w-1/3 flex-shrink-0 relative px-2"
+                key={bruja.nombre}
+                className="w-full flex-shrink-0 relative px-2"
               >
                 <div 
                   className="aspect-[4/5] max-w-sm mx-auto relative overflow-hidden rounded-2xl cursor-pointer hover:scale-105 transition-all duration-300 group"
                   onClick={() => navigate(bruja.ruta)}
                 >
                   {/* Video/Imagen de la bruja */}
-                  {bruja.imagen.endsWith('.mp4') ? (
+                  {bruja.imagen.toLowerCase().endsWith('.mp4') ? (
                     <video
                       src={bruja.imagen}
                       alt={bruja.nombre}
@@ -128,7 +123,7 @@ const BrujasCarouselLigero = () => {
                   </div>
 
                   {/* Borde activo */}
-                  {indice === (indiceActivo + offsetInicial) && (
+                  {indice === indiceActivo && (
                     <div 
                       className="absolute inset-0 rounded-2xl border-2 pointer-events-none"
                       style={{ borderColor: bruja.color }}
@@ -152,13 +147,13 @@ const BrujasCarouselLigero = () => {
       </div>
 
       {/* Indicadores */}
-      <div className="flex justify-center mt-6 mb-12 space-x-2">
+      <div className="flex justify-center mt-6 space-x-2">
         {brujas.map((_, indice) => (
           <button
             key={indice}
             onClick={() => seleccionarBruja(indice)}
             className={`w-3 h-3 rounded-full transition-all duration-200 ${
-              indice === ((indiceActivo + offsetInicial) % brujas.length)
+              indice === indiceActivo 
                 ? 'bg-white scale-110' 
                 : 'bg-white/30 hover:bg-white/50'
             }`}
