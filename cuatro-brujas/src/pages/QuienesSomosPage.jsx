@@ -25,25 +25,25 @@ const QuienesSomosPage = () => {
       name: "Calypso",
       role: "Maestra del Tarot",
       description: "Experta en lectura de cartas del tarot, Calypso revela los misterios de tu destino mientras disfrutas de nuestras hamburguesas místicas.",
-      image: "/avatares/calypso.MP4"
+      image: "/avatares/calypso.mp4"
     },
     {
       name: "Orula",
       role: "Numerología y Destino",
       description: "Especialista en numerología y destino, Orula descifra los patrones numéricos que influyen en tu vida y te guía hacia tu verdadero camino.",
-      image: "/avatares/orula.MP4"
+      image: "/avatares/orula.mp4"
     },
     {
       name: "Zaira",
       role: "Chakras y Energía",
       description: "Maestra en armonización de chakras y energías, Zaira te ayuda a encontrar el equilibrio perfecto entre cuerpo, mente y espíritu.",
-      image: "/avatares/zaira.MP4"
+      image: "/avatares/zaira.mp4"
     },
     {
       name: "Sirona",
       role: "Horóscopo y Carta Astral",
       description: "Intérprete de los astros y cartas astrales, Sirona lee los mensajes celestiales para revelar tu verdadera esencia y destino.",
-      image: "/avatares/sirona.MP4"
+      image: "/avatares/sirona.mp4"
     }
   ];
 
@@ -183,7 +183,7 @@ const QuienesSomosPage = () => {
                 className="magical-card p-6 text-center"
               >
                 <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-secondary/30">
-                  {member.image.toLowerCase().endsWith('.mp4') || member.image.toLowerCase().endsWith('.MP4') ? (
+                  {member.image.toLowerCase().endsWith('.mp4') ? (
                     <video
                       src={member.image}
                       alt={member.name}
