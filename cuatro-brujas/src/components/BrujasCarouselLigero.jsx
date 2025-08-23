@@ -92,7 +92,7 @@ const BrujasCarouselLigero = () => {
                   onClick={() => navigate(bruja.ruta)}
                 >
                   {/* Video/Imagen de la bruja */}
-                  {bruja.imagen.toLowerCase().endsWith('.mp4') ? (
+                  {bruja.imagen.endsWith('.MP4') ? (
                     <video
                       src={bruja.imagen}
                       alt={bruja.nombre}

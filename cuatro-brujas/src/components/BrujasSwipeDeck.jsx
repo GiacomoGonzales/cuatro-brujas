@@ -8,7 +8,7 @@ const brujas = [
   { 
     nombre: "Calypso", 
     rol: "Tarot - Lectura Diaria", 
-    imagen: "/avatares/calypso.MP4", 
+    imagen: "/avatares/calypso.mp4", 
     ruta: "/consulta/calypso",
     color: "#9333ea",
     descripcion: "Lecturas para las próximas 24 horas"
@@ -16,7 +16,7 @@ const brujas = [
   { 
     nombre: "Orula", 
     rol: "Numerología - Lectura Semanal", 
-    imagen: "/avatares/orula.MP4", 
+    imagen: "/avatares/orula.mp4", 
     ruta: "/consulta/orula",
     color: "#dc2626",
     descripcion: "Vibraciones numéricas para 7 días"
@@ -24,7 +24,7 @@ const brujas = [
   { 
     nombre: "Zaira", 
     rol: "Chakras - Lectura Mensual", 
-    imagen: "/avatares/zaira.MP4", 
+    imagen: "/avatares/zaira.mp4", 
     ruta: "/consulta/zaira",
     color: "#059669",
     descripcion: "Equilibrio energético para el mes"
@@ -32,7 +32,7 @@ const brujas = [
   { 
     nombre: "Sirona", 
     rol: "Astrología - Lectura Anual", 
-    imagen: "/avatares/sirona.MP4", 
+    imagen: "/avatares/sirona.mp4", 
     ruta: "/consulta/sirona",
     color: "#2563eb",
     descripcion: "Predicciones para todo el año"
@@ -232,7 +232,7 @@ const BrujasSwipeDeck = () => {
               >
                 {/* Imagen/Video de la bruja */}
                 <div className="relative w-full h-2/3 overflow-hidden">
-                  {brujas[indiceActivo].imagen.toLowerCase().endsWith('.mp4') ? (
+                  {brujas[indiceActivo].imagen.endsWith('.MP4') ? (
                     <motion.video
                       src={brujas[indiceActivo].imagen}
                       alt={brujas[indiceActivo].nombre}
