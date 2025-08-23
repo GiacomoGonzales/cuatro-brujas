@@ -11,7 +11,7 @@ const brujasData = [
   {
     id: 'calypso',
     nombre: 'Calypso',
-    imagen: '/avatares/calypso.MP4',
+    imagen: '/avatares/calypso.mp4',
     especialidad: 'Tarot - Lectura Diaria',
     ruta: '/consulta/calypso',
     color: '#9333ea'
@@ -19,7 +19,7 @@ const brujasData = [
   {
     id: 'orula',
     nombre: 'Orula',
-    imagen: '/avatares/orula.MP4',
+    imagen: '/avatares/orula.mp4',
     especialidad: 'Numerología - Lectura Semanal',
     ruta: '/consulta/orula',
     color: '#dc2626'
@@ -27,7 +27,7 @@ const brujasData = [
   {
     id: 'zaira',
     nombre: 'Zaira',
-    imagen: '/avatares/zaira.MP4',
+    imagen: '/avatares/zaira.mp4',
     especialidad: 'Chakras - Lectura Mensual',
     ruta: '/consulta/zaira',
     color: '#059669'
@@ -35,7 +35,7 @@ const brujasData = [
   {
     id: 'sirona',
     nombre: 'Sirona',
-    imagen: '/avatares/sirona.MP4',
+    imagen: '/avatares/sirona.mp4',
     especialidad: 'Astrología - Lectura Anual',
     ruta: '/consulta/sirona',
     color: '#2563eb'

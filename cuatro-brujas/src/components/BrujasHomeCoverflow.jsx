@@ -277,7 +277,7 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
                   )}
 
                   {/* Imagen/Video de la bruja */}
-                  {bruja.imagen.endsWith('.MP4') ? (
+                  {bruja.imagen.endsWith('.mp4') ? (
                     <video
                       src={bruja.imagen}
                       alt={bruja.nombre}

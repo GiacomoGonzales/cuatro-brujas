@@ -232,7 +232,7 @@ const BrujasSwipeDeck = () => {
               >
                 {/* Imagen/Video de la bruja */}
                 <div className="relative w-full h-2/3 overflow-hidden">
-                  {brujas[indiceActivo].imagen.endsWith('.MP4') ? (
+                  {brujas[indiceActivo].imagen.endsWith('.mp4') ? (
                     <motion.video
                       src={brujas[indiceActivo].imagen}
                       alt={brujas[indiceActivo].nombre}

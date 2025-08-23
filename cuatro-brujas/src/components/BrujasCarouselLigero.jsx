@@ -8,7 +8,7 @@ const brujas = [
   { 
     nombre: "Calypso", 
     rol: "Tarot - Lectura Diaria", 
-    imagen: "/avatares/calypso.MP4", 
+    imagen: "/avatares/calypso.mp4", 
     ruta: "/consulta/calypso",
     color: "#9333ea",
     descripcion: "Las cartas revelan tu día"
@@ -16,7 +16,7 @@ const brujas = [
   { 
     nombre: "Orula", 
     rol: "Numerología - Lectura Semanal", 
-    imagen: "/avatares/orula.MP4", 
+    imagen: "/avatares/orula.mp4", 
     ruta: "/consulta/orula",
     color: "#dc2626",
     descripcion: "Los números guían tu semana"
@@ -24,7 +24,7 @@ const brujas = [
   { 
     nombre: "Zaira", 
     rol: "Chakras - Lectura Mensual", 
-    imagen: "/avatares/zaira.MP4", 
+    imagen: "/avatares/zaira.mp4", 
     ruta: "/consulta/zaira",
     color: "#059669",
     descripcion: "Equilibra tu energía mensual"
@@ -32,7 +32,7 @@ const brujas = [
   { 
     nombre: "Sirona", 
     rol: "Astrología - Lectura Anual", 
-    imagen: "/avatares/sirona.MP4", 
+    imagen: "/avatares/sirona.mp4", 
     ruta: "/consulta/sirona",
     color: "#2563eb",
     descripcion: "Los astros revelan tu año"
@@ -92,7 +92,7 @@ const BrujasCarouselLigero = () => {
                   onClick={() => navigate(bruja.ruta)}
                 >
                   {/* Video/Imagen de la bruja */}
-                  {bruja.imagen.endsWith('.MP4') ? (
+                  {bruja.imagen.endsWith('.mp4') ? (
                     <video
                       src={bruja.imagen}
                       alt={bruja.nombre}
