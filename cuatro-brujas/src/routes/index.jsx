@@ -5,6 +5,7 @@ import CartaAstralPage from "../pages/CartaAstralPage";
 import NumerologiaPage from "../pages/NumerologiaPage";
 import HoroscopoPage from "../pages/HoroscopoPage";
 import QuienesSomosPage from "../pages/QuienesSomosPage";
+import LeyendaPage from "../pages/LeyendaPage";
 import NuestraCartaPage from "../pages/NuestraCartaPage";
 import ComoFuncionaPage from "../pages/ComoFuncionaPage";
 import ConsultaPage from "../pages/ConsultaPage";
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
       {
         path: "quienes-somos",
         element: <QuienesSomosPage />,
+      },
+      {
+        path: "la-leyenda",
+        element: <LeyendaPage />,
       },
       {
         path: "nuestra-carta",

@@ -52,6 +52,13 @@ const Header = () => {
               Quiénes somos
             </Link>
             <div className="mx-4 text-accent/40 transform rotate-45">◆</div>
+            <Link 
+              to="/la-leyenda" 
+              className="text-light hover:text-secondary transition-colors duration-300"
+            >
+              La Leyenda
+            </Link>
+            <div className="mx-4 text-accent/40 transform rotate-45">◆</div>
             <div className="relative">
               <motion.button
                 whileHover={{ scale: 1.05 }}

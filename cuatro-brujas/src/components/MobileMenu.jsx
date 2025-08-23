@@ -86,6 +86,14 @@ const MobileMenu = ({ isOpen, onClose }) => {
                   Quiénes somos
                 </Link>
 
+                <Link
+                  to="/la-leyenda"
+                  className="text-light hover:text-secondary transition-colors py-2 border-b border-secondary/20"
+                  onClick={onClose}
+                >
+                  La Leyenda
+                </Link>
+
                 <div className="relative">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
