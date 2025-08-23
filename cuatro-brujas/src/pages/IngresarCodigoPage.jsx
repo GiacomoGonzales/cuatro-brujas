@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { validateAccessCode } from '../services/firestoreService';
+import { saveSessionData } from '../services/sessionService';
 
 const IngresarCodigoPage = () => {
   const [searchParams] = useSearchParams();
@@ -76,8 +77,8 @@ const IngresarCodigoPage = () => {
         setValidationMessage('¡Portal activado! Has accedido al reino místico. Elige a tu bruja favorita para comenzar tu lectura.');
         setValidationStatus('success');
         
-        // Guardar el estado de validación en sessionStorage
-        sessionStorage.setItem('accessValidated', 'true');
+        // Guardar los datos de la sesión usando el nuevo servicio
+        saveSessionData(code.trim(), result.codeData);
         
         // Redirigir a la página de lecturas después de 2 segundos
         setTimeout(() => {

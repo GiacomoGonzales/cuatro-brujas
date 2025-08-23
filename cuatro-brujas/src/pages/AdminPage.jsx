@@ -130,7 +130,7 @@ const AdminPage = () => {
     
     const message = encodeURIComponent(
       `Hola ${codeData.name}, tu código de acceso a Cuatro Brujas es: ${codeData.code}. ` +
-      `Ingresa en cuatrobrujas.app/viaje-mistico para usarlo.`
+      `Ingresa en https://cuatrobrujas.pe/viaje-mistico para usarlo.`
     );
     
     const cleanNumber = codeData.whatsapp.replace(/\D/g, '');

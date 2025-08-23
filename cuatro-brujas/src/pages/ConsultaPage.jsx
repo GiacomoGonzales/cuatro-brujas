@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import FormularioBruja from '../components/FormularioBruja';
 import BackgroundParticles from '../components/BackgroundParticles';
 import { brujas } from '../data/brujas';
+import { hasValidAccess, hasCompletedReading, isPermanentCode, markReadingCompleted } from '../services/sessionService';
 
 const ConsultaPage = () => {
   const { idBruja } = useParams();
@@ -12,15 +13,22 @@ const ConsultaPage = () => {
 
   // Verificar control de acceso al cargar la página
   useEffect(() => {
-    const accessValidated = sessionStorage.getItem('accessValidated');
-    if (accessValidated !== 'true') {
-      console.log('Acceso denegado: código de acceso requerido.');
+    // Verificar si tiene acceso válido
+    if (!hasValidAccess()) {
+      console.log('❌ Acceso denegado: código de acceso requerido');
       navigate('/viaje-mistico');
+      return;
+    }
+
+    // Verificar si ya completó una lectura (solo para códigos no permanentes)
+    if (hasCompletedReading() && !isPermanentCode()) {
+      console.log('⚠️ Lectura ya completada - redirigiendo a confirmación');
+      navigate('/lectura-completada');
       return;
     }
     
     window.scrollTo(0, 0);
-  }, [navigate]);
+  }, [navigate, idBruja]);
 
   if (!bruja) {
     return <div className="text-red-500">Bruja no encontrada</div>;
@@ -57,7 +65,7 @@ const ConsultaPage = () => {
             ></motion.div>
           </div>
 
-          {/* Imagen de la bruja */}
+          {/* Imagen/Video de la bruja */}
           <motion.div
             animate={{
               y: [0, -10, 0],
@@ -71,11 +79,23 @@ const ConsultaPage = () => {
           >
             <div className="w-48 h-48 mx-auto overflow-hidden rounded-full border-2 border-secondary/30
                           shadow-lg shadow-secondary/20">
-              <img
-                src={bruja.imagen}
-                alt={bruja.nombre}
-                className="w-full h-full object-cover"
-              />
+              {bruja.imagen.endsWith('.mp4') ? (
+                <video
+                  src={bruja.imagen}
+                  alt={bruja.nombre}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                />
+              ) : (
+                <img
+                  src={bruja.imagen}
+                  alt={bruja.nombre}
+                  className="w-full h-full object-cover"
+                />
+              )}
             </div>
           </motion.div>
         </motion.div>
@@ -99,7 +119,7 @@ const ConsultaPage = () => {
       <motion.div
         initial={{ opacity: 0, y: 0 }}
         animate={{ opacity: 1, y: 0 }}
-        className="container mx-auto px-4 relative z-10 pb-16 md:pb-24"
+        className="container mx-auto px-2 md:px-4 relative z-10 pb-16 md:pb-24 max-w-6xl"
       >
         <FormularioBruja idBruja={idBruja} />
       </motion.div>

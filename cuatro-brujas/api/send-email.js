@@ -17,13 +17,13 @@ export default async function handler(req, res) {
     await sendgrid.send({
       to,
       from: {
-        email: process.env.FROM_EMAIL || "noreply@cuatrobrujas.app",
+        email: process.env.FROM_EMAIL || "noreply@cuatrobrujas.pe",
         name: process.env.FROM_NAME || "CuatroBrujas",
       },
       subject: "✨ Tu Código de Acceso - Cuatro Brujas ✨",
       html: `
         <div style="background: #1c1124; color: #fff; font-family: Arial, sans-serif; padding: 20px; text-align: center;">
-          <img src="https://cuatrobrujas.app/logo.png" alt="Cuatro Brujas" style="width:150px; margin-bottom:20px;" />
+          <img src="https://cuatrobrujas.pe/logo.png" alt="Cuatro Brujas" style="width:150px; margin-bottom:20px;" />
           <h2 style="color:#e0aaff;">¡Hola ${name}!</h2>
           <p style="font-size:16px;">
             Gracias por ser parte de <strong>Cuatro Brujas</strong>.<br/>
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
             <span style="font-size:24px; color:#ffd700; font-weight:bold;">${code}</span>
           </div>
           <p style="font-size:16px;">Haz clic en el botón para usarlo ahora:</p>
-          <a href="https://cuatrobrujas.app/viaje-mistico" 
+          <a href="https://cuatrobrujas.pe/viaje-mistico" 
              style="display:inline-block; background:#e0aaff; color:#1c1124; padding:12px 24px; text-decoration:none; border-radius:8px; font-weight:bold; margin-top:10px;">
             🔮 Ir a mi lectura
           </a>

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { brujas } from '../data/brujas';
 import { consultarBruja } from '../services/openaiService';
+import { markReadingCompleted } from '../services/sessionService';
 
 const ConsultaBruja = ({ idBruja }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +38,10 @@ const ConsultaBruja = ({ idBruja }) => {
     try {
       const respuestaIA = await consultarBruja(bruja, datosConsulta);
       setRespuesta(respuestaIA);
+      
+      // Marcar la lectura como completada solo cuando se obtiene la respuesta exitosamente
+      markReadingCompleted(idBruja, 'consulta');
+      console.log('✅ Lectura completada exitosamente con', bruja.nombre);
     } catch (err) {
       setError(err.message || 'Error al realizar la consulta');
     } finally {
@@ -112,12 +117,12 @@ const ConsultaBruja = ({ idBruja }) => {
 
         <motion.button
           type="submit"
-          disabled={isLoading}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          disabled={isLoading || respuesta}
+          whileHover={{ scale: respuesta ? 1 : 1.02 }}
+          whileTap={{ scale: respuesta ? 1 : 0.98 }}
           className={`w-full py-3 px-6 rounded-lg bg-gradient-to-r from-secondary to-accent 
             text-light font-semibold transition-all duration-300
-            ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-lg hover:shadow-secondary/20'}`}
+            ${(isLoading || respuesta) ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:shadow-secondary/20'}`}
         >
           {isLoading ? (
             <span className="flex items-center justify-center">
@@ -127,6 +132,8 @@ const ConsultaBruja = ({ idBruja }) => {
               </svg>
               Consultando...
             </span>
+          ) : respuesta ? (
+            '✅ Consulta Completada'
           ) : (
             'Realizar Consulta'
           )}
@@ -147,14 +154,16 @@ const ConsultaBruja = ({ idBruja }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-8 p-6 bg-dark/50 border border-secondary/30 rounded-lg"
+          className="mt-8 p-4 md:p-6 bg-dark/50 border border-secondary/30 rounded-lg w-full max-w-none mobile-response-container"
         >
-          <h3 className="text-xl font-semibold text-secondary mb-4">
+          <h3 className="text-xl font-semibold text-secondary mb-4 text-center">
             Respuesta de {bruja.nombre}
           </h3>
-          <pre className="whitespace-pre-wrap font-sans text-light/90 leading-relaxed">
-            {respuesta}
-          </pre>
+          <div className="bg-primary/20 rounded-lg p-4 md:p-6 overflow-hidden">
+            <div className="whitespace-pre-wrap font-sans text-light/90 leading-relaxed text-sm md:text-base mobile-response-text">
+              {respuesta}
+            </div>
+          </div>
         </motion.div>
       )}
     </div>

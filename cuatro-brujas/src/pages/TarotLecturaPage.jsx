@@ -1,7 +1,11 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { hasValidAccess, hasCompletedReading, isPermanentCode, markReadingCompleted } from '../services/sessionService';
 
 const TarotLecturaPage = () => {
+  const navigate = useNavigate();
+  const [lecturaCompletada, setLecturaCompletada] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     birthDate: '',
@@ -9,10 +13,33 @@ const TarotLecturaPage = () => {
     question: ''
   });
 
+  // Verificar control de acceso al cargar la página
+  useEffect(() => {
+    // Verificar si tiene acceso válido
+    if (!hasValidAccess()) {
+      console.log('❌ Acceso denegado: código de acceso requerido');
+      navigate('/viaje-mistico');
+      return;
+    }
+
+    // Verificar si ya completó una lectura (solo para códigos no permanentes)
+    if (hasCompletedReading() && !isPermanentCode()) {
+      console.log('⚠️ Lectura ya completada - redirigiendo a confirmación');
+      navigate('/lectura-completada');
+      return;
+    }
+  }, [navigate]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.birthDate && formData.theme) {
+    if (formData.birthDate && formData.theme && !lecturaCompletada) {
       console.log('Formulario enviado:', formData);
+      
+      // Aquí iría la lógica para generar la respuesta del tarot
+      // Por ahora solo marcamos como completada cuando se envía el formulario
+      markReadingCompleted('elvira', 'tarot');
+      setLecturaCompletada(true);
+      console.log('✅ Lectura de tarot completada exitosamente');
     }
   };
 
@@ -168,12 +195,16 @@ const TarotLecturaPage = () => {
             >
               <motion.button
                 type="submit"
-                disabled={!formData.birthDate || !formData.theme}
-                className="w-full bg-secondary text-light p-3 rounded-lg disabled:opacity-50 transition-all duration-300 hover:bg-secondary/90 disabled:hover:bg-secondary"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                disabled={!formData.birthDate || !formData.theme || lecturaCompletada}
+                className={`w-full text-light p-3 rounded-lg transition-all duration-300 ${
+                  lecturaCompletada 
+                    ? 'bg-gray-600 opacity-50 cursor-not-allowed' 
+                    : 'bg-secondary hover:bg-secondary/90 disabled:opacity-50 disabled:hover:bg-secondary'
+                }`}
+                whileHover={{ scale: lecturaCompletada ? 1 : 1.02 }}
+                whileTap={{ scale: lecturaCompletada ? 1 : 0.98 }}
               >
-                🔮 Comenzar la Lectura
+                {lecturaCompletada ? '✅ Lectura Completada' : '🔮 Comenzar la Lectura'}
               </motion.button>
             </motion.div>
           </form>

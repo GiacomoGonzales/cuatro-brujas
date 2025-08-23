@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { brujas } from '../data/brujas';
 import { consultarBruja } from '../services/openaiService';
+import { markReadingCompleted } from '../services/sessionService';
 
 // Mazo de cartas del tarot para Calypso
 const MAZO_TAROT = [
@@ -14,7 +15,7 @@ const MAZO_TAROT = [
 
 // Temas para las consultas
 const TEMAS_TAROT = ['Amor', 'Dinero', 'Salud', 'General'];
-const TEMAS_ASTRO = ['Predicción del mes', 'Análisis natal', 'Signo lunar'];
+const TEMAS_ASTRO = ['Análisis natal', 'Signo lunar'];
 
 const FormularioBruja = ({ idBruja }) => {
   const bruja = brujas[idBruja];
@@ -74,6 +75,10 @@ const FormularioBruja = ({ idBruja }) => {
     try {
       const respuestaIA = await consultarBruja(bruja, datosCliente);
       setRespuesta(respuestaIA);
+      
+      // Marcar la lectura como completada solo cuando se obtiene la respuesta exitosamente
+      markReadingCompleted(idBruja, 'consulta');
+      console.log('✅ Lectura completada exitosamente con', bruja.nombre);
     } catch (err) {
       setError(err.message || 'Error en la consulta mística');
     } finally {
@@ -316,8 +321,8 @@ const FormularioBruja = ({ idBruja }) => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mobile-form-container overflow-hidden">
-      <form onSubmit={handleSubmit} className="space-y-6 w-full">
+    <div className="max-w-4xl mx-auto mobile-form-container overflow-hidden px-4">
+      <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-2xl mx-auto">
         {renderCampos()}
 
         {/* Mostrar cartas seleccionadas para Calypso */}
@@ -339,21 +344,23 @@ const FormularioBruja = ({ idBruja }) => {
 
         <motion.button
           type="submit"
-          disabled={isLoading}
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
+          disabled={isLoading || respuesta}
+          whileHover={{ scale: respuesta ? 1 : 1.02 }}
+          whileTap={{ scale: respuesta ? 1 : 0.98 }}
           className={`w-full py-3 px-6 rounded-lg bg-gradient-to-r from-secondary to-accent 
             text-light font-semibold transition-all duration-300
-            ${isLoading ? 'opacity-70 cursor-not-allowed' : 'hover:shadow-lg hover:shadow-secondary/20'}`}
+            ${(isLoading || respuesta) ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg hover:shadow-secondary/20'}`}
         >
           {isLoading ? (
             <span className="flex items-center justify-center">
               <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 714 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
               Consultando...
             </span>
+          ) : respuesta ? (
+            '✅ Consulta Completada'
           ) : (
             getButtonText()
           )}
@@ -374,14 +381,16 @@ const FormularioBruja = ({ idBruja }) => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="mt-8 p-6 bg-dark/50 border border-secondary/30 rounded-lg shadow-lg shadow-secondary/10"
+          className="mt-8 p-4 md:p-6 bg-dark/50 border border-secondary/30 rounded-lg shadow-lg shadow-secondary/10 w-full max-w-none mobile-response-container"
         >
-          <h3 className="text-xl font-semibold text-secondary mb-4">
+          <h3 className="text-xl font-semibold text-secondary mb-4 text-center">
             Respuesta de {bruja.nombre}
           </h3>
-          <pre className="whitespace-pre-wrap font-sans text-light/90 leading-relaxed">
-            {respuesta}
-          </pre>
+          <div className="bg-primary/20 rounded-lg p-4 md:p-6 mb-6 overflow-hidden">
+            <div className="whitespace-pre-wrap font-sans text-light/90 leading-relaxed text-sm md:text-base mobile-response-text">
+              {respuesta}
+            </div>
+          </div>
 
           {/* Botones de compartir */}
           <div className="mt-8 border-t border-secondary/30 pt-6">

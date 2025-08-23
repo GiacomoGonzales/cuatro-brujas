@@ -24,25 +24,25 @@ const QuienesSomosPage = () => {
       name: "Calypso",
       role: "Maestra del Tarot",
       description: "Experta en lectura de cartas del tarot, Calypso revela los misterios de tu destino mientras disfrutas de nuestras hamburguesas místicas.",
-      image: "/avatares/calypso.png"
+      image: "/avatares/calypso.mp4"
     },
     {
       name: "Orula",
       role: "Numerología y Destino",
       description: "Especialista en numerología y destino, Orula descifra los patrones numéricos que influyen en tu vida y te guía hacia tu verdadero camino.",
-      image: "/avatares/orula.png"
+      image: "/avatares/orula.mp4"
     },
     {
       name: "Aisha",
       role: "Chakras y Energía",
       description: "Maestra en armonización de chakras y energías, Aisha te ayuda a encontrar el equilibrio perfecto entre cuerpo, mente y espíritu.",
-      image: "/avatares/aisha.png"
+      image: "/avatares/aisha.mp4"
     },
     {
       name: "Sirona",
       role: "Horóscopo y Carta Astral",
       description: "Intérprete de los astros y cartas astrales, Sirona lee los mensajes celestiales para revelar tu verdadera esencia y destino.",
-      image: "/avatares/sirona.png"
+      image: "/avatares/sirona.mp4"
     }
   ];
 
@@ -182,11 +182,23 @@ const QuienesSomosPage = () => {
                 className="magical-card p-6 text-center"
               >
                 <div className="w-32 h-32 mx-auto mb-4 rounded-full overflow-hidden border-4 border-secondary/30">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
-                  />
+                  {member.image.endsWith('.mp4') ? (
+                    <video
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                    />
+                  ) : (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-cover"
+                    />
+                  )}
                 </div>
                 <h3 className="text-2xl font-bold font-title text-light mb-2">
                   {member.name}

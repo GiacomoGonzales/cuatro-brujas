@@ -1,34 +1,44 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import BrujasHomeCoverflow from '../components/BrujasHomeCoverflow';
+import BrujasCarouselLigero from '../components/BrujasCarouselLigero';
+import { hasValidAccess, hasCompletedReading, isPermanentCode, resetPermanentCodeSession } from '../services/sessionService';
 
 const LecturasPage = () => {
   const navigate = useNavigate();
 
   // Verificar control de acceso al cargar la página
   useEffect(() => {
-    const accessValidated = sessionStorage.getItem('accessValidated');
-    if (accessValidated !== 'true') {
-      // Comentar temporalmente para pruebas - descomenta para producción
-      // navigate('/viaje-mistico');
-      // return;
-      
-      // Para pruebas: establecer acceso temporal
-      sessionStorage.setItem('accessValidated', 'true');
-      console.log('🔧 Acceso temporal establecido para pruebas');
+    // Verificar si tiene acceso válido
+    if (!hasValidAccess()) {
+      console.log('❌ Acceso denegado: código de acceso requerido');
+      navigate('/viaje-mistico');
+      return;
+    }
+
+    // Verificar si ya completó una lectura
+    if (hasCompletedReading()) {
+      // Si es un código permanente (desarrollo), permitir reiniciar
+      if (isPermanentCode()) {
+        console.log('🔧 Código permanente detectado - permitiendo nueva lectura');
+        resetPermanentCodeSession();
+      } else {
+        console.log('⚠️ Lectura ya completada - redirigiendo a confirmación');
+        navigate('/lectura-completada');
+        return;
+      }
     }
   }, [navigate]);
 
-  // Generar partículas místicas
-  const particulas = Array.from({ length: 50 }, (_, i) => ({
+  // Generar partículas místicas (reducidas para mejor rendimiento)
+  const particulas = Array.from({ length: 20 }, (_, i) => ({
     id: i,
-    delay: Math.random() * 5,
-    duration: 3 + Math.random() * 4,
-    size: 2 + Math.random() * 4,
+    delay: Math.random() * 3,
+    duration: 4 + Math.random() * 2,
+    size: 2 + Math.random() * 3,
     x: Math.random() * 100,
     y: Math.random() * 100,
-    opacity: 0.3 + Math.random() * 0.7,
+    opacity: 0.2 + Math.random() * 0.5,
   }));
 
 
@@ -78,21 +88,19 @@ const LecturasPage = () => {
 
 
 
-      {/* Ondas místicas de fondo */}
+      {/* Ondas místicas de fondo (simplificadas) */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-5"
           animate={{
             background: [
-              'radial-gradient(circle at 20% 20%, #A259FF 0%, transparent 50%)',
-              'radial-gradient(circle at 80% 80%, #FFB700 0%, transparent 50%)',
-              'radial-gradient(circle at 50% 50%, #A259FF 0%, transparent 50%)',
-              'radial-gradient(circle at 20% 80%, #FFB700 0%, transparent 50%)',
-              'radial-gradient(circle at 20% 20%, #A259FF 0%, transparent 50%)',
+              'radial-gradient(circle at 30% 30%, #A259FF 0%, transparent 60%)',
+              'radial-gradient(circle at 70% 70%, #FFB700 0%, transparent 60%)',
+              'radial-gradient(circle at 30% 30%, #A259FF 0%, transparent 60%)',
             ],
           }}
           transition={{
-            duration: 8,
+            duration: 12,
             repeat: Infinity,
             ease: "easeInOut",
           }}
@@ -125,13 +133,13 @@ const LecturasPage = () => {
           </motion.p>
         </motion.div>
 
-        {/* Carrusel Coverflow 3D */}
+        {/* Carrusel Ligero Optimizado */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <BrujasHomeCoverflow isLecturasPage={true} />
+          <BrujasCarouselLigero />
         </motion.div>
       </div>
     </div>

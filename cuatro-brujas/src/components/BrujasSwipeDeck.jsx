@@ -8,7 +8,7 @@ const brujas = [
   { 
     nombre: "Calypso", 
     rol: "Tarot - Lectura Diaria", 
-    imagen: "/avatares/calypso.png", 
+    imagen: "/avatares/calypso.mp4", 
     ruta: "/consulta/calypso",
     color: "#9333ea",
     descripcion: "Lecturas para las próximas 24 horas"
@@ -16,7 +16,7 @@ const brujas = [
   { 
     nombre: "Orula", 
     rol: "Numerología - Lectura Semanal", 
-    imagen: "/avatares/orula.png", 
+    imagen: "/avatares/orula.mp4", 
     ruta: "/consulta/orula",
     color: "#dc2626",
     descripcion: "Vibraciones numéricas para 7 días"
@@ -24,7 +24,7 @@ const brujas = [
   { 
     nombre: "Aisha", 
     rol: "Chakras - Lectura Mensual", 
-    imagen: "/avatares/aisha.png", 
+    imagen: "/avatares/aisha.mp4", 
     ruta: "/consulta/aisha",
     color: "#059669",
     descripcion: "Equilibrio energético para el mes"
@@ -32,7 +32,7 @@ const brujas = [
   { 
     nombre: "Sirona", 
     rol: "Astrología - Lectura Anual", 
-    imagen: "/avatares/sirona.png", 
+    imagen: "/avatares/sirona.mp4", 
     ruta: "/consulta/sirona",
     color: "#2563eb",
     descripcion: "Predicciones para todo el año"
@@ -230,17 +230,33 @@ const BrujasSwipeDeck = () => {
                   boxShadow: `0 25px 60px ${brujas[indiceActivo].color}30, 0 0 40px ${brujas[indiceActivo].color}20`,
                 }}
               >
-                {/* Imagen de la bruja */}
+                {/* Imagen/Video de la bruja */}
                 <div className="relative w-full h-2/3 overflow-hidden">
-                  <motion.img
-                    src={brujas[indiceActivo].imagen}
-                    alt={brujas[indiceActivo].nombre}
-                    className="w-full h-full object-cover"
-                    draggable={false}
-                    initial={{ scale: 1.1 }}
-                    animate={{ scale: 1 }}
-                    transition={{ duration: 0.6 }}
-                  />
+                  {brujas[indiceActivo].imagen.endsWith('.mp4') ? (
+                    <motion.video
+                      src={brujas[indiceActivo].imagen}
+                      alt={brujas[indiceActivo].nombre}
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      draggable={false}
+                      initial={{ scale: 1.1 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 0.6 }}
+                    />
+                  ) : (
+                    <motion.img
+                      src={brujas[indiceActivo].imagen}
+                      alt={brujas[indiceActivo].nombre}
+                      className="w-full h-full object-cover"
+                      draggable={false}
+                      initial={{ scale: 1.1 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 0.6 }}
+                    />
+                  )}
                   
                   {/* Overlay degradado */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />

@@ -133,7 +133,7 @@ const Footer = () => {
             <div className="space-y-3 text-light/70">
               <p>
                 <i className="ri-mail-line mr-2"></i>
-                consultas@cuatrobrujas.app
+                consultas@cuatrobrujas.pe
               </p>
               <p>
                 <i className="ri-whatsapp-line mr-2"></i>

@@ -8,7 +8,7 @@ const brujasData = [
   { 
     nombre: "Calypso", 
     rol: "Tarot - Lectura Diaria", 
-    imagen: "/avatares/calypso.png", 
+    imagen: "/avatares/calypso.mp4", 
     rutaDirecta: "/consulta/calypso",
     color: "#9333ea",
     descripcion: "Descubre las energías inmediatas para las próximas 24 horas a través de las cartas místicas del tarot"
@@ -16,7 +16,7 @@ const brujasData = [
   { 
     nombre: "Orula", 
     rol: "Numerología - Lectura Semanal", 
-    imagen: "/avatares/orula.png", 
+    imagen: "/avatares/orula.mp4", 
     rutaDirecta: "/consulta/orula",
     color: "#dc2626",
     descripcion: "Los números revelan tu vibración y camino para los próximos 7 días"
@@ -24,7 +24,7 @@ const brujasData = [
   { 
     nombre: "Aisha", 
     rol: "Chakras - Lectura Mensual", 
-    imagen: "/avatares/aisha.png", 
+    imagen: "/avatares/aisha.mp4", 
     rutaDirecta: "/consulta/aisha",
     color: "#059669",
     descripcion: "Equilibra tu energía vital y armoniza tus chakras durante todo el mes"
@@ -32,7 +32,7 @@ const brujasData = [
   { 
     nombre: "Sirona", 
     rol: "Astrología - Lectura Anual", 
-    imagen: "/avatares/sirona.png", 
+    imagen: "/avatares/sirona.mp4", 
     rutaDirecta: "/consulta/sirona",
     color: "#2563eb",
     descripcion: "Los astros revelan tu destino completo para todo el año venidero"
@@ -276,13 +276,26 @@ const BrujasHomeCoverflow = ({ isLecturasPage = false }) => {
                     </div>
                   )}
 
-                  {/* Imagen de la bruja */}
-                  <img
-                    src={bruja.imagen}
-                    alt={bruja.nombre}
-                    className="w-full h-full object-cover"
-                    draggable={false}
-                  />
+                  {/* Imagen/Video de la bruja */}
+                  {bruja.imagen.endsWith('.mp4') ? (
+                    <video
+                      src={bruja.imagen}
+                      alt={bruja.nombre}
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      draggable={false}
+                    />
+                  ) : (
+                    <img
+                      src={bruja.imagen}
+                      alt={bruja.nombre}
+                      className="w-full h-full object-cover"
+                      draggable={false}
+                    />
+                  )}
                   
                   {/* Overlay degradado */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
