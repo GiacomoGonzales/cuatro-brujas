@@ -22,10 +22,10 @@ const brujas = [
     descripcion: "Vibraciones numéricas para 7 días"
   },
   { 
-    nombre: "Zaira", 
+    nombre: "Aisha", 
     rol: "Chakras - Lectura Mensual", 
-    imagen: "/avatares/zaira.mp4", 
-    ruta: "/consulta/zaira",
+    imagen: "/avatares/aisha.mp4", 
+    ruta: "/consulta/aisha",
     color: "#059669",
     descripcion: "Equilibrio energético para el mes"
   },

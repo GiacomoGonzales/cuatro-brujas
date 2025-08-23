@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
-// Force deployment update - fix Zaira video display issue
+// Force deployment update - fix Aisha video display issue
 
 const QuienesSomosPage = () => {
   // Cargar script de Gloria Food
@@ -34,10 +34,10 @@ const QuienesSomosPage = () => {
       image: "/avatares/orula.mp4"
     },
     {
-      name: "Zaira",
+      name: "Aisha",
       role: "Chakras y Energía",
-      description: "Maestra en armonización de chakras y energías, Zaira te ayuda a encontrar el equilibrio perfecto entre cuerpo, mente y espíritu.",
-      image: "/avatares/zaira.mp4"
+      description: "Maestra en armonización de chakras y energías, Aisha te ayuda a encontrar el equilibrio perfecto entre cuerpo, mente y espíritu.",
+      image: "/avatares/aisha.mp4"
     },
     {
       name: "Sirona",

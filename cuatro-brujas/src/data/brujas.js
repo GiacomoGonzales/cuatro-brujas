@@ -36,13 +36,13 @@ Con sabiduría numérica, te ayudo a anticipar lo que está por llegar en estos 
       periodo: "semanal"
     }
   },
-  zaira: {
-    nombre: "Zaira",
+  aisha: {
+    nombre: "Aisha",
     servicio: "Chakras - Lectura Mensual",
     descripcion: "Equilibra tu energía vital durante todo el mes",
-    imagen: "/avatares/zaira.mp4",
+    imagen: "/avatares/aisha.mp4",
     ruta: "/chakras",
-    prompt: `Soy Zaira, guardiana de la energía vital.
+    prompt: `Soy Aisha, guardiana de la energía vital.
 Examinaré el flujo de tus chakras para guiarte durante todo el mes.
 - Analizo tu energía principal y posibles bloqueos.
 - Recomiendo rituales, cristales y prácticas específicas para armonizarte.

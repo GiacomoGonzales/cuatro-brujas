@@ -22,10 +22,10 @@ const brujasData = [
     descripcion: "Los números revelan tu vibración y camino para los próximos 7 días"
   },
   { 
-    nombre: "Zaira", 
+    nombre: "Aisha", 
     rol: "Chakras - Lectura Mensual", 
-    imagen: "/avatares/zaira.mp4", 
-    rutaDirecta: "/consulta/zaira",
+    imagen: "/avatares/aisha.mp4", 
+    rutaDirecta: "/consulta/aisha",
     color: "#059669",
     descripcion: "Equilibra tu energía vital y armoniza tus chakras durante todo el mes"
   },

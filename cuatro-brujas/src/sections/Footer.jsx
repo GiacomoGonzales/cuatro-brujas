@@ -25,7 +25,7 @@ const Footer = () => {
     },
     { 
       name: 'Chakras y Energía',
-      url: '/consulta/zaira'
+      url: '/consulta/aisha'
     },
     { 
       name: 'Horóscopo y Carta Astral',

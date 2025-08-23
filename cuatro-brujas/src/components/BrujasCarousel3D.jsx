@@ -25,11 +25,11 @@ const brujasData = [
     color: '#dc2626'
   },
   {
-    id: 'zaira',
-    nombre: 'Zaira',
-    imagen: '/avatares/zaira.mp4',
+    id: 'aisha',
+    nombre: 'Aisha',
+    imagen: '/avatares/aisha.mp4',
     especialidad: 'Chakras - Lectura Mensual',
-    ruta: '/consulta/zaira',
+    ruta: '/consulta/aisha',
     color: '#059669'
   },
   {

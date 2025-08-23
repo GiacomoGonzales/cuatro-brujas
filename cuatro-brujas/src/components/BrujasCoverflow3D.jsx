@@ -20,10 +20,10 @@ const brujas = [
     color: "#dc2626" 
   },
   { 
-    nombre: "Zaira", 
+    nombre: "Aisha", 
     rol: "Chakras - Lectura Mensual", 
-    imagen: "/avatares/zaira.mp4", 
-    ruta: "/consulta/zaira",
+    imagen: "/avatares/aisha.mp4", 
+    ruta: "/consulta/aisha",
     color: "#059669" 
   },
   { 
