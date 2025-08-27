@@ -40,7 +40,7 @@ const ConsultaBruja = ({ idBruja }) => {
       setRespuesta(respuestaIA);
       
       // Marcar la lectura como completada solo cuando se obtiene la respuesta exitosamente
-      markReadingCompleted(idBruja, 'consulta');
+      await markReadingCompleted(idBruja, 'consulta', datosConsulta);
       console.log('✅ Lectura completada exitosamente con', bruja.nombre);
     } catch (err) {
       setError(err.message || 'Error al realizar la consulta');

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import '../styles/admin.css';
 
 const AdminLoginPage = () => {
   const [email, setEmail] = useState('');
@@ -34,25 +35,15 @@ const AdminLoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-primary flex items-center justify-center px-4">
-      {/* Fondo mágico */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/70 to-primary/90 z-10"></div>
-        <img 
-          src="/backgrounds/hero-bg.png" 
-          alt="Fondo mágico" 
-          className="w-full h-full object-cover opacity-30"
-        />
-      </div>
-
+    <div className="admin-container flex items-center justify-center px-4">
       {/* Formulario de login */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="relative z-20 w-full max-w-md"
+        className="w-full max-w-md"
       >
-        <div className="magical-card p-8">
+        <div className="admin-card">
           {/* Header */}
           <div className="text-center mb-8">
             <motion.div
@@ -61,21 +52,21 @@ const AdminLoginPage = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-6xl mb-4"
             >
-              🔮
+              🔐
             </motion.div>
-            <h1 className="text-3xl font-title magical-text mb-2">
+            <h1 className="admin-title" style={{fontSize: '2rem', textAlign: 'center'}}>
               Panel Administrativo
             </h1>
-            <p className="text-light/70 font-body">
+            <p className="admin-subtitle" style={{textAlign: 'center'}}>
               Acceso solo para administradores
             </p>
           </div>
 
           {/* Formulario */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit}>
             {/* Campo Email */}
-            <div>
-              <label htmlFor="email" className="block text-light/90 font-body mb-2">
+            <div className="admin-form-group">
+              <label className="admin-label">
                 Email Administrativo
               </label>
               <input
@@ -83,15 +74,15 @@ const AdminLoginPage = () => {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 bg-primary/50 border border-secondary/30 rounded-lg text-light placeholder-light/50 focus:outline-none focus:border-secondary transition-colors font-body"
+                className="admin-input"
                 placeholder="admin@cuatrobrujas.app"
                 disabled={loading}
               />
             </div>
 
             {/* Campo Password */}
-            <div>
-              <label htmlFor="password" className="block text-light/90 font-body mb-2">
+            <div className="admin-form-group">
+              <label className="admin-label">
                 Contraseña
               </label>
               <input
@@ -99,7 +90,7 @@ const AdminLoginPage = () => {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-3 bg-primary/50 border border-secondary/30 rounded-lg text-light placeholder-light/50 focus:outline-none focus:border-secondary transition-colors font-body"
+                className="admin-input"
                 placeholder="••••••••"
                 disabled={loading}
               />
@@ -110,7 +101,7 @@ const AdminLoginPage = () => {
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="p-3 bg-red-900/30 border border-red-500/50 rounded-lg text-red-300 text-sm font-body"
+                className="admin-alert admin-alert-error"
               >
                 {error}
               </motion.div>
@@ -120,31 +111,27 @@ const AdminLoginPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-gradient-to-r from-secondary to-accent text-primary px-6 py-3 rounded-lg font-body font-semibold hover:from-secondary/90 hover:to-accent/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="admin-btn-primary"
             >
-              {loading ? '🔮 Verificando...' : '✨ Acceder al Panel'}
+              {loading ? (
+                <span className="flex items-center justify-center">
+                  <div className="admin-spinner" style={{width: '1.25rem', height: '1.25rem', marginRight: '0.75rem'}}></div>
+                  Verificando...
+                </span>
+              ) : (
+                'Acceder al Panel'
+              )}
             </button>
           </form>
 
           {/* Footer */}
-          <div className="mt-8 text-center">
-            <p className="text-light/50 text-sm font-body">
+          <div style={{marginTop: '2rem', textAlign: 'center'}}>
+            <p style={{color: '#a0aec0', fontSize: '0.875rem'}}>
               Solo administradores autorizados
             </p>
           </div>
         </div>
       </motion.div>
-
-      {/* Estilos personalizados */}
-      <style jsx>{`
-        .magical-card {
-          background: linear-gradient(135deg, rgba(20, 0, 24, 0.9) 0%, rgba(20, 0, 24, 0.7) 100%);
-          border: 1px solid rgba(165, 106, 255, 0.2);
-          border-radius: 20px;
-          backdrop-filter: blur(10px);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-      `}</style>
     </div>
   );
 };

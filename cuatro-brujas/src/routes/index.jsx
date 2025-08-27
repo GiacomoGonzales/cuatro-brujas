@@ -66,7 +66,6 @@ export const router = createBrowserRouter([
         path: "como-funciona",
         element: <ComoFuncionaPage />,
       },
-
       {
         path: "viaje-mistico",
         element: <ViajeMísticoPage />,
@@ -83,19 +82,22 @@ export const router = createBrowserRouter([
         path: "lectura-completada",
         element: <LecturaCompletadaPage />,
       },
-      {
-        path: "admin/login",
-        element: <AdminLoginPage />,
-      },
-      {
-        path: "admin",
-        element: (
-          <ProtectedRoute requireAdmin={true}>
-            <AdminPage />
-          </ProtectedRoute>
-        ),
-      },
     ],
+  },
+  // Rutas del admin SIN layout (sin header/footer)
+  {
+    path: "/admin/login",
+    element: <AdminLoginPage />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/admin",
+    element: (
+      <ProtectedRoute requireAdmin={true}>
+        <AdminPage />
+      </ProtectedRoute>
+    ),
+    errorElement: <NotFoundPage />,
   },
 ]);
 

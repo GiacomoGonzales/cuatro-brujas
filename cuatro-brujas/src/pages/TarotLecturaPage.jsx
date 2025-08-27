@@ -30,14 +30,14 @@ const TarotLecturaPage = () => {
     }
   }, [navigate]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (formData.birthDate && formData.theme && !lecturaCompletada) {
       console.log('Formulario enviado:', formData);
       
       // Aquí iría la lógica para generar la respuesta del tarot
       // Por ahora solo marcamos como completada cuando se envía el formulario
-      markReadingCompleted('elvira', 'tarot');
+      await markReadingCompleted('calypso', 'tarot', formData);
       setLecturaCompletada(true);
       console.log('✅ Lectura de tarot completada exitosamente');
     }

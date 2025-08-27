@@ -3,6 +3,8 @@ import { motion } from 'framer-motion';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { createAccessCode, getRecentCodes, formatDate } from '../services/adminService';
+import AdminReadingStats from '../components/AdminReadingStats';
+import '../styles/admin.css';
 
 const AdminPage = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +16,8 @@ const AdminPage = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [recentCodes, setRecentCodes] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const codesPerPage = 6;
   
   const { currentUser, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
@@ -137,94 +141,111 @@ const AdminPage = () => {
     window.open(`https://wa.me/${cleanNumber}?text=${message}`, '_blank');
   };
 
+  // Funciones de paginación
+  const totalPages = Math.ceil(recentCodes.length / codesPerPage);
+  const startIndex = (currentPage - 1) * codesPerPage;
+  const endIndex = startIndex + codesPerPage;
+  const currentCodes = recentCodes.slice(startIndex, endIndex);
+
+  const goToPage = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
+  const goToPreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const goToNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
   if (!isAdmin) {
     return null; // Redirigiendo...
   }
 
   return (
-    <div className="min-h-screen bg-primary">
-      {/* Fondo mágico */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/90 via-primary/70 to-primary/90 z-10"></div>
-        <img 
-          src="/backgrounds/hero-bg.png" 
-          alt="Fondo mágico" 
-          className="w-full h-full object-cover opacity-30"
-        />
-      </div>
-
-      {/* Contenido */}
-      <div className="relative z-20 pt-24 pb-16 px-4">
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-8 gap-4">
+    <div className="admin-container">
+      {/* Header profesional */}
+      <div className="admin-header">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center">
           <div>
-            <h1 className="text-3xl md:text-4xl font-title magical-text">
-              🔮 Panel Administrativo
+            <h1 className="admin-title">
+              Panel Administrativo
             </h1>
-            <p className="text-light/70 font-body mt-2">
+            <p className="admin-subtitle">
               Bienvenido, {currentUser?.email}
             </p>
           </div>
           <button
             onClick={handleLogout}
-            className="bg-red-600/20 hover:bg-red-600/30 border border-red-500/30 text-red-300 px-4 py-2 rounded-lg transition-colors font-body self-start sm:self-auto"
+            className="admin-logout-btn"
           >
-            🚪 Salir
+            Cerrar Sesión
           </button>
         </div>
+      </div>
 
-        <div className="max-w-4xl mx-auto space-y-8">
-          {/* Formulario de generación */}
+      {/* Contenido principal */}
+      <div className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+
+        {/* Layout de 2 columnas para escritorio */}
+        <div className="admin-two-column-layout grid grid-cols-1 xl:grid-cols-2 gap-8 mb-8">
+          
+          {/* Columna izquierda - Formulario de generación */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="magical-card p-6"
+            className="admin-card"
           >
-            <h2 className="text-2xl font-title magical-text mb-6">
-              ✨ Generar Código de Acceso
+            <h2 className="admin-card-title">
+              📝 Generar Código de Acceso
             </h2>
 
-            <form onSubmit={handleGenerateCode} className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Nombre */}
-                <div>
-                  <label className="block text-light/90 font-body mb-2">
-                    Nombre *
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-primary/50 border border-secondary/30 rounded-lg text-light placeholder-light/50 focus:outline-none focus:border-secondary transition-colors font-body"
-                    placeholder="Nombre del cliente"
-                    disabled={loading}
-                    required
-                  />
-                </div>
+            <form onSubmit={handleGenerateCode}>
+              {/* Nombre */}
+              <div className="admin-form-group">
+                <label className="admin-label">
+                  Nombre *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="admin-input"
+                  placeholder="Nombre del cliente"
+                  disabled={loading}
+                  required
+                />
+              </div>
 
-                {/* Email */}
-                <div>
-                  <label className="block text-light/90 font-body mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 bg-primary/50 border border-secondary/30 rounded-lg text-light placeholder-light/50 focus:outline-none focus:border-secondary transition-colors font-body"
-                    placeholder="cliente@ejemplo.com"
-                    disabled={loading}
-                    required
-                  />
-                </div>
+              {/* Email */}
+              <div className="admin-form-group">
+                <label className="admin-label">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="admin-input"
+                  placeholder="cliente@ejemplo.com"
+                  disabled={loading}
+                  required
+                />
               </div>
 
               {/* WhatsApp */}
-              <div>
-                <label className="block text-light/90 font-body mb-2">
+              <div className="admin-form-group">
+                <label className="admin-label">
                   WhatsApp (opcional)
                 </label>
                 <input
@@ -232,7 +253,7 @@ const AdminPage = () => {
                   name="whatsapp"
                   value={formData.whatsapp}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 bg-primary/50 border border-secondary/30 rounded-lg text-light placeholder-light/50 focus:outline-none focus:border-secondary transition-colors font-body"
+                  className="admin-input"
                   placeholder="+573001234567"
                   disabled={loading}
                 />
@@ -240,13 +261,13 @@ const AdminPage = () => {
 
               {/* Mensajes */}
               {error && (
-                <div className="p-3 bg-red-900/30 border border-red-500/50 rounded-lg text-red-300 text-sm font-body">
+                <div className="admin-alert admin-alert-error">
                   {error}
                 </div>
               )}
 
               {success && (
-                <div className="p-3 bg-green-900/30 border border-green-500/50 rounded-lg text-green-300 text-sm font-body">
+                <div className="admin-alert admin-alert-success">
                   {success}
                 </div>
               )}
@@ -255,105 +276,196 @@ const AdminPage = () => {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-secondary to-accent text-primary px-6 py-3 rounded-lg font-body font-semibold hover:from-secondary/90 hover:to-accent/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="admin-btn-primary"
               >
-                {loading ? '🔮 Generando...' : '✨ Generar Código'}
+                {loading ? 'Generando...' : 'Generar Código'}
               </button>
             </form>
           </motion.div>
 
-
-
-          {/* Historial */}
+          {/* Columna derecha - Estadísticas de Lecturas */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="magical-card p-6"
           >
-            <h3 className="text-xl font-title magical-text mb-4">
-              📊 Últimos Códigos Creados
-            </h3>
-
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-secondary/20">
-                    <th className="text-left text-light/90 font-body py-2">Nombre</th>
-                    <th className="text-left text-light/90 font-body py-2">Email</th>
-                    <th className="text-left text-light/90 font-body py-2">Código</th>
-                    <th className="text-left text-light/90 font-body py-2">Estado</th>
-                    <th className="text-left text-light/90 font-body py-2">Fecha</th>
-                    <th className="text-left text-light/90 font-body py-2">Acciones</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentCodes.map((code) => (
-                    <tr key={code.id} className="border-b border-secondary/10">
-                      <td className="text-light font-body py-3">{code.name}</td>
-                      <td className="text-light/70 font-body py-3">{code.email}</td>
-                      <td className="font-mono text-secondary py-3">{code.code}</td>
-                      <td className="py-3">
-                        <span className={`px-2 py-1 rounded text-xs ${
-                          code.used 
-                            ? 'bg-red-900/30 text-red-300' 
-                            : 'bg-green-900/30 text-green-300'
-                        }`}>
-                          {code.used ? 'Usado' : 'Disponible'}
-                        </span>
-                      </td>
-                      <td className="text-light/70 font-body py-3 text-sm">
-                        {formatDate(code.createdAt)}
-                      </td>
-                      <td className="py-3">
-                        <div className="flex gap-2">
-                          {/* Botón Email con SendGrid */}
-                          <button
-                            onClick={() => handleSendEmailFromHistory(code)}
-                            disabled={loading}
-                            className="bg-purple-600/20 hover:bg-purple-600/30 border border-purple-500/30 text-purple-300 px-3 py-2 rounded-lg transition-colors text-sm disabled:opacity-50 disabled:cursor-not-allowed"
-                            title={`Enviar email con SendGrid a ${code.email}`}
-                          >
-                            {loading ? '⏳' : '✉️'}
-                          </button>
-                          
-                          {/* Botón WhatsApp - solo si tiene número */}
-                          {code.whatsapp && (
-                            <button
-                              onClick={() => handleSendWhatsAppFromHistory(code)}
-                              className="bg-green-600/20 hover:bg-green-600/30 border border-green-500/30 text-green-300 p-2 rounded-lg transition-colors text-sm"
-                              title={`Enviar WhatsApp a ${code.whatsapp}`}
-                            >
-                              📱
-                            </button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-
-              {recentCodes.length === 0 && (
-                <div className="text-center text-light/50 py-8 font-body">
-                  No hay códigos generados aún
-                </div>
-              )}
-            </div>
+            <AdminReadingStats />
           </motion.div>
+
         </div>
+
+        {/* Historial - Tabla completa debajo */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="admin-card"
+        >
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6">
+            <h3 className="admin-card-title mb-0">
+              📋 Códigos de Acceso Generados
+            </h3>
+            <div className="text-sm" style={{color: '#718096'}}>
+              {recentCodes.length} códigos totales
+            </div>
+          </div>
+
+          <div className="admin-table-container">
+            <table className="admin-table">
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Email</th>
+                  <th>Código</th>
+                  <th>Estado</th>
+                  <th>Creado</th>
+                  <th>WhatsApp</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentCodes.map((code) => (
+                  <tr key={code.id}>
+                    <td>
+                      <div className="font-medium" style={{color: '#2d3748'}}>{code.name}</div>
+                    </td>
+                    <td>
+                      <div className="text-sm" style={{color: '#4a5568'}}>{code.email}</div>
+                    </td>
+                    <td>
+                      <code className="admin-badge" style={{
+                        fontSize: '0.875rem', 
+                        background: '#edf2f7', 
+                        color: '#2d3748',
+                        padding: '0.25rem 0.5rem', 
+                        borderRadius: '0.375rem',
+                        fontWeight: '600'
+                      }}>
+                        {code.code}
+                      </code>
+                    </td>
+                    <td>
+                      <span className={`admin-badge ${
+                        code.used 
+                          ? 'admin-badge-error' 
+                          : 'admin-badge-success'
+                      }`}>
+                        {code.used ? 'Usado' : 'Disponible'}
+                      </span>
+                    </td>
+                    <td>
+                      <div className="text-sm" style={{color: '#718096'}}>
+                        {formatDate(code.createdAt)}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="text-sm">
+                        {code.whatsapp ? (
+                          <span className="admin-badge admin-badge-success">
+                            📱 {code.whatsapp}
+                          </span>
+                        ) : (
+                          <span style={{color: '#a0aec0'}}>Sin WhatsApp</span>
+                        )}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => handleSendEmailFromHistory(code)}
+                          disabled={loading}
+                          className="admin-btn-secondary"
+                          title={`Enviar email a ${code.email}`}
+                        >
+                          {loading ? '⏳' : '✉️'}
+                        </button>
+                        
+                        {code.whatsapp && (
+                          <button
+                            onClick={() => handleSendWhatsAppFromHistory(code)}
+                            className="admin-btn-secondary"
+                            title={`Enviar WhatsApp a ${code.whatsapp}`}
+                          >
+                            📱
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {recentCodes.length === 0 && (
+              <div className="admin-empty-state">
+                <div className="admin-empty-state-icon">📄</div>
+                <div className="admin-empty-state-text">No hay códigos generados aún</div>
+              </div>
+            )}
+          </div>
+
+          {/* Paginación */}
+          {recentCodes.length > 0 && totalPages > 1 && (
+            <div className="admin-pagination">
+              <div className="admin-pagination-info">
+                Mostrando {startIndex + 1}-{Math.min(endIndex, recentCodes.length)} de {recentCodes.length} códigos
+              </div>
+              
+              <div className="admin-pagination-nav">
+                {/* Botón anterior */}
+                <button
+                  onClick={goToPreviousPage}
+                  disabled={currentPage === 1}
+                  className="admin-pagination-button"
+                  title="Página anterior"
+                >
+                  ‹
+                </button>
+
+                {/* Números de página */}
+                {Array.from({ length: totalPages }, (_, index) => {
+                  const pageNumber = index + 1;
+                  // Mostrar solo páginas cercanas a la actual
+                  if (
+                    pageNumber === 1 ||
+                    pageNumber === totalPages ||
+                    (pageNumber >= currentPage - 1 && pageNumber <= currentPage + 1)
+                  ) {
+                    return (
+                      <button
+                        key={pageNumber}
+                        onClick={() => goToPage(pageNumber)}
+                        className={`admin-pagination-button ${
+                          currentPage === pageNumber ? 'active' : ''
+                        }`}
+                      >
+                        {pageNumber}
+                      </button>
+                    );
+                  } else if (
+                    pageNumber === currentPage - 2 ||
+                    pageNumber === currentPage + 2
+                  ) {
+                    return <span key={pageNumber} style={{color: '#a0aec0'}}>...</span>;
+                  }
+                  return null;
+                })}
+
+                {/* Botón siguiente */}
+                <button
+                  onClick={goToNextPage}
+                  disabled={currentPage === totalPages}
+                  className="admin-pagination-button"
+                  title="Página siguiente"
+                >
+                  ›
+                </button>
+              </div>
+            </div>
+          )}
+        </motion.div>
       </div>
 
-      {/* Estilos */}
-      <style jsx>{`
-        .magical-card {
-          background: linear-gradient(135deg, rgba(20, 0, 24, 0.9) 0%, rgba(20, 0, 24, 0.7) 100%);
-          border: 1px solid rgba(165, 106, 255, 0.2);
-          border-radius: 20px;
-          backdrop-filter: blur(10px);
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-      `}</style>
     </div>
   );
 };

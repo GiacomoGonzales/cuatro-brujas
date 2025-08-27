@@ -77,7 +77,7 @@ const FormularioBruja = ({ idBruja }) => {
       setRespuesta(respuestaIA);
       
       // Marcar la lectura como completada solo cuando se obtiene la respuesta exitosamente
-      markReadingCompleted(idBruja, 'consulta');
+      await markReadingCompleted(idBruja, 'consulta', datosCliente);
       console.log('✅ Lectura completada exitosamente con', bruja.nombre);
     } catch (err) {
       setError(err.message || 'Error en la consulta mística');
