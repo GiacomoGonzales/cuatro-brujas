@@ -1,46 +1,32 @@
-// Función para llamar a la API de OpenAI con configuración dinámica
+// Función para llamar a la API de OpenAI de forma segura a través del servidor
 async function llamarOpenAI(messages, config = {}) {
-  const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
-  
-  if (!apiKey) {
-    return {
-      success: true,
-      data: "✨ Esta es una respuesta de prueba. La funcionalidad completa requiere una API key válida de OpenAI."
-    };
-  }
-
-  // Configuración por defecto
-  const defaultConfig = {
-    max_tokens: 250,
-    temperature: 0.7
-  };
-  
-  const finalConfig = { ...defaultConfig, ...config };
-
   try {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch('/api/openai', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: "gpt-4",
         messages,
-        temperature: finalConfig.temperature,
-        max_tokens: finalConfig.max_tokens
+        config
       })
     });
 
     if (!response.ok) {
-      throw new Error('Error en la llamada a OpenAI');
+      throw new Error('Error en la llamada al servidor');
     }
 
     const data = await response.json();
-    return {
-      success: true,
-      data: data.choices[0].message.content
-    };
+
+    // Si hay un fallback, usarlo
+    if (data.fallback) {
+      return {
+        success: true,
+        data: data.fallback
+      };
+    }
+
+    return data;
   } catch (error) {
     return {
       success: false,

@@ -191,9 +191,9 @@ const IngresarCodigoPage = () => {
                 <button
                   onClick={handleValidateCode}
                   disabled={isValidating || !code.trim()}
-                  className="w-full max-w-md bg-secondary text-light px-8 py-4 rounded-full text-lg font-body hover:bg-secondary/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full max-w-md bg-secondary text-light px-8 py-4 rounded-full text-lg font-body hover:bg-secondary/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed touch-manipulation"
                 >
-                  {isValidating ? '🌀 Activando portal...' : '✨ Ingresar al reino místico'}
+                  {isValidating ? '🌀 Conectando... Puede tardar unos segundos' : '✨ Ingresar al reino místico'}
                 </button>
 
                 {/* Mensaje de validación */}

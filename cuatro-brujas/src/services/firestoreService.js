@@ -6,7 +6,7 @@ import { db } from '../config/firebase';
  * @param {string} code - El código a validar
  * @returns {Promise<{success: boolean, message: string}>}
  */
-export const validateAccessCode = async (code) => {
+export const validateAccessCode = async (code, retryCount = 0) => {
   // Códigos hardcodeados para desarrollo - verificar PRIMERO
   const validCodes = {
     'BRUJA2025': {
@@ -47,7 +47,7 @@ export const validateAccessCode = async (code) => {
         }
       };
     }
-    
+
     // Para otros códigos hardcodeados, verificar si están usados y expiración
     if (!hardcodedCode.used && new Date() <= hardcodedCode.expiresAt) {
       return {
@@ -62,9 +62,29 @@ export const validateAccessCode = async (code) => {
   }
 
   try {
-    // Si no es un código hardcodeado, buscar en Firestore
-    const q = query(collection(db, 'accessCodes'), where('code', '==', code));
-    const querySnapshot = await getDocs(q);
+    // Detectar si estamos en móvil para ajustar timeout
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    console.log(`🔍 Validando código ${code} en ${isMobile ? 'móvil' : 'desktop'} (intento ${retryCount + 1})`);
+
+    // Crear promesa con timeout más largo para móviles
+    const timeoutMs = isMobile ? 15000 : 10000; // 15s en móvil, 10s en desktop
+
+    const queryPromise = new Promise(async (resolve, reject) => {
+      try {
+        const q = query(collection(db, 'accessCodes'), where('code', '==', code));
+        const querySnapshot = await getDocs(q);
+        resolve(querySnapshot);
+      } catch (error) {
+        reject(error);
+      }
+    });
+
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Timeout: La conexión está tardando mucho')), timeoutMs);
+    });
+
+    const querySnapshot = await Promise.race([queryPromise, timeoutPromise]);
 
     if (querySnapshot.empty) {
       return {
@@ -92,12 +112,24 @@ export const validateAccessCode = async (code) => {
       };
     }
 
-    // Marcar código como usado
-    await updateDoc(doc(db, 'accessCodes', codeDoc.id), {
-      used: true,
-      usedAt: new Date()
-    });
+    // Marcar código como usado con timeout también
+    try {
+      const updatePromise = updateDoc(doc(db, 'accessCodes', codeDoc.id), {
+        used: true,
+        usedAt: new Date()
+      });
 
+      const updateTimeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Timeout updating document')), timeoutMs);
+      });
+
+      await Promise.race([updatePromise, updateTimeoutPromise]);
+    } catch (updateError) {
+      console.warn('⚠️ Error al marcar código como usado (continuando):', updateError);
+      // Continuar aunque falle la actualización
+    }
+
+    console.log('✅ Código validado exitosamente:', code);
     return {
       success: true,
       message: '¡Código válido! Redirigiendo...',
@@ -108,10 +140,25 @@ export const validateAccessCode = async (code) => {
     };
 
   } catch (error) {
-    console.error('Error validating code:', error);
+    console.error(`❌ Error validando código (intento ${retryCount + 1}):`, error);
+
+    // Reintentar hasta 2 veces en caso de errores de conexión
+    if (retryCount < 2 && (
+      error.message.includes('Timeout') ||
+      error.message.includes('network') ||
+      error.message.includes('connection') ||
+      error.code === 'unavailable'
+    )) {
+      console.log(`🔄 Reintentando validación... (${retryCount + 1}/2)`);
+      await new Promise(resolve => setTimeout(resolve, 1000 * (retryCount + 1))); // Esperar 1s, 2s
+      return validateAccessCode(code, retryCount + 1);
+    }
+
     return {
       success: false,
-      message: 'Error al validar el código. Por favor intenta nuevamente.'
+      message: error.message.includes('Timeout')
+        ? 'La conexión está lenta. Por favor intenta nuevamente.'
+        : 'Error al validar el código. Por favor intenta nuevamente.'
     };
   }
 };

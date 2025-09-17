@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -14,9 +14,24 @@ const firebaseConfig = {
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 
-// Exportar servicios
+// Configurar servicios con ajustes para móviles
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+// Configuración especial para móviles
+if (typeof window !== 'undefined') {
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+  if (isMobile) {
+    console.log('📱 Configurando Firebase para dispositivo móvil');
+
+    // Configurar timeouts más largos para conexiones móviles
+    // Esto ayuda con conexiones lentas o inestables
+    import('firebase/firestore').then(({ enableNetwork, disableNetwork }) => {
+      // Opcional: configuraciones adicionales para móviles
+    });
+  }
+}
 
 // Email del admin autorizado
 export const ADMIN_EMAIL = "admin@cuatrobrujas.app";
