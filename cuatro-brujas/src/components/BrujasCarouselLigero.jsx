@@ -55,6 +55,13 @@ const BrujasCarouselLigero = () => {
     setIndiceActivo(indice);
   };
 
+  // Función para determinar si un video debe cargarse (solo activo y adyacentes)
+  const debeCargarVideo = (indice) => {
+    const distancia = Math.abs(indice - indiceActivo);
+    // Cargar solo el video activo y los adyacentes (anterior y siguiente)
+    return distancia <= 1 || distancia >= brujas.length - 1;
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto px-4">
       {/* Carrusel principal */}
@@ -93,17 +100,31 @@ const BrujasCarouselLigero = () => {
                 >
                   {/* Video/Imagen de la bruja */}
                   {bruja.imagen.endsWith('.mp4') ? (
-                    <video
-                      src={bruja.imagen}
-                      alt={bruja.nombre}
-                      className="w-full h-full object-cover"
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      preload="none"
-                      loading="lazy"
-                    />
+                    debeCargarVideo(indice) ? (
+                      <video
+                        key={`video-${indice}-${indiceActivo}`}
+                        src={bruja.imagen}
+                        alt={bruja.nombre}
+                        className="w-full h-full object-cover"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="auto"
+                      />
+                    ) : (
+                      // Placeholder para videos no cargados
+                      <div
+                        className="w-full h-full bg-gradient-to-br from-purple-900 via-black to-purple-900 flex items-center justify-center"
+                      >
+                        <div className="text-center text-white opacity-50">
+                          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/10 flex items-center justify-center">
+                            <span className="text-3xl">✨</span>
+                          </div>
+                          <p className="text-lg font-semibold">{bruja.nombre}</p>
+                        </div>
+                      </div>
+                    )
                   ) : (
                     <img
                       src={bruja.imagen}
