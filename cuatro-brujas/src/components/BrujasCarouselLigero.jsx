@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
@@ -41,6 +41,7 @@ const brujas = [
 
 const BrujasCarouselLigero = () => {
   const [indiceActivo, setIndiceActivo] = useState(0);
+  const [videosCargados, setVideosCargados] = useState(new Set());
   const navigate = useNavigate();
 
   const siguienteBruja = () => {
@@ -61,6 +62,15 @@ const BrujasCarouselLigero = () => {
     // Cargar solo el video activo y los adyacentes (anterior y siguiente)
     return distancia <= 1 || distancia >= brujas.length - 1;
   };
+
+  // Marcar videos como cargados cuando deben mostrarse
+  useEffect(() => {
+    brujas.forEach((_, indice) => {
+      if (debeCargarVideo(indice)) {
+        setVideosCargados(prev => new Set([...prev, indice]));
+      }
+    });
+  }, [indiceActivo]);
 
   return (
     <div className="w-full max-w-4xl mx-auto px-4">
@@ -100,31 +110,36 @@ const BrujasCarouselLigero = () => {
                 >
                   {/* Video/Imagen de la bruja */}
                   {bruja.imagen.endsWith('.mp4') ? (
-                    debeCargarVideo(indice) ? (
-                      <video
-                        key={`video-${indice}-${indiceActivo}`}
-                        src={bruja.imagen}
-                        alt={bruja.nombre}
-                        className="w-full h-full object-cover"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        preload="auto"
-                      />
-                    ) : (
-                      // Placeholder para videos no cargados
-                      <div
-                        className="w-full h-full bg-gradient-to-br from-purple-900 via-black to-purple-900 flex items-center justify-center"
-                      >
-                        <div className="text-center text-white opacity-50">
-                          <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/10 flex items-center justify-center">
-                            <span className="text-3xl">✨</span>
+                    <>
+                      {videosCargados.has(indice) && (
+                        <video
+                          key={`video-${indice}`}
+                          src={bruja.imagen}
+                          alt={bruja.nombre}
+                          className="w-full h-full object-cover"
+                          autoPlay
+                          loop
+                          muted
+                          playsInline
+                          preload="auto"
+                          style={{ display: debeCargarVideo(indice) ? 'block' : 'none' }}
+                        />
+                      )}
+
+                      {/* Placeholder para videos no cargados o no visibles */}
+                      {(!videosCargados.has(indice) || !debeCargarVideo(indice)) && (
+                        <div
+                          className="w-full h-full bg-gradient-to-br from-purple-900 via-black to-purple-900 flex items-center justify-center"
+                        >
+                          <div className="text-center text-white opacity-50">
+                            <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white/10 flex items-center justify-center">
+                              <span className="text-3xl">✨</span>
+                            </div>
+                            <p className="text-lg font-semibold">{bruja.nombre}</p>
                           </div>
-                          <p className="text-lg font-semibold">{bruja.nombre}</p>
                         </div>
-                      </div>
-                    )
+                      )}
+                    </>
                   ) : (
                     <img
                       src={bruja.imagen}
